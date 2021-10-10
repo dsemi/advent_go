@@ -56,6 +56,30 @@ func Maximum(ns []int) int {
 	return n
 }
 
+func PermutationsString(ns []string) chan []string {
+	c := make(chan []string)
+	var f func(i int)
+	f = func(i int) {
+		if i > len(ns) {
+			nns := make([]string, len(ns))
+			copy(nns, ns)
+			c <- nns
+			return
+		}
+		f(i + 1)
+		for j := i + 1; j < len(ns); j++ {
+			ns[i], ns[j] = ns[j], ns[i]
+			f(i + 1)
+			ns[i], ns[j] = ns[j], ns[i]
+		}
+	}
+	go func() {
+		defer close(c)
+		f(0)
+	}()
+	return c
+}
+
 func Permutations(ns []int64) chan []int64 {
 	c := make(chan []int64)
 	var f func(i int)
@@ -83,29 +107,29 @@ func Permutations(ns []int64) chan []int64 {
 type SortRunes []rune
 
 func (s SortRunes) Less(i, j int) bool {
-    return s[i] < s[j]
+	return s[i] < s[j]
 }
 
 func (s SortRunes) Swap(i, j int) {
-    s[i], s[j] = s[j], s[i]
+	s[i], s[j] = s[j], s[i]
 }
 
 func (s SortRunes) Len() int {
-    return len(s)
+	return len(s)
 }
 
 type SortInt64s []int64
 
 func (s SortInt64s) Less(i, j int) bool {
-    return s[i] < s[j]
+	return s[i] < s[j]
 }
 
 func (s SortInt64s) Swap(i, j int) {
-    s[i], s[j] = s[j], s[i]
+	s[i], s[j] = s[j], s[i]
 }
 
 func (s SortInt64s) Len() int {
-    return len(s)
+	return len(s)
 }
 
 func CountOnes(n int) int {
