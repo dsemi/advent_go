@@ -86,6 +86,10 @@ func TestYear2015Day12(t *testing.T) {
 	runTest(t, 2015, 12)
 }
 
+func TestYear2015Day13(t *testing.T) {
+	runTest(t, 2015, 13)
+}
+
 func TestYear2016Day01(t *testing.T) {
 	runTest(t, 2016, 1)
 }
