@@ -80,7 +80,31 @@ func PermutationsString(ns []string) chan []string {
 	return c
 }
 
-func Permutations(ns []int64) chan []int64 {
+func Permutations(ns []int) chan []int {
+	c := make(chan []int)
+	var f func(i int)
+	f = func(i int) {
+		if i > len(ns) {
+			nns := make([]int, len(ns))
+			copy(nns, ns)
+			c <- nns
+			return
+		}
+		f(i + 1)
+		for j := i + 1; j < len(ns); j++ {
+			ns[i], ns[j] = ns[j], ns[i]
+			f(i + 1)
+			ns[i], ns[j] = ns[j], ns[i]
+		}
+	}
+	go func() {
+		defer close(c)
+		f(0)
+	}()
+	return c
+}
+
+func Permutations64(ns []int64) chan []int64 {
 	c := make(chan []int64)
 	var f func(i int)
 	f = func(i int) {
