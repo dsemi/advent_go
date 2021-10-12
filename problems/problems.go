@@ -28,6 +28,7 @@ var Probs = map[int]map[int]Day{
 		10: Day{year2015.Day10Part1, year2015.Day10Part2},
 		11: Day{year2015.Day11Part1, year2015.Day11Part2},
 		12: Day{year2015.Day12Part1, year2015.Day12Part2},
+		13: Day{year2015.Day13Part1, year2015.Day13Part2},
 	},
 	2016: map[int]Day{
 		1: Day{year2016.Day01Part1, year2016.Day01Part2},
