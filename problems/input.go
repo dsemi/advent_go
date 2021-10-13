@@ -21,11 +21,11 @@ var last = new(time.Time)
 
 var (
 	_, b, _, _ = runtime.Caller(0)
-	basepath   = filepath.Join(filepath.Dir(b), "..")
+	Basepath   = filepath.Join(filepath.Dir(b), "..")
 )
 
 func GetInput(year, day int, download bool) string {
-	inputFile := filepath.Join(basepath, fmt.Sprintf("inputs/%d/input%d.txt", year, day))
+	inputFile := filepath.Join(Basepath, fmt.Sprintf("inputs/%d/input%d.txt", year, day))
 	buf, err := ioutil.ReadFile(inputFile)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) && download {

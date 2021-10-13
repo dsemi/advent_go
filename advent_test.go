@@ -1,6 +1,7 @@
-package problems
+package main
 
 import (
+	"advent/problems"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -13,7 +14,7 @@ var expected map[string]map[string][]string
 
 func getExpectedSolutions(t *testing.T, year int, day int) (string, string) {
 	if expected == nil {
-		testFile := filepath.Join(basepath, "test/expectedAnswers.json")
+		testFile := filepath.Join(problems.Basepath, "test/expectedAnswers.json")
 		buf, err := ioutil.ReadFile(testFile)
 		if err != nil {
 			t.Fatal("Error reading test file")
@@ -25,9 +26,9 @@ func getExpectedSolutions(t *testing.T, year int, day int) (string, string) {
 }
 
 func runTest(t *testing.T, year, day int) {
-	p := Probs[year][day]
+	p := problems.Probs[year][day]
 	p1e, p2e := getExpectedSolutions(t, year, day)
-	input := GetInput(year, day, false)
+	input := problems.GetInput(year, day, false)
 	p1a := fmt.Sprint(p.Part1(input))
 	if p1e != p1a {
 		t.Fatalf("Expected: %v\nObserved: %v", p1e, p1a)
