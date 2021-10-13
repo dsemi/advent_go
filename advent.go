@@ -2,13 +2,12 @@ package main
 
 import (
 	"advent/problems"
+	"advent/types"
 	"fmt"
 	"os"
 	"strconv"
 	"time"
 )
-
-//go:generate ./problems/build_problems.sh
 
 func colorizeTime(t float64) string {
 	var color string
@@ -23,13 +22,13 @@ func colorizeTime(t float64) string {
 }
 
 func runProblem(year, day int, input string) float64 {
-	prob := func() problems.Day {
+	prob := func() types.Day {
 		if y := problems.Probs[year]; y != nil {
 			return y[day]
 		}
-		return problems.Day{}
+		return nil
 	}()
-	if prob.Part1 == nil {
+	if prob == nil {
 		fmt.Println("Day", day, "not implemented")
 		return 0
 	}

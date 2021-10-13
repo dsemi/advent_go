@@ -1,8 +1,13 @@
 package year2019
 
-import "advent/year2019/intcode"
+import (
+	"advent/types"
+	"advent/year2019/intcode"
+)
 
-func Day05Part1(input string) interface{} {
+type Day05 struct{}
+
+func (Day05) Part1(input string) interface{} {
 	prog := intcode.New(input)
 	go prog.Run()
 	prog.Input <- 1
@@ -12,7 +17,7 @@ func Day05Part1(input string) interface{} {
 	return x
 }
 
-func Day05Part2(input string) interface{} {
+func (Day05) Part2(input string) interface{} {
 	prog := intcode.New(input)
 	go prog.Run()
 	prog.Input <- 5
@@ -20,4 +25,8 @@ func Day05Part2(input string) interface{} {
 	for x = range prog.Output {
 	}
 	return x
+}
+
+func init() {
+	types.Register(Probs, Day05{})
 }

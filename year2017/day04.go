@@ -1,12 +1,15 @@
 package year2017
 
 import (
+	"advent/types"
 	"advent/utils"
 	"sort"
 	"strings"
 )
 
-func Day04Part1(input string) interface{} {
+type Day04 struct{}
+
+func (Day04) Part1(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		ps := strings.Fields(line)
@@ -22,12 +25,12 @@ func Day04Part1(input string) interface{} {
 }
 
 func SortString(s string) string {
-    r := []rune(s)
-    sort.Sort(utils.SortRunes(r))
-    return string(r)
+	r := []rune(s)
+	sort.Sort(utils.SortRunes(r))
+	return string(r)
 }
 
-func Day04Part2(input string) interface{} {
+func (Day04) Part2(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		ps := strings.Fields(line)
@@ -43,4 +46,8 @@ func Day04Part2(input string) interface{} {
 		}
 	}
 	return sum
+}
+
+func init() {
+	types.Register(Probs, Day04{})
 }

@@ -1,8 +1,11 @@
 package year2015
 
 import (
+	"advent/types"
 	"encoding/json"
 )
+
+type Day12 struct{}
 
 func walk(d interface{}, pred func(interface{}) bool) int {
 	if pred(d) {
@@ -24,13 +27,13 @@ func walk(d interface{}, pred func(interface{}) bool) int {
 	return t
 }
 
-func Day12Part1(input string) interface{} {
+func (Day12) Part1(input string) interface{} {
 	var j interface{}
 	json.Unmarshal([]byte(input), &j)
 	return walk(j, func(_ interface{}) bool { return false })
 }
 
-func Day12Part2(input string) interface{} {
+func (Day12) Part2(input string) interface{} {
 	var j interface{}
 	json.Unmarshal([]byte(input), &j)
 	return walk(j, func(j interface{}) bool {
@@ -44,4 +47,8 @@ func Day12Part2(input string) interface{} {
 		}
 		return false
 	})
+}
+
+func init() {
+	types.Register(Probs, Day12{})
 }

@@ -1,9 +1,12 @@
 package year2020
 
 import (
+	"advent/types"
 	"strconv"
 	"strings"
 )
+
+type Day01 struct{}
 
 func parse(input string) []int {
 	var ns []int
@@ -14,7 +17,7 @@ func parse(input string) []int {
 	return ns
 }
 
-func Day01Part1(input string) interface{} {
+func (Day01) Part1(input string) interface{} {
 	ns := parse(input)
 	for i := 0; i < len(ns); i++ {
 		for j := i + 1; j < len(ns); j++ {
@@ -26,16 +29,20 @@ func Day01Part1(input string) interface{} {
 	return -1
 }
 
-func Day01Part2(input string) interface{} {
+func (Day01) Part2(input string) interface{} {
 	ns := parse(input)
 	for i := 0; i < len(ns); i++ {
 		for j := i + 1; j < len(ns); j++ {
 			for k := j + 1; k < len(ns); k++ {
-				if ns[i] + ns[j] + ns[k] == 2020 {
+				if ns[i]+ns[j]+ns[k] == 2020 {
 					return ns[i] * ns[j] * ns[k]
 				}
 			}
 		}
 	}
 	return -1
+}
+
+func init() {
+	types.Register(Probs, Day01{})
 }

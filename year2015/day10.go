@@ -1,5 +1,9 @@
 package year2015
 
+import "advent/types"
+
+type Day10 struct{}
+
 func lookAndSay(n int, input string) int {
 	one := []rune(input)
 	two := make([]rune, 0, len(one))
@@ -24,10 +28,14 @@ func lookAndSay(n int, input string) int {
 	return len(*inp)
 }
 
-func Day10Part1(input string) interface{} {
+func (Day10) Part1(input string) interface{} {
 	return lookAndSay(40, input)
 }
 
-func Day10Part2(input string) interface{} {
+func (Day10) Part2(input string) interface{} {
 	return lookAndSay(50, input)
+}
+
+func init() {
+	types.Register(Probs, Day10{})
 }

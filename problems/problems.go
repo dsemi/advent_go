@@ -1,70 +1,80 @@
 package problems
 
 import (
+	"advent/types"
 	"advent/year2015"
 	"advent/year2016"
 	"advent/year2017"
 	"advent/year2018"
 	"advent/year2019"
 	"advent/year2020"
+	"bytes"
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
+	"runtime"
+	"strings"
+	"time"
+	"unicode"
 )
 
-type Day struct {
-	Part1 func(string) interface{}
-	Part2 func(string) interface{}
+const rateLimit = 5 * time.Second
+
+var last = new(time.Time)
+
+var (
+	_, b, _, _ = runtime.Caller(0)
+	Basepath   = filepath.Join(filepath.Dir(b), "..")
+)
+
+func GetInput(year, day int, download bool) string {
+	inputFile := filepath.Join(Basepath, fmt.Sprintf("inputs/%d/input%d.txt", year, day))
+	buf, err := ioutil.ReadFile(inputFile)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) && download {
+			fmt.Printf("Downloading input for Year %d Day %d\n", year, day)
+			if last != nil {
+				time.Sleep(time.Until(last.Add(rateLimit)))
+			}
+			*last = time.Now()
+			url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
+			client := &http.Client{}
+			req, _ := http.NewRequest("GET", url, nil)
+			req.Header.Set("Cookie", os.Getenv("AOC_SESSION"))
+			resp, err := client.Do(req)
+			if err != nil {
+				log.Fatalf("Problem input fetch failed: %v", err)
+			}
+			if resp.StatusCode < 200 || resp.StatusCode > 299 {
+				log.Fatalf("Bad HTTP response: %v", resp)
+			}
+			b := new(bytes.Buffer)
+			if _, err = b.ReadFrom(resp.Body); err != nil {
+				log.Fatalf("Error reading HTTP response body: %v", err)
+			}
+			if err = resp.Body.Close(); err != nil {
+				log.Fatalf("Error closing HTTP response body: %v", err)
+			}
+			buf = b.Bytes()
+			if err = ioutil.WriteFile(inputFile, buf, 0644); err != nil {
+				log.Fatalf("Unable to write to output file: %v", err)
+			}
+		} else {
+			log.Fatalf("Error reading problem input file: %v", err)
+		}
+	}
+	return strings.TrimRightFunc(string(buf), unicode.IsSpace)
 }
 
-var Probs = map[int]map[int]Day{
-	2015: map[int]Day{
-		1: Day{year2015.Day01Part1, year2015.Day01Part2},
-		2: Day{year2015.Day02Part1, year2015.Day02Part2},
-		3: Day{year2015.Day03Part1, year2015.Day03Part2},
-		4: Day{year2015.Day04Part1, year2015.Day04Part2},
-		5: Day{year2015.Day05Part1, year2015.Day05Part2},
-		6: Day{year2015.Day06Part1, year2015.Day06Part2},
-		7: Day{year2015.Day07Part1, year2015.Day07Part2},
-		8: Day{year2015.Day08Part1, year2015.Day08Part2},
-		9: Day{year2015.Day09Part1, year2015.Day09Part2},
-		10: Day{year2015.Day10Part1, year2015.Day10Part2},
-		11: Day{year2015.Day11Part1, year2015.Day11Part2},
-		12: Day{year2015.Day12Part1, year2015.Day12Part2},
-		13: Day{year2015.Day13Part1, year2015.Day13Part2},
-	},
-	2016: map[int]Day{
-		1: Day{year2016.Day01Part1, year2016.Day01Part2},
-		3: Day{year2016.Day03Part1, year2016.Day03Part2},
-		10: Day{year2016.Day10Part1, year2016.Day10Part2},
-		19: Day{year2016.Day19Part1, year2016.Day19Part2},
-	},
-	2017: map[int]Day{
-		1: Day{year2017.Day01Part1, year2017.Day01Part2},
-		2: Day{year2017.Day02Part1, year2017.Day02Part2},
-		4: Day{year2017.Day04Part1, year2017.Day04Part2},
-		18: Day{year2017.Day18Part1, year2017.Day18Part2},
-		24: Day{year2017.Day24Part1, year2017.Day24Part2},
-	},
-	2018: map[int]Day{
-		1: Day{year2018.Day01Part1, year2018.Day01Part2},
-		5: Day{year2018.Day05Part1, year2018.Day05Part2},
-		7: Day{year2018.Day07Part1, year2018.Day07Part2},
-		20: Day{year2018.Day20Part1, year2018.Day20Part2},
-	},
-	2019: map[int]Day{
-		1: Day{year2019.Day01Part1, year2019.Day01Part2},
-		2: Day{year2019.Day02Part1, year2019.Day02Part2},
-		4: Day{year2019.Day04Part1, year2019.Day04Part2},
-		5: Day{year2019.Day05Part1, year2019.Day05Part2},
-		7: Day{year2019.Day07Part1, year2019.Day07Part2},
-		9: Day{year2019.Day09Part1, year2019.Day09Part2},
-		25: Day{year2019.Day25Part1, year2019.Day25Part2},
-	},
-	2020: map[int]Day{
-		1: Day{year2020.Day01Part1, year2020.Day01Part2},
-		2: Day{year2020.Day02Part1, year2020.Day02Part2},
-		3: Day{year2020.Day03Part1, year2020.Day03Part2},
-		4: Day{year2020.Day04Part1, year2020.Day04Part2},
-		5: Day{year2020.Day05Part1, year2020.Day05Part2},
-		6: Day{year2020.Day06Part1, year2020.Day06Part2},
-		10: Day{year2020.Day10Part1, year2020.Day10Part2},
-	},
+var Probs = map[int]map[int]types.Day{
+	2015: year2015.Probs,
+	2016: year2016.Probs,
+	2017: year2017.Probs,
+	2018: year2018.Probs,
+	2019: year2019.Probs,
+	2020: year2020.Probs,
 }

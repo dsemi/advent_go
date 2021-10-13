@@ -1,10 +1,13 @@
 package year2015
 
 import (
+	"advent/types"
 	"advent/utils"
 	"regexp"
 	"strings"
 )
+
+type Day13 struct{}
 
 var reg = regexp.MustCompile("(\\w+) would (gain|lose) (\\d+) happiness units by sitting next to (\\w+)\\.")
 
@@ -60,10 +63,14 @@ func maxHappiness(d [][]int, p2 bool) int {
 	return max
 }
 
-func Day13Part1(input string) interface{} {
+func (Day13) Part1(input string) interface{} {
 	return maxHappiness(parseHappiness(input), false)
 }
 
-func Day13Part2(input string) interface{} {
+func (Day13) Part2(input string) interface{} {
 	return maxHappiness(parseHappiness(input), true)
+}
+
+func init() {
+	types.Register(Probs, Day13{})
 }

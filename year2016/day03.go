@@ -1,9 +1,12 @@
 package year2016
 
 import (
+	"advent/types"
 	"advent/utils"
 	"strings"
 )
+
+type Day03 struct{}
 
 func parse(input string) [][3]int {
 	var ts [][3]int
@@ -20,7 +23,7 @@ func valid(sides [3]int) bool {
 	return sides[0]+sides[1] > sides[2] && sides[0]+sides[2] > sides[1] && sides[1]+sides[2] > sides[0]
 }
 
-func Day03Part1(input string) interface{} {
+func (Day03) Part1(input string) interface{} {
 	var cnt int
 	for _, t := range parse(input) {
 		if valid(t) {
@@ -30,7 +33,7 @@ func Day03Part1(input string) interface{} {
 	return cnt
 }
 
-func Day03Part2(input string) interface{} {
+func (Day03) Part2(input string) interface{} {
 	ts := parse(input)
 	var cnt int
 	for i := 0; i+2 < len(ts); i += 3 {
@@ -41,4 +44,8 @@ func Day03Part2(input string) interface{} {
 		}
 	}
 	return cnt
+}
+
+func init() {
+	types.Register(Probs, Day03{})
 }

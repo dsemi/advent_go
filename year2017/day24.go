@@ -1,9 +1,12 @@
 package year2017
 
 import (
+	"advent/types"
 	"advent/utils"
 	"strings"
 )
+
+type Day24 struct{}
 
 type Pipe struct {
 	a, b int
@@ -62,12 +65,16 @@ func solve(input string) (int, int) {
 	return part1, part2
 }
 
-func Day24Part1(input string) interface{} {
+func (Day24) Part1(input string) interface{} {
 	x, _ := solve(input)
 	return x
 }
 
-func Day24Part2(input string) interface{} {
+func (Day24) Part2(input string) interface{} {
 	_, x := solve(input)
 	return x
+}
+
+func init() {
+	types.Register(Probs, Day24{})
 }

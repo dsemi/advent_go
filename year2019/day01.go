@@ -1,11 +1,14 @@
 package year2019
 
 import (
+	"advent/types"
 	"strconv"
 	"strings"
 )
 
-func Day01Part1(input string) interface{} {
+type Day01 struct{}
+
+func (Day01) Part1(input string) interface{} {
 	var total int
 	for _, line := range strings.Split(input, "\n") {
 		var i int
@@ -18,7 +21,7 @@ func Day01Part1(input string) interface{} {
 	return total
 }
 
-func Day01Part2(input string) interface{} {
+func (Day01) Part2(input string) interface{} {
 	var total int
 	for _, line := range strings.Split(input, "\n") {
 		var i int
@@ -32,4 +35,8 @@ func Day01Part2(input string) interface{} {
 		}
 	}
 	return total
+}
+
+func init() {
+	types.Register(Probs, Day01{})
 }

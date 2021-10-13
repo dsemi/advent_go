@@ -1,6 +1,10 @@
 package year2017
 
-func Day01Part1(input string) interface{} {
+import "advent/types"
+
+type Day01 struct{}
+
+func (Day01) Part1(input string) interface{} {
 	var sum int
 	for i := 0; i < len(input); i++ {
 		if input[i] == input[(i+1)%len(input)] {
@@ -10,7 +14,7 @@ func Day01Part1(input string) interface{} {
 	return sum
 }
 
-func Day01Part2(input string) interface{} {
+func (Day01) Part2(input string) interface{} {
 	var sum int
 	for i := 0; i < len(input); i++ {
 		if input[i] == input[(i+len(input)/2)%len(input)] {
@@ -18,4 +22,8 @@ func Day01Part2(input string) interface{} {
 		}
 	}
 	return sum
+}
+
+func init() {
+	types.Register(Probs, Day01{})
 }

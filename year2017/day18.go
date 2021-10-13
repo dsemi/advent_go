@@ -1,9 +1,12 @@
 package year2017
 
 import (
+	"advent/types"
 	"strconv"
 	"strings"
 )
+
+type Day18 struct{}
 
 type Op int
 
@@ -117,7 +120,7 @@ func (s *Sim) Run(in <-chan int, out chan<- int) {
 	}
 }
 
-func Day18Part1(input string) interface{} {
+func (Day18) Part1(input string) interface{} {
 	sim := ParseInstrs(input)
 	in := make(chan int)
 	out := make(chan int)
@@ -135,7 +138,7 @@ func Day18Part1(input string) interface{} {
 	return v
 }
 
-func Day18Part2(input string) interface{} {
+func (Day18) Part2(input string) interface{} {
 	sim0 := ParseInstrs(input)
 	sim1 := ParseInstrs(input)
 	sim1.reg[int('p'-'a')] = 1
@@ -146,4 +149,8 @@ func Day18Part2(input string) interface{} {
 	for !(sim0.waiting && sim1.waiting && sim0.sends == sim1.recvs && sim1.sends == sim0.recvs) {
 	}
 	return sim1.sends
+}
+
+func init() {
+	types.Register(Probs, Day18{})
 }

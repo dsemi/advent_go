@@ -1,9 +1,12 @@
 package year2019
 
 import (
+	"advent/types"
 	"advent/utils"
 	"advent/year2019/intcode"
 )
+
+type Day07 struct{}
 
 func chain(p intcode.Program, phases []int64, cycle bool) chan int64 {
 	c := make(chan int64)
@@ -34,7 +37,7 @@ func chain(p intcode.Program, phases []int64, cycle bool) chan int64 {
 	return c
 }
 
-func Day07Part1(input string) interface{} {
+func (Day07) Part1(input string) interface{} {
 	p := intcode.New(input)
 	c := utils.Permutations64([]int64{0, 1, 2, 3, 4})
 	var v int64
@@ -47,7 +50,7 @@ func Day07Part1(input string) interface{} {
 	return v
 }
 
-func Day07Part2(input string) interface{} {
+func (Day07) Part2(input string) interface{} {
 	p := intcode.New(input)
 	c := utils.Permutations64([]int64{5, 6, 7, 8, 9})
 	var v int64
@@ -61,4 +64,8 @@ func Day07Part2(input string) interface{} {
 		}
 	}
 	return v
+}
+
+func init() {
+	types.Register(Probs, Day07{})
 }

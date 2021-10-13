@@ -1,5 +1,9 @@
 package year2018
 
+import "advent/types"
+
+type Day20 struct{}
+
 type Coord struct {
 	x int
 	y int
@@ -38,7 +42,7 @@ func parseEdges(input string) map[Coord]int {
 	return result
 }
 
-func Day20Part1(input string) interface{} {
+func (Day20) Part1(input string) interface{} {
 	var max int
 	for _, v := range parseEdges(input) {
 		if v > max {
@@ -48,7 +52,7 @@ func Day20Part1(input string) interface{} {
 	return max
 }
 
-func Day20Part2(input string) interface{} {
+func (Day20) Part2(input string) interface{} {
 	var cnt int
 	for _, v := range parseEdges(input) {
 		if v >= 1000 {
@@ -56,4 +60,8 @@ func Day20Part2(input string) interface{} {
 		}
 	}
 	return cnt
+}
+
+func init() {
+	types.Register(Probs, Day20{})
 }

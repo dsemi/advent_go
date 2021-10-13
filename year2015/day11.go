@@ -1,5 +1,9 @@
 package year2015
 
+import "advent/types"
+
+type Day11 struct{}
+
 func increment(b []rune) {
 	for i := len(b) - 1; i >= 0; i-- {
 		if b[i] == 'z' {
@@ -44,10 +48,14 @@ func nextValidPw(s string) string {
 	return string(b)
 }
 
-func Day11Part1(input string) interface{} {
+func (Day11) Part1(input string) interface{} {
 	return nextValidPw(input)
 }
 
-func Day11Part2(input string) interface{} {
+func (Day11) Part2(input string) interface{} {
 	return nextValidPw(nextValidPw(input))
+}
+
+func init() {
+	types.Register(Probs, Day11{})
 }

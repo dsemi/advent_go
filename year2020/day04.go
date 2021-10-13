@@ -1,12 +1,15 @@
 package year2020
 
 import (
+	"advent/types"
 	"fmt"
 	"regexp"
 	"strings"
 )
 
-func Day04Part1(input string) interface{} {
+type Day04 struct{}
+
+func (Day04) Part1(input string) interface{} {
 	res := []string{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
 	var cnt int
 OUTER:
@@ -21,7 +24,7 @@ OUTER:
 	return cnt
 }
 
-func Day04Part2(input string) interface{} {
+func (Day04) Part2(input string) interface{} {
 	res := []string{
 		"(^|\\s)byr:(19[2-9][0-9]|200[0-2])(\\s|$)",
 		"(^|\\s)iyr:(201[0-9]|2020)(\\s|$)",
@@ -42,4 +45,8 @@ OUTER:
 		cnt++
 	}
 	return cnt
+}
+
+func init() {
+	types.Register(Probs, Day04{})
 }

@@ -1,11 +1,14 @@
 package year2018
 
 import (
+	"advent/types"
 	"advent/utils"
 	"fmt"
 	"sort"
 	"strings"
 )
+
+type Day07 struct{}
 
 type Item struct {
 	t int
@@ -60,12 +63,16 @@ func run(input string, workers int) (string, int) {
 	return ans.String(), time
 }
 
-func Day07Part1(input string) interface{} {
+func (Day07) Part1(input string) interface{} {
 	ans, _ := run(input, 1)
 	return ans
 }
 
-func Day07Part2(input string) interface{} {
+func (Day07) Part2(input string) interface{} {
 	_, ans := run(input, 5)
 	return ans
+}
+
+func init() {
+	types.Register(Probs, Day07{})
 }

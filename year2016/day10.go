@@ -1,11 +1,14 @@
 package year2016
 
 import (
+	"advent/types"
 	"advent/utils"
 	"regexp"
 	"strings"
 	"sync"
 )
+
+type Day10 struct{}
 
 type Bot struct {
 	a, b int
@@ -48,7 +51,7 @@ func buildFactory(input string) Factory {
 	return factory
 }
 
-func Day10Part1(input string) interface{} {
+func (Day10) Part1(input string) interface{} {
 	f := buildFactory(input)
 	for k, v := range f.bots {
 		if v.a == 17 && v.b == 61 || v.a == 61 && v.b == 17 {
@@ -58,7 +61,11 @@ func Day10Part1(input string) interface{} {
 	return nil
 }
 
-func Day10Part2(input string) interface{} {
+func (Day10) Part2(input string) interface{} {
 	f := buildFactory(input)
 	return <-f.GetBot("output 0").c * <-f.GetBot("output 1").c * <-f.GetBot("output 2").c
+}
+
+func init() {
+	types.Register(Probs, Day10{})
 }

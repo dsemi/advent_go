@@ -1,10 +1,13 @@
 package year2020
 
 import (
+	"advent/types"
 	"advent/utils"
 	"sort"
 	"strings"
 )
+
+type Day05 struct{}
 
 func seatIds(s string) []int {
 	var ids []int
@@ -21,7 +24,7 @@ func seatIds(s string) []int {
 	return ids
 }
 
-func Day05Part1(input string) interface{} {
+func (Day05) Part1(input string) interface{} {
 	var max int
 	for _, id := range seatIds(input) {
 		max = utils.Max(max, id)
@@ -29,7 +32,7 @@ func Day05Part1(input string) interface{} {
 	return max
 }
 
-func Day05Part2(input string) interface{} {
+func (Day05) Part2(input string) interface{} {
 	ids := seatIds(input)
 	sort.Ints(ids)
 	for i := range ids {
@@ -38,4 +41,8 @@ func Day05Part2(input string) interface{} {
 		}
 	}
 	return nil
+}
+
+func init() {
+	types.Register(Probs, Day05{})
 }

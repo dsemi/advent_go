@@ -1,8 +1,11 @@
 package year2015
 
 import (
+	"advent/types"
 	"strings"
 )
+
+type Day03 struct{}
 
 type Coord struct {
 	x int
@@ -29,14 +32,14 @@ func locations(input string) map[Coord]bool {
 	return m
 }
 
-func Day03Part1(input string) interface{} {
+func (Day03) Part1(input string) interface{} {
 	return len(locations(input))
 }
 
-func Day03Part2(input string) interface{} {
+func (Day03) Part2(input string) interface{} {
 	var b1, b2 strings.Builder
 	for i, c := range input {
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			b1.WriteRune(c)
 		} else {
 			b2.WriteRune(c)
@@ -48,4 +51,8 @@ func Day03Part2(input string) interface{} {
 		m1[k] = true
 	}
 	return len(m1)
+}
+
+func init() {
+	types.Register(Probs, Day03{})
 }

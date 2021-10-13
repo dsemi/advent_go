@@ -1,10 +1,13 @@
 package year2018
 
 import (
+	"advent/types"
 	"math"
 	"strings"
 	"unicode"
 )
+
+type Day05 struct{}
 
 func react(input string) int {
 	var chs []rune
@@ -18,11 +21,11 @@ func react(input string) int {
 	return len(chs)
 }
 
-func Day05Part1(input string) interface{} {
+func (Day05) Part1(input string) interface{} {
 	return react(input)
 }
 
-func Day05Part2(input string) interface{} {
+func (Day05) Part2(input string) interface{} {
 	min := math.MaxInt
 	for c := 'a'; c <= 'z'; c++ {
 		v := react(strings.ReplaceAll(strings.ReplaceAll(input, string(c), ""), string(unicode.ToUpper(c)), ""))
@@ -31,4 +34,8 @@ func Day05Part2(input string) interface{} {
 		}
 	}
 	return min
+}
+
+func init() {
+	types.Register(Probs, Day05{})
 }

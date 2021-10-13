@@ -1,6 +1,10 @@
 package year2015
 
-func Day01Part1(input string) interface{} {
+import "advent/types"
+
+type Day01 struct{}
+
+func (Day01) Part1(input string) interface{} {
 	floor := 0
 	for _, c := range input {
 		if c == '(' {
@@ -12,7 +16,7 @@ func Day01Part1(input string) interface{} {
 	return floor
 }
 
-func Day01Part2(input string) interface{} {
+func (Day01) Part2(input string) interface{} {
 	floor := 0
 	for i, c := range input {
 		if c == '(' {
@@ -25,4 +29,8 @@ func Day01Part2(input string) interface{} {
 		}
 	}
 	return -1
+}
+
+func init() {
+	types.Register(Probs, Day01{})
 }

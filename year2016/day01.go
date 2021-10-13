@@ -1,9 +1,12 @@
 package year2016
 
 import (
+	"advent/types"
 	"advent/utils"
 	"strings"
 )
+
+type Day01 struct{}
 
 type Pos struct {
 	x int
@@ -33,14 +36,14 @@ func path(input string) chan Pos {
 	return c
 }
 
-func Day01Part1(input string) interface{} {
+func (Day01) Part1(input string) interface{} {
 	var p Pos
 	for p = range path(input) {
 	}
 	return utils.Abs(p.x) + utils.Abs(p.y)
 }
 
-func Day01Part2(input string) interface{} {
+func (Day01) Part2(input string) interface{} {
 	m := make(map[Pos]bool)
 	for p := range path(input) {
 		if m[p] {
@@ -49,4 +52,8 @@ func Day01Part2(input string) interface{} {
 		m[p] = true
 	}
 	return nil
+}
+
+func init() {
+	types.Register(Probs, Day01{})
 }
