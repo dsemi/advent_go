@@ -3,9 +3,12 @@ package main
 import (
 	"advent/problems"
 	"advent/types"
+	"advent/utils"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -45,14 +48,33 @@ func runProblem(year, day int, input string) float64 {
 	return t1 + t2
 }
 
+func parseDays(dayStr string) (int, int) {
+	if strings.ContainsRune(dayStr, '-') {
+		pts := strings.Split(dayStr, "-")
+		if len(pts) != 2 {
+			log.Fatalf("Failed to parse days: %v", dayStr)
+		}
+		a, b := utils.Int(pts[0]), utils.Int(pts[1])
+		if a > b {
+			log.Fatalf("Invalid range: %v", dayStr)
+		}
+		return a, b
+	} else {
+		n := utils.Int(dayStr)
+		return n, n
+	}
+}
+
 func main() {
 	year, _ := strconv.Atoi(os.Args[1])
 	days := os.Args[2:]
 	var total float64
-	for _, day := range days {
-		day, _ := strconv.Atoi(day)
-		input := problems.GetInput(year, day, true)
-		total += runProblem(year, day, input)
+	for _, dayStr := range days {
+		start, end := parseDays(dayStr)
+		for day := start; day <= end; day++ {
+			input := problems.GetInput(year, day, true)
+			total += runProblem(year, day, input)
+		}
 	}
 	fmt.Printf("Total: %53.3f seconds\n", total)
 }

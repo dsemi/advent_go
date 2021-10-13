@@ -1,16 +1,14 @@
 package utils
 
 import (
-	"fmt"
-	"os"
+	"log"
 	"strconv"
 )
 
 func Int(input string) int {
 	n, err := strconv.Atoi(input)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Invalid input: ", input)
-		panic("Bad integer")
+		log.Fatalf("Failed to convert %v to integer: %v", input, err)
 	}
 	return n
 }
