@@ -54,6 +54,21 @@ func Maximum(ns []int) int {
 	return n
 }
 
+func Sum(ns []int) int {
+	var sum int
+	for _, n := range ns {
+		sum += n
+	}
+	return sum
+}
+
+func Last(c chan int64) int64 {
+	var n int64
+	for n = range c {
+	}
+	return n
+}
+
 func PermutationsString(ns []string) chan []string {
 	c := make(chan []string)
 	var f func(i int)
@@ -102,28 +117,39 @@ func Permutations(ns []int) chan []int {
 	return c
 }
 
-func Permutations64(ns []int64) chan []int64 {
-	c := make(chan []int64)
+func Permutations64(xs []int64, callback func([]int64)) {
+	ns := make([]int64, len(xs))
+	copy(ns, xs)
 	var f func(i int)
 	f = func(i int) {
 		if i > len(ns) {
-			nns := make([]int64, len(ns))
-			copy(nns, ns)
-			c <- nns
-			return
-		}
-		f(i + 1)
-		for j := i + 1; j < len(ns); j++ {
-			ns[i], ns[j] = ns[j], ns[i]
+			callback(ns)
+		} else {
 			f(i + 1)
-			ns[i], ns[j] = ns[j], ns[i]
+			for j := i + 1; j < len(ns); j++ {
+				ns[i], ns[j] = ns[j], ns[i]
+				f(i + 1)
+				ns[i], ns[j] = ns[j], ns[i]
+			}
 		}
 	}
-	go func() {
-		defer close(c)
-		f(0)
-	}()
-	return c
+	f(0)
+}
+
+func Combinations(xs []int, n int, callback func([]int)) {
+	arr := make([]int, n)
+	var f func([]int, int)
+	f = func(xs []int, n int) {
+		if n == 0 {
+			callback(arr)
+		} else {
+			for i, x := range xs {
+				arr[n-1] = x
+				f(xs[i+1:], n-1)
+			}
+		}
+	}
+	f(xs, n)
 }
 
 type SortRunes []rune

@@ -39,30 +39,25 @@ func chain(p intcode.Program, phases []int64, cycle bool) chan int64 {
 
 func (Day07) Part1(input string) interface{} {
 	p := intcode.New(input)
-	c := utils.Permutations64([]int64{0, 1, 2, 3, 4})
 	var v int64
-	for perm := range c {
+	utils.Permutations64([]int64{0, 1, 2, 3, 4}, func(perm []int64) {
 		xc := chain(p, perm, false)
 		if x := <-xc; x > v {
 			v = x
 		}
-	}
+	})
 	return v
 }
 
 func (Day07) Part2(input string) interface{} {
 	p := intcode.New(input)
-	c := utils.Permutations64([]int64{5, 6, 7, 8, 9})
 	var v int64
-	for perm := range c {
+	utils.Permutations64([]int64{5, 6, 7, 8, 9}, func(perm []int64) {
 		xc := chain(p, perm, true)
-		var x int64
-		for x = range xc {
-		}
-		if x > v {
+		if x := utils.Last(xc); x > v {
 			v = x
 		}
-	}
+	})
 	return v
 }
 
