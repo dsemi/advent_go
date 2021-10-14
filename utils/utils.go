@@ -162,3 +162,20 @@ func CountOnes(n int) int {
 	}
 	return cnt
 }
+
+func Partitions(n, t int, f func([]int)) {
+	ns := make([]int, n)
+	var recur func(int, int)
+	recur = func(n, t int) {
+		if n == 0 {
+			ns[n] = t
+			f(ns)
+		} else {
+			for x := 0; x <= t; x++ {
+				ns[n] = x
+				recur(n-1, t-x)
+			}
+		}
+	}
+	recur(n-1, t)
+}

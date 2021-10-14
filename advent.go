@@ -32,7 +32,7 @@ func runProblem(year, day int, input string) float64 {
 		return nil
 	}()
 	if prob == nil {
-		fmt.Println("Day", day, "not implemented")
+		fmt.Println(year, "Day", day, "not implemented")
 		return 0
 	}
 	fmt.Println("Day", day)
