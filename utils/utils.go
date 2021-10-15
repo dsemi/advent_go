@@ -205,3 +205,11 @@ func Partitions(n, t int, f func([]int)) {
 	}
 	recur(n-1, t)
 }
+
+func Reverse(s string) string {
+	rs := []rune(s)
+	for i, j := 0, len(rs)-1; i < j; i, j = i+1, j-1 {
+		rs[i], rs[j] = rs[j], rs[i]
+	}
+	return string(rs)
+}
