@@ -252,3 +252,14 @@ func Reverse(s string) string {
 	}
 	return string(rs)
 }
+
+type Coord struct {
+	X, Y int
+}
+
+func (a Coord) Add(b Coord) Coord {
+	return Coord{
+		X: a.X + b.X,
+		Y: a.Y + b.Y,
+	}
+}
