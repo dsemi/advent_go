@@ -57,13 +57,9 @@ func (Day19) Part2(input string) interface{} {
 	}
 	reg := regexp.MustCompile(re[1:])
 	var i int
-	for i = 0; mol != "e"; i++ {
-		repl := false
+	for mol != "e" {
 		mol = reg.ReplaceAllStringFunc(mol, func(k string) string {
-			if repl {
-				return k
-			}
-			repl = true
+			i++
 			return mrep[k]
 		})
 	}
