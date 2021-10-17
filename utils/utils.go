@@ -31,6 +31,13 @@ func Min(a, b int) int {
 	return a
 }
 
+func Min64(a, b int64) int64 {
+	if b < a {
+		return b
+	}
+	return a
+}
+
 func Max(a, b int) int {
 	if b > a {
 		return b
@@ -60,6 +67,22 @@ func Sum(ns []int) int {
 		sum += n
 	}
 	return sum
+}
+
+func Sum64(ns []int64) int64 {
+	var sum int64
+	for _, n := range ns {
+		sum += n
+	}
+	return sum
+}
+
+func Product64(ns []int64) int64 {
+	prod := int64(1)
+	for _, n := range ns {
+		prod *= n
+	}
+	return prod
 }
 
 func Last(c chan int64) int64 {
@@ -140,6 +163,22 @@ func Combinations(xs []int, n int, callback func([]int)) {
 	arr := make([]int, n)
 	var f func([]int, int)
 	f = func(xs []int, n int) {
+		if n == 0 {
+			callback(arr)
+		} else {
+			for i, x := range xs {
+				arr[n-1] = x
+				f(xs[i+1:], n-1)
+			}
+		}
+	}
+	f(xs, n)
+}
+
+func Combinations64(xs []int64, n int, callback func([]int64)) {
+	arr := make([]int64, n)
+	var f func([]int64, int)
+	f = func(xs []int64, n int) {
 		if n == 0 {
 			callback(arr)
 		} else {
