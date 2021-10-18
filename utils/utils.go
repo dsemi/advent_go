@@ -2,6 +2,7 @@ package utils
 
 import (
 	"log"
+	"sort"
 	"strconv"
 )
 
@@ -262,4 +263,48 @@ func (a Coord) Add(b Coord) Coord {
 		X: a.X + b.X,
 		Y: a.Y + b.Y,
 	}
+}
+
+type Counter struct {
+	cnts map[rune]int
+	keys []rune
+}
+
+func NewCounter(s string) *Counter {
+	c := &Counter{
+		cnts: make(map[rune]int),
+	}
+	for _, r := range s {
+		c.Add(r)
+	}
+	return c
+}
+
+func (c *Counter) Add(r rune) {
+	c.cnts[r]++
+}
+
+func (c *Counter) Runes() []rune {
+	c.keys = []rune{}
+	for k := range c.cnts {
+		c.keys = append(c.keys, k)
+	}
+	sort.Sort(c)
+	return c.keys
+}
+
+func (c *Counter) Less(i, j int) bool {
+	a, b := c.cnts[c.keys[i]], c.cnts[c.keys[j]]
+	if a == b {
+		return c.keys[i] < c.keys[j]
+	}
+	return a > b
+}
+
+func (c *Counter) Swap(i, j int) {
+	c.keys[i], c.keys[j] = c.keys[j], c.keys[i]
+}
+
+func (c *Counter) Len() int {
+	return len(c.keys)
 }
