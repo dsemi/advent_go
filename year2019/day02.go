@@ -1,7 +1,7 @@
 package year2019
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/year2019/intcode"
 )
 
@@ -26,5 +26,5 @@ func (Day02) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day02{})
+	problems.Register(Day02{})
 }

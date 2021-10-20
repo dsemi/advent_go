@@ -1,14 +1,14 @@
 package year2019
 
 import (
-	"advent/types"
+	"advent/problems"
 	"strconv"
 	"strings"
 )
 
 type Day04 struct{}
 
-func solve(n int, f func(int) bool) bool {
+func (Day04) solve(n int, f func(int) bool) bool {
 	prev := n % 10
 	c := 1
 	b := false
@@ -29,7 +29,7 @@ func solve(n int, f func(int) bool) bool {
 	return b || f(c)
 }
 
-func numValid(input string, f func(int) bool) int {
+func (Day04) numValid(input string, f func(int) bool) int {
 	var cnt int
 	pts := strings.Split(input, "-")
 	var lo int
@@ -49,22 +49,22 @@ func numValid(input string, f func(int) bool) int {
 	return cnt
 }
 
-func (Day04) Part1(input string) interface{} {
-	return numValid(input, func(n int) bool {
-		return solve(n, func(x int) bool {
+func (d Day04) Part1(input string) interface{} {
+	return d.numValid(input, func(n int) bool {
+		return d.solve(n, func(x int) bool {
 			return x >= 2
 		})
 	})
 }
 
-func (Day04) Part2(input string) interface{} {
-	return numValid(input, func(n int) bool {
-		return solve(n, func(x int) bool {
+func (d Day04) Part2(input string) interface{} {
+	return d.numValid(input, func(n int) bool {
+		return d.solve(n, func(x int) bool {
 			return x == 2
 		})
 	})
 }
 
 func init() {
-	types.Register(Probs, Day04{})
+	problems.Register(Day04{})
 }

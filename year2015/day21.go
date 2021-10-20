@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"math"
 	"strings"
@@ -44,7 +44,7 @@ var shop3 = []Equip{
 	Equip{cost: 0, damage: 0, armor: 0},   // None
 }
 
-func person(equips ...Equip) Person {
+func (Day21) person(equips ...Equip) Person {
 	p := Person{hp: 100}
 	for _, equip := range equips {
 		p.cost += equip.cost
@@ -54,13 +54,13 @@ func person(equips ...Equip) Person {
 	return p
 }
 
-func allEquipCombos() []Person {
+func (d Day21) allEquipCombos() []Person {
 	var v []Person
 	for _, weapon := range shop1 {
 		for _, armor := range shop2 {
 			for i, ring1 := range shop3 {
 				for _, ring2 := range shop3[i+1:] {
-					v = append(v, person(weapon, armor, ring1), person(weapon, armor, ring1, ring2))
+					v = append(v, d.person(weapon, armor, ring1), d.person(weapon, armor, ring1, ring2))
 				}
 			}
 		}
@@ -68,7 +68,7 @@ func allEquipCombos() []Person {
 	return v
 }
 
-func parseBoss(input string) Person {
+func (Day21) parseBoss(input string) Person {
 	var v []int
 	for _, line := range strings.Split(input, "\n") {
 		pts := strings.Fields(line)
@@ -83,7 +83,7 @@ func parseBoss(input string) Person {
 	}
 }
 
-func isWinning(boss, player Person) bool {
+func (Day21) isWinning(boss, player Person) bool {
 	ttd := func(p1, p2 Person) int {
 		q := p1.hp / utils.Max(1, p2.damage-p1.armor)
 		if p1.hp%utils.Max(1, p2.damage-p1.armor) != 0 {
@@ -94,22 +94,22 @@ func isWinning(boss, player Person) bool {
 	return ttd(player, boss) >= ttd(boss, player)
 }
 
-func (Day21) Part1(input string) interface{} {
-	boss := parseBoss(input)
+func (d Day21) Part1(input string) interface{} {
+	boss := d.parseBoss(input)
 	m := math.MaxInt
-	for _, p := range allEquipCombos() {
-		if isWinning(boss, p) {
+	for _, p := range d.allEquipCombos() {
+		if d.isWinning(boss, p) {
 			m = utils.Min(m, p.cost)
 		}
 	}
 	return m
 }
 
-func (Day21) Part2(input string) interface{} {
-	boss := parseBoss(input)
+func (d Day21) Part2(input string) interface{} {
+	boss := d.parseBoss(input)
 	m := 0
-	for _, p := range allEquipCombos() {
-		if !isWinning(boss, p) {
+	for _, p := range d.allEquipCombos() {
+		if !d.isWinning(boss, p) {
 			m = utils.Max(m, p.cost)
 		}
 	}
@@ -117,5 +117,5 @@ func (Day21) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day21{})
+	problems.Register(Day21{})
 }

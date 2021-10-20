@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"math"
 	"regexp"
@@ -10,7 +10,7 @@ import (
 
 type Day09 struct{}
 
-func allDists(input string) chan int {
+func (Day09) allDists(input string) chan int {
 	dists := make(map[string]map[string]int)
 	re := regexp.MustCompile("(\\w+) to (\\w+) = (\\d+)")
 	for _, line := range strings.Split(input, "\n") {
@@ -43,22 +43,22 @@ func allDists(input string) chan int {
 	return c
 }
 
-func (Day09) Part1(input string) interface{} {
+func (d Day09) Part1(input string) interface{} {
 	min := math.MaxInt
-	for d := range allDists(input) {
-		min = utils.Min(min, d)
+	for dist := range d.allDists(input) {
+		min = utils.Min(min, dist)
 	}
 	return min
 }
 
-func (Day09) Part2(input string) interface{} {
+func (d Day09) Part2(input string) interface{} {
 	var max int
-	for d := range allDists(input) {
-		max = utils.Max(max, d)
+	for dist := range d.allDists(input) {
+		max = utils.Max(max, dist)
 	}
 	return max
 }
 
 func init() {
-	types.Register(Probs, Day09{})
+	problems.Register(Day09{})
 }

@@ -1,7 +1,7 @@
 package year2020
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"sort"
 	"strings"
@@ -9,7 +9,7 @@ import (
 
 type Day10 struct{}
 
-func parseNums(input string) []int64 {
+func (Day10) parseNums(input string) []int64 {
 	var ns []int64
 	for _, x := range strings.Split(input, "\n") {
 		ns = append(ns, utils.Int64(x))
@@ -19,8 +19,8 @@ func parseNums(input string) []int64 {
 	return append(ns, ns[len(ns)-1]+3)
 }
 
-func (Day10) Part1(input string) interface{} {
-	ns := parseNums(input)
+func (d Day10) Part1(input string) interface{} {
+	ns := d.parseNums(input)
 	cnt := make(map[int64]int)
 	for i := 1; i < len(ns); i++ {
 		cnt[ns[i]-ns[i-1]]++
@@ -28,8 +28,8 @@ func (Day10) Part1(input string) interface{} {
 	return cnt[1] * cnt[3]
 }
 
-func (Day10) Part2(input string) interface{} {
-	ns := parseNums(input)
+func (d Day10) Part2(input string) interface{} {
+	ns := d.parseNums(input)
 	dp := make([]int64, ns[len(ns)-1]+1)
 	dp[0] = 1
 	for _, n := range ns[1:] {
@@ -43,5 +43,5 @@ func (Day10) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day10{})
+	problems.Register(Day10{})
 }

@@ -1,7 +1,7 @@
 package year2017
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"math"
 	"strings"
@@ -49,5 +49,5 @@ OUTER:
 }
 
 func init() {
-	types.Register(Probs, Day02{})
+	problems.Register(Day02{})
 }

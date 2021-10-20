@@ -2,8 +2,13 @@ package main
 
 import (
 	"advent/problems"
-	"advent/types"
 	"advent/utils"
+	"advent/year2015"
+	"advent/year2016"
+	"advent/year2017"
+	"advent/year2018"
+	"advent/year2019"
+	"advent/year2020"
 	"fmt"
 	"log"
 	"os"
@@ -25,7 +30,7 @@ func colorizeTime(t float64) string {
 }
 
 func runProblem(year, day int, input string) float64 {
-	prob := func() types.Day {
+	prob := func() problems.Day {
 		if y := problems.Probs[year]; y != nil {
 			return y[day]
 		}
@@ -66,6 +71,12 @@ func parseDays(dayStr string) (int, int) {
 }
 
 func main() {
+	year2015.Init()
+	year2016.Init()
+	year2017.Init()
+	year2018.Init()
+	year2019.Init()
+	year2020.Init()
 	year, _ := strconv.Atoi(os.Args[1])
 	days := os.Args[2:]
 	var total float64

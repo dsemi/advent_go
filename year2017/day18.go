@@ -1,7 +1,7 @@
 package year2017
 
 import (
-	"advent/types"
+	"advent/problems"
 	"strconv"
 	"strings"
 )
@@ -47,31 +47,31 @@ type Sim struct {
 	waiting bool
 }
 
-func val(x string) Val {
+func (Day18) val(x string) Val {
 	if i, err := strconv.Atoi(x); err == nil {
 		return Val{t: Lit, v: i}
 	}
 	return Val{t: Reg, v: int(x[0] - 'a')}
 }
 
-func ParseInstrs(input string) Sim {
+func (d Day18) ParseInstrs(input string) Sim {
 	var instrs []Instr
 	for _, line := range strings.Split(input, "\n") {
 		switch pts := strings.Fields(line); pts[0] {
 		case "snd":
-			instrs = append(instrs, Instr{op: Snd, a: val(pts[1])})
+			instrs = append(instrs, Instr{op: Snd, a: d.val(pts[1])})
 		case "set":
-			instrs = append(instrs, Instr{op: Set, a: val(pts[1]), b: val(pts[2])})
+			instrs = append(instrs, Instr{op: Set, a: d.val(pts[1]), b: d.val(pts[2])})
 		case "add":
-			instrs = append(instrs, Instr{op: Add, a: val(pts[1]), b: val(pts[2])})
+			instrs = append(instrs, Instr{op: Add, a: d.val(pts[1]), b: d.val(pts[2])})
 		case "mul":
-			instrs = append(instrs, Instr{op: Mul, a: val(pts[1]), b: val(pts[2])})
+			instrs = append(instrs, Instr{op: Mul, a: d.val(pts[1]), b: d.val(pts[2])})
 		case "mod":
-			instrs = append(instrs, Instr{op: Mod, a: val(pts[1]), b: val(pts[2])})
+			instrs = append(instrs, Instr{op: Mod, a: d.val(pts[1]), b: d.val(pts[2])})
 		case "rcv":
-			instrs = append(instrs, Instr{op: Rcv, a: val(pts[1])})
+			instrs = append(instrs, Instr{op: Rcv, a: d.val(pts[1])})
 		case "jgz":
-			instrs = append(instrs, Instr{op: Jgz, a: val(pts[1]), b: val(pts[2])})
+			instrs = append(instrs, Instr{op: Jgz, a: d.val(pts[1]), b: d.val(pts[2])})
 		}
 	}
 	return Sim{instrs: instrs}
@@ -120,8 +120,8 @@ func (s *Sim) Run(in <-chan int, out chan<- int) {
 	}
 }
 
-func (Day18) Part1(input string) interface{} {
-	sim := ParseInstrs(input)
+func (d Day18) Part1(input string) interface{} {
+	sim := d.ParseInstrs(input)
 	in := make(chan int)
 	out := make(chan int)
 	go sim.Run(in, out)
@@ -138,9 +138,9 @@ func (Day18) Part1(input string) interface{} {
 	return v
 }
 
-func (Day18) Part2(input string) interface{} {
-	sim0 := ParseInstrs(input)
-	sim1 := ParseInstrs(input)
+func (d Day18) Part2(input string) interface{} {
+	sim0 := d.ParseInstrs(input)
+	sim1 := d.ParseInstrs(input)
 	sim1.reg[int('p'-'a')] = 1
 	in := make(chan int, 100)
 	out := make(chan int, 100)
@@ -152,5 +152,5 @@ func (Day18) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day18{})
+	problems.Register(Day18{})
 }

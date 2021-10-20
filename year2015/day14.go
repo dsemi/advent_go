@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"fmt"
 	"log"
@@ -33,7 +33,7 @@ func (r *Reindeer) tick() {
 	}
 }
 
-func parseReindeer(input string) []*Reindeer {
+func (Day14) parseReindeer(input string) []*Reindeer {
 	var reindeer []*Reindeer
 	for _, line := range strings.Split(input, "\n") {
 		var name string
@@ -53,8 +53,8 @@ func parseReindeer(input string) []*Reindeer {
 	return reindeer
 }
 
-func (Day14) Part1(input string) interface{} {
-	rs := parseReindeer(input)
+func (d Day14) Part1(input string) interface{} {
+	rs := d.parseReindeer(input)
 	for i := 0; i < 2503; i++ {
 		for _, r := range rs {
 			r.tick()
@@ -67,8 +67,8 @@ func (Day14) Part1(input string) interface{} {
 	return max
 }
 
-func (Day14) Part2(input string) interface{} {
-	rs := parseReindeer(input)
+func (d Day14) Part2(input string) interface{} {
+	rs := d.parseReindeer(input)
 	for i := 0; i < 2503; i++ {
 		var max int
 		for _, r := range rs {
@@ -89,5 +89,5 @@ func (Day14) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day14{})
+	problems.Register(Day14{})
 }

@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 )
 
@@ -9,25 +9,25 @@ type Day20 struct{}
 
 var primes = []int{2, 3, 5, 7, 11, 13}
 
-func solve(goal, primeIndex int) int {
+func (d Day20) solve(goal, primeIndex int) int {
 	if primeIndex < 0 {
 		return goal
 	}
 	p := primes[primeIndex]
 	pPower, pSum := 1, 1
-	best := solve(goal, primeIndex-1)
+	best := d.solve(goal, primeIndex-1)
 	for pSum < goal {
 		pPower *= p
 		pSum += pPower
 		subgoal := (goal + pSum - 1) / pSum
-		best = utils.Min(best, pPower*solve(subgoal, primeIndex-1))
+		best = utils.Min(best, pPower*d.solve(subgoal, primeIndex-1))
 	}
 	return best
 }
 
-func (Day20) Part1(input string) interface{} {
+func (d Day20) Part1(input string) interface{} {
 	n := utils.Int(input)
-	return solve(n/10, len(primes)-1)
+	return d.solve(n/10, len(primes)-1)
 }
 
 func (Day20) Part2(input string) interface{} {
@@ -47,5 +47,5 @@ func (Day20) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day20{})
+	problems.Register(Day20{})
 }

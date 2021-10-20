@@ -1,7 +1,7 @@
 package year2018
 
 import (
-	"advent/types"
+	"advent/problems"
 	"math"
 	"strings"
 	"unicode"
@@ -9,7 +9,7 @@ import (
 
 type Day05 struct{}
 
-func react(input string) int {
+func (Day05) react(input string) int {
 	var chs []rune
 	for _, c := range input {
 		if len(chs) > 0 && chs[len(chs)-1] != c && unicode.ToLower(chs[len(chs)-1]) == unicode.ToLower(c) {
@@ -21,14 +21,14 @@ func react(input string) int {
 	return len(chs)
 }
 
-func (Day05) Part1(input string) interface{} {
-	return react(input)
+func (d Day05) Part1(input string) interface{} {
+	return d.react(input)
 }
 
-func (Day05) Part2(input string) interface{} {
+func (d Day05) Part2(input string) interface{} {
 	min := math.MaxInt
 	for c := 'a'; c <= 'z'; c++ {
-		v := react(strings.ReplaceAll(strings.ReplaceAll(input, string(c), ""), string(unicode.ToUpper(c)), ""))
+		v := d.react(strings.ReplaceAll(strings.ReplaceAll(input, string(c), ""), string(unicode.ToUpper(c)), ""))
 		if v < min {
 			min = v
 		}
@@ -37,5 +37,5 @@ func (Day05) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day05{})
+	problems.Register(Day05{})
 }

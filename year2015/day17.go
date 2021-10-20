@@ -1,14 +1,14 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"strings"
 )
 
 type Day17 struct{}
 
-func allCombos(input string) chan [][]int {
+func (Day17) allCombos(input string) chan [][]int {
 	var xs []int
 	for _, line := range strings.Split(input, "\n") {
 		xs = append(xs, utils.Int(line))
@@ -29,16 +29,16 @@ func allCombos(input string) chan [][]int {
 	return c
 }
 
-func (Day17) Part1(input string) interface{} {
+func (d Day17) Part1(input string) interface{} {
 	var sum int
-	for v := range allCombos(input) {
+	for v := range d.allCombos(input) {
 		sum += len(v)
 	}
 	return sum
 }
 
-func (Day17) Part2(input string) interface{} {
-	for v := range allCombos(input) {
+func (d Day17) Part2(input string) interface{} {
+	for v := range d.allCombos(input) {
 		if len(v) > 0 {
 			return len(v)
 		}
@@ -47,5 +47,5 @@ func (Day17) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day17{})
+	problems.Register(Day17{})
 }

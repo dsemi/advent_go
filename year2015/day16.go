@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"regexp"
 	"strings"
@@ -22,7 +22,7 @@ var sue = map[string]int{
 	"perfumes":    1,
 }
 
-func findSue(input string, f func(string, int) bool) int {
+func (Day16) findSue(input string, f func(string, int) bool) int {
 	reg := regexp.MustCompile("(\\w+): (\\d+)")
 OUTER:
 	for i, line := range strings.Split(input, "\n") {
@@ -36,14 +36,14 @@ OUTER:
 	return -1
 }
 
-func (Day16) Part1(input string) interface{} {
-	return findSue(input, func(k string, v int) bool {
+func (d Day16) Part1(input string) interface{} {
+	return d.findSue(input, func(k string, v int) bool {
 		return sue[k] == v
 	})
 }
 
-func (Day16) Part2(input string) interface{} {
-	return findSue(input, func(k string, v int) bool {
+func (d Day16) Part2(input string) interface{} {
+	return d.findSue(input, func(k string, v int) bool {
 		if k == "cats" {
 			return v > 7
 		} else if k == "pomeranians" {
@@ -58,5 +58,5 @@ func (Day16) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day16{})
+	problems.Register(Day16{})
 }

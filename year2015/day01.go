@@ -1,6 +1,6 @@
 package year2015
 
-import "advent/types"
+import "advent/problems"
 
 type Day01 struct{}
 
@@ -32,5 +32,5 @@ func (Day01) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day01{})
+	problems.Register(Day01{})
 }

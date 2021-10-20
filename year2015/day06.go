@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"regexp"
 	"strings"
@@ -9,7 +9,7 @@ import (
 
 type Day06 struct{}
 
-func runCommands(input string, turnOff func(int) int, turnOn func(int) int, toggle func(int) int) int {
+func (Day06) runCommands(input string, turnOff func(int) int, turnOn func(int) int, toggle func(int) int) int {
 	reg := regexp.MustCompile("(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)")
 	var arr [1000][1000]int
 	for _, line := range strings.Split(input, "\n") {
@@ -38,12 +38,12 @@ func runCommands(input string, turnOff func(int) int, turnOn func(int) int, togg
 	return total
 }
 
-func (Day06) Part1(input string) interface{} {
-	return runCommands(input, func(x int) int { return 0 }, func(x int) int { return 1 }, func(x int) int { return x ^ 1 })
+func (d Day06) Part1(input string) interface{} {
+	return d.runCommands(input, func(x int) int { return 0 }, func(x int) int { return 1 }, func(x int) int { return x ^ 1 })
 }
 
-func (Day06) Part2(input string) interface{} {
-	return runCommands(input, func(x int) int {
+func (d Day06) Part2(input string) interface{} {
+	return d.runCommands(input, func(x int) int {
 		if x == 0 {
 			return 0
 		} else {
@@ -53,5 +53,5 @@ func (Day06) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day06{})
+	problems.Register(Day06{})
 }

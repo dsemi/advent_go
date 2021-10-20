@@ -1,7 +1,7 @@
 package year2017
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"strings"
 )
@@ -13,7 +13,7 @@ type Pipe struct {
 	used bool
 }
 
-func parsePipes(input string) []*Pipe {
+func (Day24) parsePipes(input string) []*Pipe {
 	var pipes []*Pipe
 	for _, line := range strings.Split(input, "\n") {
 		pts := strings.Split(line, "/")
@@ -25,8 +25,8 @@ func parsePipes(input string) []*Pipe {
 	return pipes
 }
 
-func solve(input string) (int, int) {
-	pipes := parsePipes(input)
+func (d Day24) solve(input string) (int, int) {
+	pipes := d.parsePipes(input)
 	var max int
 	for _, pipe := range pipes {
 		max = utils.Max(max, utils.Max(pipe.a, pipe.b))
@@ -65,16 +65,16 @@ func solve(input string) (int, int) {
 	return part1, part2
 }
 
-func (Day24) Part1(input string) interface{} {
-	x, _ := solve(input)
+func (d Day24) Part1(input string) interface{} {
+	x, _ := d.solve(input)
 	return x
 }
 
-func (Day24) Part2(input string) interface{} {
-	_, x := solve(input)
+func (d Day24) Part2(input string) interface{} {
+	_, x := d.solve(input)
 	return x
 }
 
 func init() {
-	types.Register(Probs, Day24{})
+	problems.Register(Day24{})
 }

@@ -1,13 +1,6 @@
 package problems
 
 import (
-	"advent/types"
-	"advent/year2015"
-	"advent/year2016"
-	"advent/year2017"
-	"advent/year2018"
-	"advent/year2019"
-	"advent/year2020"
 	"bytes"
 	"errors"
 	"fmt"
@@ -16,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"reflect"
 	"runtime"
 	"strings"
 	"time"
@@ -70,11 +64,23 @@ func GetInput(year, day int, download bool) string {
 	return strings.TrimRightFunc(string(buf), unicode.IsSpace)
 }
 
-var Probs = map[int]map[int]types.Day{
-	2015: year2015.Probs,
-	2016: year2016.Probs,
-	2017: year2017.Probs,
-	2018: year2018.Probs,
-	2019: year2019.Probs,
-	2020: year2020.Probs,
+type Day interface {
+	Part1(string) interface{}
+	Part2(string) interface{}
+}
+
+var Probs = map[int]map[int]Day{
+	2015: make(map[int]Day),
+	2016: make(map[int]Day),
+	2017: make(map[int]Day),
+	2018: make(map[int]Day),
+	2019: make(map[int]Day),
+	2020: make(map[int]Day),
+}
+
+func Register(day Day) {
+	s := reflect.TypeOf(day).String()
+	var y, d int
+	fmt.Sscanf(s, "year%d.Day%d", &y, &d)
+	Probs[y][d] = day
 }

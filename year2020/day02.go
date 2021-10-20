@@ -1,14 +1,14 @@
 package year2020
 
 import (
-	"advent/types"
+	"advent/problems"
 	"strconv"
 	"strings"
 )
 
 type Day02 struct{}
 
-func solve(f func(int, int, byte, string) bool, input string) int {
+func (Day02) solve(f func(int, int, byte, string) bool, input string) int {
 	total := 0
 	for _, line := range strings.Split(input, "\n") {
 		parts := strings.Fields(line)
@@ -22,19 +22,19 @@ func solve(f func(int, int, byte, string) bool, input string) int {
 	return total
 }
 
-func (Day02) Part1(input string) interface{} {
-	return solve(func(a, b int, c byte, str string) bool {
+func (d Day02) Part1(input string) interface{} {
+	return d.solve(func(a, b int, c byte, str string) bool {
 		cnt := strings.Count(str, string(c))
 		return a <= cnt && cnt <= b
 	}, input)
 }
 
-func (Day02) Part2(input string) interface{} {
-	return solve(func(a, b int, c byte, str string) bool {
+func (d Day02) Part2(input string) interface{} {
+	return d.solve(func(a, b int, c byte, str string) bool {
 		return (str[a-1] == c) != (str[b-1] == c)
 	}, input)
 }
 
 func init() {
-	types.Register(Probs, Day02{})
+	problems.Register(Day02{})
 }

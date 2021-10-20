@@ -1,34 +1,29 @@
 package year2016
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"strings"
 )
 
 type Day01 struct{}
 
-type Pos struct {
-	x int
-	y int
-}
-
-func path(input string) chan Pos {
-	c := make(chan Pos)
+func (Day01) path(input string) chan utils.Coord {
+	c := make(chan utils.Coord)
 	go func() {
 		defer close(c)
-		dir := Pos{x: 0, y: 1}
-		pos := Pos{x: 0, y: 0}
+		dir := utils.Coord{X: 0, Y: 1}
+		pos := utils.Coord{X: 0, Y: 0}
 		for _, cmd := range strings.Split(input, ", ") {
 			if cmd[0] == 'R' {
-				dir = Pos{x: dir.y, y: -dir.x}
+				dir = utils.Coord{X: dir.Y, Y: -dir.X}
 			} else {
-				dir = Pos{x: -dir.y, y: dir.x}
+				dir = utils.Coord{X: -dir.Y, Y: dir.X}
 			}
 			n := utils.Int(cmd[1:])
 			for i := 0; i < n; i++ {
-				pos.x += dir.x
-				pos.y += dir.y
+				pos.X += dir.X
+				pos.Y += dir.Y
 				c <- pos
 			}
 		}
@@ -36,18 +31,18 @@ func path(input string) chan Pos {
 	return c
 }
 
-func (Day01) Part1(input string) interface{} {
-	var p Pos
-	for p = range path(input) {
+func (d Day01) Part1(input string) interface{} {
+	var p utils.Coord
+	for p = range d.path(input) {
 	}
-	return utils.Abs(p.x) + utils.Abs(p.y)
+	return utils.Abs(p.X) + utils.Abs(p.Y)
 }
 
-func (Day01) Part2(input string) interface{} {
-	m := make(map[Pos]bool)
-	for p := range path(input) {
+func (d Day01) Part2(input string) interface{} {
+	m := make(map[utils.Coord]bool)
+	for p := range d.path(input) {
 		if m[p] {
-			return utils.Abs(p.x) + utils.Abs(p.y)
+			return utils.Abs(p.X) + utils.Abs(p.Y)
 		}
 		m[p] = true
 	}
@@ -55,5 +50,5 @@ func (Day01) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day01{})
+	problems.Register(Day01{})
 }

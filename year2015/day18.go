@@ -1,13 +1,13 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"strings"
 )
 
 type Day18 struct{}
 
-func parseGrid(input string) [][]bool {
+func (Day18) parseGrid(input string) [][]bool {
 	var grid [][]bool
 	for _, line := range strings.Split(input, "\n") {
 		row := make([]bool, len(line))
@@ -19,7 +19,7 @@ func parseGrid(input string) [][]bool {
 	return grid
 }
 
-func step(grid [][]bool) {
+func (Day18) step(grid [][]bool) {
 	neighbs := make([][]int, len(grid))
 	for i := range grid {
 		neighbs[i] = make([]int, len(grid[i]))
@@ -46,7 +46,7 @@ func step(grid [][]bool) {
 	}
 }
 
-func countSquares(grid [][]bool) int {
+func (Day18) countSquares(grid [][]bool) int {
 	var sum int
 	for _, row := range grid {
 		for _, v := range row {
@@ -58,30 +58,30 @@ func countSquares(grid [][]bool) int {
 	return sum
 }
 
-func (Day18) Part1(input string) interface{} {
-	grid := parseGrid(input)
+func (d Day18) Part1(input string) interface{} {
+	grid := d.parseGrid(input)
 	for i := 0; i < 100; i++ {
-		step(grid)
+		d.step(grid)
 	}
-	return countSquares(grid)
+	return d.countSquares(grid)
 }
 
-func (Day18) Part2(input string) interface{} {
-	grid := parseGrid(input)
+func (d Day18) Part2(input string) interface{} {
+	grid := d.parseGrid(input)
 	grid[0][0] = true
 	grid[0][99] = true
 	grid[99][0] = true
 	grid[99][99] = true
 	for i := 0; i < 100; i++ {
-		step(grid)
+		d.step(grid)
 		grid[0][0] = true
 		grid[0][99] = true
 		grid[99][0] = true
 		grid[99][99] = true
 	}
-	return countSquares(grid)
+	return d.countSquares(grid)
 }
 
 func init() {
-	types.Register(Probs, Day18{})
+	problems.Register(Day18{})
 }

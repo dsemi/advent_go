@@ -1,14 +1,14 @@
 package year2016
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"strings"
 )
 
 type Day02 struct{}
 
-func run(input string, pad []string) string {
+func (Day02) run(input string, pad []string) string {
 	d := make(map[utils.Coord]string)
 	var xy utils.Coord
 	for y, line := range pad {
@@ -48,8 +48,8 @@ func run(input string, pad []string) string {
 	return result
 }
 
-func (Day02) Part1(input string) interface{} {
-	return run(input,
+func (d Day02) Part1(input string) interface{} {
+	return d.run(input,
 		[]string{
 			"1 2 3",
 			"4 5 6",
@@ -57,8 +57,8 @@ func (Day02) Part1(input string) interface{} {
 		})
 }
 
-func (Day02) Part2(input string) interface{} {
-	return run(input,
+func (d Day02) Part2(input string) interface{} {
+	return d.run(input,
 		[]string{
 			". . 1 . .",
 			". 2 3 4 .",
@@ -69,5 +69,5 @@ func (Day02) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day02{})
+	problems.Register(Day02{})
 }

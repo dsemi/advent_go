@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"regexp"
 	"strings"
@@ -13,7 +13,7 @@ type Rep struct {
 	src, dest string
 }
 
-func parseMappings(input string) (string, []Rep) {
+func (Day19) parseMappings(input string) (string, []Rep) {
 	v := strings.Split(input, "\n\n")
 	var ms []Rep
 	for _, line := range strings.Split(v[0], "\n") {
@@ -23,7 +23,7 @@ func parseMappings(input string) (string, []Rep) {
 	return v[1], ms
 }
 
-func singleReplacements(src, k, v string) []string {
+func (Day19) singleReplacements(src, k, v string) []string {
 	reg := regexp.MustCompile(k)
 	var reps []string
 	for _, is := range reg.FindAllStringIndex(src, -1) {
@@ -32,19 +32,19 @@ func singleReplacements(src, k, v string) []string {
 	return reps
 }
 
-func (Day19) Part1(input string) interface{} {
-	s, reps := parseMappings(input)
+func (d Day19) Part1(input string) interface{} {
+	s, reps := d.parseMappings(input)
 	m := make(map[string]bool)
 	for _, rep := range reps {
-		for _, r := range singleReplacements(s, rep.src, rep.dest) {
+		for _, r := range d.singleReplacements(s, rep.src, rep.dest) {
 			m[r] = true
 		}
 	}
 	return len(m)
 }
 
-func (Day19) Part2(input string) interface{} {
-	s, reps := parseMappings(input)
+func (d Day19) Part2(input string) interface{} {
+	s, reps := d.parseMappings(input)
 	mol := utils.Reverse(s)
 	mrep := make(map[string]string)
 	for _, rep := range reps {
@@ -67,5 +67,5 @@ func (Day19) Part2(input string) interface{} {
 }
 
 func init() {
-	types.Register(Probs, Day19{})
+	problems.Register(Day19{})
 }

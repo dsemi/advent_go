@@ -1,14 +1,14 @@
 package year2015
 
 import (
-	"advent/types"
+	"advent/problems"
 	"advent/utils"
 	"strings"
 )
 
 type Day23 struct{}
 
-func run(r map[string]int, input string) int {
+func (Day23) run(r map[string]int, input string) int {
 	s := strings.ReplaceAll(input, ",", "")
 	var instrs [][]string
 	for _, line := range strings.Split(s, "\n") {
@@ -38,14 +38,14 @@ func run(r map[string]int, input string) int {
 	return r["b"]
 }
 
-func (Day23) Part1(input string) interface{} {
-	return run(map[string]int{"a": 0, "b": 0}, input)
+func (d Day23) Part1(input string) interface{} {
+	return d.run(map[string]int{"a": 0, "b": 0}, input)
 }
 
-func (Day23) Part2(input string) interface{} {
-	return run(map[string]int{"a": 1, "b": 0}, input)
+func (d Day23) Part2(input string) interface{} {
+	return d.run(map[string]int{"a": 1, "b": 0}, input)
 }
 
 func init() {
-	types.Register(Probs, Day23{})
+	problems.Register(Day23{})
 }
