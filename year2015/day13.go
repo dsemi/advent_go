@@ -11,7 +11,7 @@ type Day13 struct{}
 
 var reg = regexp.MustCompile("(\\w+) would (gain|lose) (\\d+) happiness units by sitting next to (\\w+)\\.")
 
-func (Day13) parseHappiness(input string) [][]int {
+func (*Day13) parseHappiness(input string) [][]int {
 	d := make(map[string]map[string]int)
 	for _, line := range strings.Split(input, "\n") {
 		m := reg.FindStringSubmatch(line)
@@ -44,7 +44,7 @@ func (Day13) parseHappiness(input string) [][]int {
 	return arr
 }
 
-func (Day13) maxHappiness(d [][]int, p2 bool) int {
+func (*Day13) maxHappiness(d [][]int, p2 bool) int {
 	ids := make([]int, len(d))
 	for i := range ids {
 		ids[i] = i
@@ -63,14 +63,14 @@ func (Day13) maxHappiness(d [][]int, p2 bool) int {
 	return max
 }
 
-func (d Day13) Part1(input string) interface{} {
+func (d *Day13) Part1(input string) interface{} {
 	return d.maxHappiness(d.parseHappiness(input), false)
 }
 
-func (d Day13) Part2(input string) interface{} {
+func (d *Day13) Part2(input string) interface{} {
 	return d.maxHappiness(d.parseHappiness(input), true)
 }
 
 func init() {
-	problems.Register(Day13{})
+	problems.Register(&Day13{})
 }

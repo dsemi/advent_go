@@ -10,7 +10,7 @@ import (
 
 type Day07 struct{}
 
-func (Day07) lazy(f func() uint16) func() uint16 {
+func (*Day07) lazy(f func() uint16) func() uint16 {
 	var ans uint16
 	var once sync.Once
 	return func() uint16 {
@@ -22,7 +22,7 @@ func (Day07) lazy(f func() uint16) func() uint16 {
 	}
 }
 
-func (d Day07) Part1(input string) interface{} {
+func (d *Day07) Part1(input string) interface{} {
 	m := make(map[string]func() uint16)
 	val := func(x string) uint16 {
 		if i, err := strconv.Atoi(x); err == nil {
@@ -61,10 +61,10 @@ func (d Day07) Part1(input string) interface{} {
 	return val("a")
 }
 
-func (d Day07) Part2(input string) interface{} {
+func (d *Day07) Part2(input string) interface{} {
 	return d.Part1(input + fmt.Sprintf("\n%d -> b", d.Part1(input)))
 }
 
 func init() {
-	problems.Register(Day07{})
+	problems.Register(&Day07{})
 }

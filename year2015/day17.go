@@ -8,7 +8,7 @@ import (
 
 type Day17 struct{}
 
-func (Day17) allCombos(input string) chan [][]int {
+func (*Day17) allCombos(input string) chan [][]int {
 	var xs []int
 	for _, line := range strings.Split(input, "\n") {
 		xs = append(xs, utils.Int(line))
@@ -29,7 +29,7 @@ func (Day17) allCombos(input string) chan [][]int {
 	return c
 }
 
-func (d Day17) Part1(input string) interface{} {
+func (d *Day17) Part1(input string) interface{} {
 	var sum int
 	for v := range d.allCombos(input) {
 		sum += len(v)
@@ -37,7 +37,7 @@ func (d Day17) Part1(input string) interface{} {
 	return sum
 }
 
-func (d Day17) Part2(input string) interface{} {
+func (d *Day17) Part2(input string) interface{} {
 	for v := range d.allCombos(input) {
 		if len(v) > 0 {
 			return len(v)
@@ -47,5 +47,5 @@ func (d Day17) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day17{})
+	problems.Register(&Day17{})
 }

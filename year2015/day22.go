@@ -73,7 +73,7 @@ func (state *Game) applyEffects() {
 	}
 }
 
-func (Day22) parseBoss(input string) *Game {
+func (*Day22) parseBoss(input string) *Game {
 	var v []int
 	for _, line := range strings.Split(input, "\n") {
 		v = append(v, utils.Int(strings.Split(line, ": ")[1]))
@@ -86,7 +86,7 @@ func (Day22) parseBoss(input string) *Game {
 	}
 }
 
-func (Day22) minCostToWin(s *Game, hard bool) int {
+func (*Day22) minCostToWin(s *Game, hard bool) int {
 	states := []*Game{s}
 	result := math.MaxInt
 	for len(states) > 0 {
@@ -125,14 +125,14 @@ func (Day22) minCostToWin(s *Game, hard bool) int {
 	return result
 }
 
-func (d Day22) Part1(input string) interface{} {
+func (d *Day22) Part1(input string) interface{} {
 	return d.minCostToWin(d.parseBoss(input), false)
 }
 
-func (d Day22) Part2(input string) interface{} {
+func (d *Day22) Part2(input string) interface{} {
 	return d.minCostToWin(d.parseBoss(input), true)
 }
 
 func init() {
-	problems.Register(Day22{})
+	problems.Register(&Day22{})
 }

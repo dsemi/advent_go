@@ -7,7 +7,7 @@ import (
 
 type Day05 struct{}
 
-func (Day05) Part1(input string) interface{} {
+func (*Day05) Part1(input string) interface{} {
 	prog := intcode.New(input)
 	go prog.Run()
 	prog.Input <- 1
@@ -17,7 +17,7 @@ func (Day05) Part1(input string) interface{} {
 	return x
 }
 
-func (Day05) Part2(input string) interface{} {
+func (*Day05) Part2(input string) interface{} {
 	prog := intcode.New(input)
 	go prog.Run()
 	prog.Input <- 5
@@ -28,5 +28,5 @@ func (Day05) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day05{})
+	problems.Register(&Day05{})
 }

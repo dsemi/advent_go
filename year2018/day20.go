@@ -9,7 +9,7 @@ type Coord struct {
 	y int
 }
 
-func (Day20) parseEdges(input string) map[Coord]int {
+func (*Day20) parseEdges(input string) map[Coord]int {
 	var stack []Coord
 	pos := Coord{x: 0, y: 0}
 	result := make(map[Coord]int)
@@ -42,7 +42,7 @@ func (Day20) parseEdges(input string) map[Coord]int {
 	return result
 }
 
-func (d Day20) Part1(input string) interface{} {
+func (d *Day20) Part1(input string) interface{} {
 	var max int
 	for _, v := range d.parseEdges(input) {
 		if v > max {
@@ -52,7 +52,7 @@ func (d Day20) Part1(input string) interface{} {
 	return max
 }
 
-func (d Day20) Part2(input string) interface{} {
+func (d *Day20) Part2(input string) interface{} {
 	var cnt int
 	for _, v := range d.parseEdges(input) {
 		if v >= 1000 {
@@ -63,5 +63,5 @@ func (d Day20) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day20{})
+	problems.Register(&Day20{})
 }

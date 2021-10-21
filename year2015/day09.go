@@ -10,7 +10,7 @@ import (
 
 type Day09 struct{}
 
-func (Day09) allDists(input string) chan int {
+func (*Day09) allDists(input string) chan int {
 	dists := make(map[string]map[string]int)
 	re := regexp.MustCompile("(\\w+) to (\\w+) = (\\d+)")
 	for _, line := range strings.Split(input, "\n") {
@@ -43,7 +43,7 @@ func (Day09) allDists(input string) chan int {
 	return c
 }
 
-func (d Day09) Part1(input string) interface{} {
+func (d *Day09) Part1(input string) interface{} {
 	min := math.MaxInt
 	for dist := range d.allDists(input) {
 		min = utils.Min(min, dist)
@@ -51,7 +51,7 @@ func (d Day09) Part1(input string) interface{} {
 	return min
 }
 
-func (d Day09) Part2(input string) interface{} {
+func (d *Day09) Part2(input string) interface{} {
 	var max int
 	for dist := range d.allDists(input) {
 		max = utils.Max(max, dist)
@@ -60,5 +60,5 @@ func (d Day09) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day09{})
+	problems.Register(&Day09{})
 }

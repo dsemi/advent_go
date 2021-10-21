@@ -8,7 +8,7 @@ import (
 
 type Day02 struct{}
 
-func (Day02) run(input string, pad []string) string {
+func (*Day02) run(input string, pad []string) string {
 	d := make(map[utils.Coord]string)
 	var xy utils.Coord
 	for y, line := range pad {
@@ -48,7 +48,7 @@ func (Day02) run(input string, pad []string) string {
 	return result
 }
 
-func (d Day02) Part1(input string) interface{} {
+func (d *Day02) Part1(input string) interface{} {
 	return d.run(input,
 		[]string{
 			"1 2 3",
@@ -57,7 +57,7 @@ func (d Day02) Part1(input string) interface{} {
 		})
 }
 
-func (d Day02) Part2(input string) interface{} {
+func (d *Day02) Part2(input string) interface{} {
 	return d.run(input,
 		[]string{
 			". . 1 . .",
@@ -69,5 +69,5 @@ func (d Day02) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day02{})
+	problems.Register(&Day02{})
 }

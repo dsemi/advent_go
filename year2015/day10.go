@@ -4,7 +4,7 @@ import "advent/problems"
 
 type Day10 struct{}
 
-func (Day10) lookAndSay(n int, input string) int {
+func (*Day10) lookAndSay(n int, input string) int {
 	one := []rune(input)
 	two := make([]rune, 0, len(one))
 	inp := &one
@@ -28,14 +28,14 @@ func (Day10) lookAndSay(n int, input string) int {
 	return len(*inp)
 }
 
-func (d Day10) Part1(input string) interface{} {
+func (d *Day10) Part1(input string) interface{} {
 	return d.lookAndSay(40, input)
 }
 
-func (d Day10) Part2(input string) interface{} {
+func (d *Day10) Part2(input string) interface{} {
 	return d.lookAndSay(50, input)
 }
 
 func init() {
-	problems.Register(Day10{})
+	problems.Register(&Day10{})
 }

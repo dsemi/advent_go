@@ -9,7 +9,7 @@ type Day20 struct{}
 
 var primes = []int{2, 3, 5, 7, 11, 13}
 
-func (d Day20) solve(goal, primeIndex int) int {
+func (d *Day20) solve(goal, primeIndex int) int {
 	if primeIndex < 0 {
 		return goal
 	}
@@ -25,12 +25,12 @@ func (d Day20) solve(goal, primeIndex int) int {
 	return best
 }
 
-func (d Day20) Part1(input string) interface{} {
+func (d *Day20) Part1(input string) interface{} {
 	n := utils.Int(input)
 	return d.solve(n/10, len(primes)-1)
 }
 
-func (Day20) Part2(input string) interface{} {
+func (*Day20) Part2(input string) interface{} {
 	n := utils.Int(input)
 	vec := make([]int, 1000000)
 	for i := 1; i < len(vec); i++ {
@@ -47,5 +47,5 @@ func (Day20) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day20{})
+	problems.Register(&Day20{})
 }

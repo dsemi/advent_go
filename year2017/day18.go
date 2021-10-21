@@ -47,14 +47,14 @@ type Sim struct {
 	waiting bool
 }
 
-func (Day18) val(x string) Val {
+func (*Day18) val(x string) Val {
 	if i, err := strconv.Atoi(x); err == nil {
 		return Val{t: Lit, v: i}
 	}
 	return Val{t: Reg, v: int(x[0] - 'a')}
 }
 
-func (d Day18) ParseInstrs(input string) Sim {
+func (d *Day18) ParseInstrs(input string) Sim {
 	var instrs []Instr
 	for _, line := range strings.Split(input, "\n") {
 		switch pts := strings.Fields(line); pts[0] {
@@ -120,7 +120,7 @@ func (s *Sim) Run(in <-chan int, out chan<- int) {
 	}
 }
 
-func (d Day18) Part1(input string) interface{} {
+func (d *Day18) Part1(input string) interface{} {
 	sim := d.ParseInstrs(input)
 	in := make(chan int)
 	out := make(chan int)
@@ -138,7 +138,7 @@ func (d Day18) Part1(input string) interface{} {
 	return v
 }
 
-func (d Day18) Part2(input string) interface{} {
+func (d *Day18) Part2(input string) interface{} {
 	sim0 := d.ParseInstrs(input)
 	sim1 := d.ParseInstrs(input)
 	sim1.reg[int('p'-'a')] = 1
@@ -152,5 +152,5 @@ func (d Day18) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day18{})
+	problems.Register(&Day18{})
 }

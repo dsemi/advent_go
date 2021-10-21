@@ -8,7 +8,7 @@ import (
 
 type Day01 struct{}
 
-func (Day01) parse(input string) []int {
+func (*Day01) parse(input string) []int {
 	var ns []int
 	for _, line := range strings.Fields(input) {
 		n, _ := strconv.Atoi(line)
@@ -17,7 +17,7 @@ func (Day01) parse(input string) []int {
 	return ns
 }
 
-func (d Day01) Part1(input string) interface{} {
+func (d *Day01) Part1(input string) interface{} {
 	ns := d.parse(input)
 	for i := 0; i < len(ns); i++ {
 		for j := i + 1; j < len(ns); j++ {
@@ -29,7 +29,7 @@ func (d Day01) Part1(input string) interface{} {
 	return -1
 }
 
-func (d Day01) Part2(input string) interface{} {
+func (d *Day01) Part2(input string) interface{} {
 	ns := d.parse(input)
 	for i := 0; i < len(ns); i++ {
 		for j := i + 1; j < len(ns); j++ {
@@ -44,5 +44,5 @@ func (d Day01) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day01{})
+	problems.Register(&Day01{})
 }

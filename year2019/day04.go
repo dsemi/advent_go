@@ -8,7 +8,7 @@ import (
 
 type Day04 struct{}
 
-func (Day04) solve(n int, f func(int) bool) bool {
+func (*Day04) solve(n int, f func(int) bool) bool {
 	prev := n % 10
 	c := 1
 	b := false
@@ -29,7 +29,7 @@ func (Day04) solve(n int, f func(int) bool) bool {
 	return b || f(c)
 }
 
-func (Day04) numValid(input string, f func(int) bool) int {
+func (*Day04) numValid(input string, f func(int) bool) int {
 	var cnt int
 	pts := strings.Split(input, "-")
 	var lo int
@@ -49,7 +49,7 @@ func (Day04) numValid(input string, f func(int) bool) int {
 	return cnt
 }
 
-func (d Day04) Part1(input string) interface{} {
+func (d *Day04) Part1(input string) interface{} {
 	return d.numValid(input, func(n int) bool {
 		return d.solve(n, func(x int) bool {
 			return x >= 2
@@ -57,7 +57,7 @@ func (d Day04) Part1(input string) interface{} {
 	})
 }
 
-func (d Day04) Part2(input string) interface{} {
+func (d *Day04) Part2(input string) interface{} {
 	return d.numValid(input, func(n int) bool {
 		return d.solve(n, func(x int) bool {
 			return x == 2
@@ -66,5 +66,5 @@ func (d Day04) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day04{})
+	problems.Register(&Day04{})
 }

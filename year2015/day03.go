@@ -8,7 +8,7 @@ import (
 
 type Day03 struct{}
 
-func (Day03) locations(input string) map[utils.Coord]bool {
+func (*Day03) locations(input string) map[utils.Coord]bool {
 	m := make(map[utils.Coord]bool)
 	pos := utils.Coord{X: 0, Y: 0}
 	m[pos] = true
@@ -28,11 +28,11 @@ func (Day03) locations(input string) map[utils.Coord]bool {
 	return m
 }
 
-func (d Day03) Part1(input string) interface{} {
+func (d *Day03) Part1(input string) interface{} {
 	return len(d.locations(input))
 }
 
-func (d Day03) Part2(input string) interface{} {
+func (d *Day03) Part2(input string) interface{} {
 	var b1, b2 strings.Builder
 	for i, c := range input {
 		if i%2 == 0 {
@@ -50,5 +50,5 @@ func (d Day03) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day03{})
+	problems.Register(&Day03{})
 }

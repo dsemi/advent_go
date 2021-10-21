@@ -7,7 +7,7 @@ import (
 
 type Day18 struct{}
 
-func (Day18) parseGrid(input string) [][]bool {
+func (*Day18) parseGrid(input string) [][]bool {
 	var grid [][]bool
 	for _, line := range strings.Split(input, "\n") {
 		row := make([]bool, len(line))
@@ -19,7 +19,7 @@ func (Day18) parseGrid(input string) [][]bool {
 	return grid
 }
 
-func (Day18) step(grid [][]bool) {
+func (*Day18) step(grid [][]bool) {
 	neighbs := make([][]int, len(grid))
 	for i := range grid {
 		neighbs[i] = make([]int, len(grid[i]))
@@ -46,7 +46,7 @@ func (Day18) step(grid [][]bool) {
 	}
 }
 
-func (Day18) countSquares(grid [][]bool) int {
+func (*Day18) countSquares(grid [][]bool) int {
 	var sum int
 	for _, row := range grid {
 		for _, v := range row {
@@ -58,7 +58,7 @@ func (Day18) countSquares(grid [][]bool) int {
 	return sum
 }
 
-func (d Day18) Part1(input string) interface{} {
+func (d *Day18) Part1(input string) interface{} {
 	grid := d.parseGrid(input)
 	for i := 0; i < 100; i++ {
 		d.step(grid)
@@ -66,7 +66,7 @@ func (d Day18) Part1(input string) interface{} {
 	return d.countSquares(grid)
 }
 
-func (d Day18) Part2(input string) interface{} {
+func (d *Day18) Part2(input string) interface{} {
 	grid := d.parseGrid(input)
 	grid[0][0] = true
 	grid[0][99] = true
@@ -83,5 +83,5 @@ func (d Day18) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day18{})
+	problems.Register(&Day18{})
 }

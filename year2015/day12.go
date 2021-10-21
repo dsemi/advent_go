@@ -7,7 +7,7 @@ import (
 
 type Day12 struct{}
 
-func (d Day12) walk(data interface{}, pred func(interface{}) bool) int {
+func (d *Day12) walk(data interface{}, pred func(interface{}) bool) int {
 	if pred(data) {
 		return 0
 	}
@@ -27,13 +27,13 @@ func (d Day12) walk(data interface{}, pred func(interface{}) bool) int {
 	return t
 }
 
-func (d Day12) Part1(input string) interface{} {
+func (d *Day12) Part1(input string) interface{} {
 	var j interface{}
 	json.Unmarshal([]byte(input), &j)
 	return d.walk(j, func(_ interface{}) bool { return false })
 }
 
-func (d Day12) Part2(input string) interface{} {
+func (d *Day12) Part2(input string) interface{} {
 	var j interface{}
 	json.Unmarshal([]byte(input), &j)
 	return d.walk(j, func(j interface{}) bool {
@@ -50,5 +50,5 @@ func (d Day12) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day12{})
+	problems.Register(&Day12{})
 }

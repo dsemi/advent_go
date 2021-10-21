@@ -9,7 +9,7 @@ import (
 
 type Day02 struct{}
 
-func (Day02) Part1(input string) interface{} {
+func (*Day02) Part1(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		min := math.MaxInt
@@ -28,7 +28,7 @@ func (Day02) Part1(input string) interface{} {
 	return sum
 }
 
-func (Day02) Part2(input string) interface{} {
+func (*Day02) Part2(input string) interface{} {
 	var sum int
 OUTER:
 	for _, line := range strings.Split(input, "\n") {
@@ -49,5 +49,5 @@ OUTER:
 }
 
 func init() {
-	problems.Register(Day02{})
+	problems.Register(&Day02{})
 }

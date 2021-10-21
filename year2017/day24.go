@@ -13,7 +13,7 @@ type Pipe struct {
 	used bool
 }
 
-func (Day24) parsePipes(input string) []*Pipe {
+func (*Day24) parsePipes(input string) []*Pipe {
 	var pipes []*Pipe
 	for _, line := range strings.Split(input, "\n") {
 		pts := strings.Split(line, "/")
@@ -25,7 +25,7 @@ func (Day24) parsePipes(input string) []*Pipe {
 	return pipes
 }
 
-func (d Day24) solve(input string) (int, int) {
+func (d *Day24) solve(input string) (int, int) {
 	pipes := d.parsePipes(input)
 	var max int
 	for _, pipe := range pipes {
@@ -65,16 +65,16 @@ func (d Day24) solve(input string) (int, int) {
 	return part1, part2
 }
 
-func (d Day24) Part1(input string) interface{} {
+func (d *Day24) Part1(input string) interface{} {
 	x, _ := d.solve(input)
 	return x
 }
 
-func (d Day24) Part2(input string) interface{} {
+func (d *Day24) Part2(input string) interface{} {
 	_, x := d.solve(input)
 	return x
 }
 
 func init() {
-	problems.Register(Day24{})
+	problems.Register(&Day24{})
 }

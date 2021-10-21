@@ -22,7 +22,7 @@ var sue = map[string]int{
 	"perfumes":    1,
 }
 
-func (Day16) findSue(input string, f func(string, int) bool) int {
+func (*Day16) findSue(input string, f func(string, int) bool) int {
 	reg := regexp.MustCompile("(\\w+): (\\d+)")
 OUTER:
 	for i, line := range strings.Split(input, "\n") {
@@ -36,13 +36,13 @@ OUTER:
 	return -1
 }
 
-func (d Day16) Part1(input string) interface{} {
+func (d *Day16) Part1(input string) interface{} {
 	return d.findSue(input, func(k string, v int) bool {
 		return sue[k] == v
 	})
 }
 
-func (d Day16) Part2(input string) interface{} {
+func (d *Day16) Part2(input string) interface{} {
 	return d.findSue(input, func(k string, v int) bool {
 		if k == "cats" {
 			return v > 7
@@ -58,5 +58,5 @@ func (d Day16) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day16{})
+	problems.Register(&Day16{})
 }

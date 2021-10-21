@@ -19,7 +19,7 @@ func (r Room) isReal() bool {
 	return r.checksum == string(c.Runes()[:5])
 }
 
-func (Day04) parseRooms(input string) chan Room {
+func (*Day04) parseRooms(input string) chan Room {
 	c := make(chan Room)
 	go func() {
 		defer close(c)
@@ -37,7 +37,7 @@ func (Day04) parseRooms(input string) chan Room {
 	return c
 }
 
-func (d Day04) Part1(input string) interface{} {
+func (d *Day04) Part1(input string) interface{} {
 	var sum int
 	for r := range d.parseRooms(input) {
 		if r.isReal() {
@@ -47,7 +47,7 @@ func (d Day04) Part1(input string) interface{} {
 	return sum
 }
 
-func (Day04) rotate(n int, s string) string {
+func (*Day04) rotate(n int, s string) string {
 	b := []rune(s)
 	for i := range b {
 		if b[i] == ' ' {
@@ -59,7 +59,7 @@ func (Day04) rotate(n int, s string) string {
 	return string(b)
 }
 
-func (d Day04) Part2(input string) interface{} {
+func (d *Day04) Part2(input string) interface{} {
 	for r := range d.parseRooms(input) {
 		if strings.Contains(r.name, d.rotate(r.sectorId, "northpole")) {
 			return r.sectorId
@@ -69,5 +69,5 @@ func (d Day04) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day04{})
+	problems.Register(&Day04{})
 }

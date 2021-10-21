@@ -7,12 +7,12 @@ import (
 
 type Day02 struct{}
 
-func (Day02) Part1(input string) interface{} {
+func (*Day02) Part1(input string) interface{} {
 	prog := intcode.New(input)
 	return prog.RunNoIo(12, 2)
 }
 
-func (Day02) Part2(input string) interface{} {
+func (*Day02) Part2(input string) interface{} {
 	prog := intcode.New(input)
 	for noun := int64(0); noun < 100; noun++ {
 		for verb := int64(0); verb < 100; verb++ {
@@ -26,5 +26,5 @@ func (Day02) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day02{})
+	problems.Register(&Day02{})
 }

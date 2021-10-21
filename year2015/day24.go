@@ -8,7 +8,7 @@ import (
 
 type Day24 struct{}
 
-func (Day24) quantumEntanglement(n int64, s string) int64 {
+func (*Day24) quantumEntanglement(n int64, s string) int64 {
 	var wts []int64
 	for _, line := range strings.Split(s, "\n") {
 		wts = append(wts, utils.Int64(line))
@@ -34,14 +34,14 @@ func (Day24) quantumEntanglement(n int64, s string) int64 {
 	}
 }
 
-func (d Day24) Part1(input string) interface{} {
+func (d *Day24) Part1(input string) interface{} {
 	return d.quantumEntanglement(3, input)
 }
 
-func (d Day24) Part2(input string) interface{} {
+func (d *Day24) Part2(input string) interface{} {
 	return d.quantumEntanglement(4, input)
 }
 
 func init() {
-	problems.Register(Day24{})
+	problems.Register(&Day24{})
 }

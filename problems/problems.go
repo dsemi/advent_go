@@ -81,6 +81,6 @@ var Probs = map[int]map[int]Day{
 func Register(day Day) {
 	s := reflect.TypeOf(day).String()
 	var y, d int
-	fmt.Sscanf(s, "year%d.Day%d", &y, &d)
+	fmt.Sscanf(s, "*year%d.Day%d", &y, &d)
 	Probs[y][d] = day
 }

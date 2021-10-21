@@ -3,12 +3,12 @@ package main
 import (
 	"advent/problems"
 	"advent/utils"
-	"advent/year2015"
-	"advent/year2016"
-	"advent/year2017"
-	"advent/year2018"
-	"advent/year2019"
-	"advent/year2020"
+	_ "advent/year2015"
+	_ "advent/year2016"
+	_ "advent/year2017"
+	_ "advent/year2018"
+	_ "advent/year2019"
+	_ "advent/year2020"
 	"fmt"
 	"log"
 	"os"
@@ -71,12 +71,6 @@ func parseDays(dayStr string) (int, int) {
 }
 
 func main() {
-	year2015.Init()
-	year2016.Init()
-	year2017.Init()
-	year2018.Init()
-	year2019.Init()
-	year2020.Init()
 	year, _ := strconv.Atoi(os.Args[1])
 	days := os.Args[2:]
 	var total float64

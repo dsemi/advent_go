@@ -33,7 +33,7 @@ func (r *Reindeer) tick() {
 	}
 }
 
-func (Day14) parseReindeer(input string) []*Reindeer {
+func (*Day14) parseReindeer(input string) []*Reindeer {
 	var reindeer []*Reindeer
 	for _, line := range strings.Split(input, "\n") {
 		var name string
@@ -53,7 +53,7 @@ func (Day14) parseReindeer(input string) []*Reindeer {
 	return reindeer
 }
 
-func (d Day14) Part1(input string) interface{} {
+func (d *Day14) Part1(input string) interface{} {
 	rs := d.parseReindeer(input)
 	for i := 0; i < 2503; i++ {
 		for _, r := range rs {
@@ -67,7 +67,7 @@ func (d Day14) Part1(input string) interface{} {
 	return max
 }
 
-func (d Day14) Part2(input string) interface{} {
+func (d *Day14) Part2(input string) interface{} {
 	rs := d.parseReindeer(input)
 	for i := 0; i < 2503; i++ {
 		var max int
@@ -89,5 +89,5 @@ func (d Day14) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day14{})
+	problems.Register(&Day14{})
 }

@@ -26,7 +26,7 @@ west
 south
 `
 
-func (Day25) Part1(input string) interface{} {
+func (*Day25) Part1(input string) interface{} {
 	prog := intcode.New(input)
 	go prog.Run()
 	go func() {
@@ -45,10 +45,10 @@ func (Day25) Part1(input string) interface{} {
 	return res
 }
 
-func (Day25) Part2(input string) interface{} {
+func (*Day25) Part2(input string) interface{} {
 	return ""
 }
 
 func init() {
-	problems.Register(Day25{})
+	problems.Register(&Day25{})
 }

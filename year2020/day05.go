@@ -9,7 +9,7 @@ import (
 
 type Day05 struct{}
 
-func (Day05) seatIds(s string) []int {
+func (*Day05) seatIds(s string) []int {
 	var ids []int
 	for _, line := range strings.Split(s, "\n") {
 		var n int
@@ -24,7 +24,7 @@ func (Day05) seatIds(s string) []int {
 	return ids
 }
 
-func (d Day05) Part1(input string) interface{} {
+func (d *Day05) Part1(input string) interface{} {
 	var max int
 	for _, id := range d.seatIds(input) {
 		max = utils.Max(max, id)
@@ -32,7 +32,7 @@ func (d Day05) Part1(input string) interface{} {
 	return max
 }
 
-func (d Day05) Part2(input string) interface{} {
+func (d *Day05) Part2(input string) interface{} {
 	ids := d.seatIds(input)
 	sort.Ints(ids)
 	for i := range ids {
@@ -44,5 +44,5 @@ func (d Day05) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day05{})
+	problems.Register(&Day05{})
 }

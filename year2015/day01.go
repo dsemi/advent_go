@@ -4,7 +4,7 @@ import "advent/problems"
 
 type Day01 struct{}
 
-func (Day01) Part1(input string) interface{} {
+func (*Day01) Part1(input string) interface{} {
 	floor := 0
 	for _, c := range input {
 		if c == '(' {
@@ -16,7 +16,7 @@ func (Day01) Part1(input string) interface{} {
 	return floor
 }
 
-func (Day01) Part2(input string) interface{} {
+func (*Day01) Part2(input string) interface{} {
 	floor := 0
 	for i, c := range input {
 		if c == '(' {
@@ -32,5 +32,5 @@ func (Day01) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day01{})
+	problems.Register(&Day01{})
 }

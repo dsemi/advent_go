@@ -7,7 +7,7 @@ import (
 
 type Day05 struct{}
 
-func (Day05) Part1(input string) interface{} {
+func (*Day05) Part1(input string) interface{} {
 	var total int
 	for _, line := range strings.Split(input, "\n") {
 		var cnt int
@@ -35,7 +35,7 @@ func (Day05) Part1(input string) interface{} {
 	return total
 }
 
-func (Day05) Part2(input string) interface{} {
+func (*Day05) Part2(input string) interface{} {
 	var total int
 	for _, line := range strings.Split(input, "\n") {
 		if func() bool {
@@ -62,5 +62,5 @@ func (Day05) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day05{})
+	problems.Register(&Day05{})
 }

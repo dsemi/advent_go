@@ -9,7 +9,7 @@ import (
 
 type Day04 struct{}
 
-func (Day04) Part1(input string) interface{} {
+func (*Day04) Part1(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		ps := strings.Fields(line)
@@ -24,13 +24,13 @@ func (Day04) Part1(input string) interface{} {
 	return sum
 }
 
-func (Day04) SortString(s string) string {
+func (*Day04) SortString(s string) string {
 	r := []rune(s)
 	sort.Sort(utils.SortRunes(r))
 	return string(r)
 }
 
-func (d Day04) Part2(input string) interface{} {
+func (d *Day04) Part2(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		ps := strings.Fields(line)
@@ -49,5 +49,5 @@ func (d Day04) Part2(input string) interface{} {
 }
 
 func init() {
-	problems.Register(Day04{})
+	problems.Register(&Day04{})
 }

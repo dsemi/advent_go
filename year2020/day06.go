@@ -8,7 +8,7 @@ import (
 
 type Day06 struct{}
 
-func (Day06) sumCounts(input string, f func(int, int) int) int {
+func (*Day06) sumCounts(input string, f func(int, int) int) int {
 	var total int
 	toInt := func(s string) int {
 		var n int
@@ -28,18 +28,18 @@ func (Day06) sumCounts(input string, f func(int, int) int) int {
 	return total
 }
 
-func (d Day06) Part1(input string) interface{} {
+func (d *Day06) Part1(input string) interface{} {
 	return d.sumCounts(input, func(a, b int) int {
 		return a | b
 	})
 }
 
-func (d Day06) Part2(input string) interface{} {
+func (d *Day06) Part2(input string) interface{} {
 	return d.sumCounts(input, func(a, b int) int {
 		return a & b
 	})
 }
 
 func init() {
-	problems.Register(Day06{})
+	problems.Register(&Day06{})
 }
