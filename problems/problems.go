@@ -69,18 +69,14 @@ type Day interface {
 	Part2(string) interface{}
 }
 
-var Probs = map[int]map[int]Day{
-	2015: make(map[int]Day),
-	2016: make(map[int]Day),
-	2017: make(map[int]Day),
-	2018: make(map[int]Day),
-	2019: make(map[int]Day),
-	2020: make(map[int]Day),
-}
+var Probs = make(map[int]map[int]Day)
 
 func Register(day Day) {
 	s := reflect.TypeOf(day).String()
 	var y, d int
 	fmt.Sscanf(s, "*year%d.Day%d", &y, &d)
+	if _, ok := Probs[y]; !ok {
+		Probs[y] = make(map[int]Day)
+	}
 	Probs[y][d] = day
 }
