@@ -29,7 +29,7 @@ func colorizeTime(t float64) string {
 	return fmt.Sprintf("%v%.3f\x1b[0m", color, t)
 }
 
-func runProblem(year, day int, input string) float64 {
+func runProblem(year, day int) float64 {
 	prob := func() problems.Day {
 		if y := problems.Probs[year]; y != nil {
 			return y[day]
@@ -40,6 +40,7 @@ func runProblem(year, day int, input string) float64 {
 		fmt.Println(year, "Day", day, "not implemented")
 		return 0
 	}
+	input := problems.GetInput(year, day, true)
 	fmt.Println("Day", day)
 	start := time.Now()
 	ans := prob.Part1(input)
@@ -77,8 +78,7 @@ func main() {
 	for _, dayStr := range days {
 		start, end := parseDays(dayStr)
 		for day := start; day <= end; day++ {
-			input := problems.GetInput(year, day, true)
-			total += runProblem(year, day, input)
+			total += runProblem(year, day)
 		}
 	}
 	fmt.Printf("Total: %53.3f seconds\n", total)
