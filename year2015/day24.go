@@ -13,17 +13,17 @@ func (*Day24) quantumEntanglement(n int64, s string) int64 {
 	for _, line := range strings.Split(s, "\n") {
 		wts = append(wts, utils.Int64(line))
 	}
-	groupSize := utils.Sum64(wts) / n
+	groupSize := utils.Sum(wts) / n
 	i := 1
 	for {
 		var m *int64
-		utils.Combinations64(wts, i, func(combo []int64) {
-			if utils.Sum64(combo) == groupSize {
-				p := utils.Product64(combo)
+		utils.Combinations(wts, i, func(combo []int64) {
+			if utils.Sum(combo) == groupSize {
+				p := utils.Product(combo)
 				if m == nil {
 					m = &p
 				} else {
-					*m = utils.Min64(*m, p)
+					*m = utils.Min(*m, p)
 				}
 			}
 		})

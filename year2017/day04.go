@@ -26,7 +26,7 @@ func (*Day04) Part1(input string) interface{} {
 
 func (*Day04) SortString(s string) string {
 	r := []rune(s)
-	sort.Sort(utils.SortRunes(r))
+	sort.Sort(utils.Sortable[rune](r))
 	return string(r)
 }
 

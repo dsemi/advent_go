@@ -31,7 +31,7 @@ func (*Day09) allDists(input string) chan int {
 	}
 	c := make(chan int)
 	go func() {
-		for perm := range utils.PermutationsString(keys) {
+		for perm := range utils.Permutations(keys) {
 			var dist int
 			for i := range perm[1:] {
 				dist += dists[perm[i]][perm[i+1]]

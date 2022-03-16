@@ -18,35 +18,32 @@ func Int64(input string) int64 {
 	return int64(Int(input))
 }
 
-func Abs(n int) int {
+type Number interface {
+	int | int32 | int64 | float32 | float64
+}
+
+func Abs[T Number](n T) T {
 	if n < 0 {
 		return -n
 	}
 	return n
 }
 
-func Min(a, b int) int {
+func Min[T Number](a, b T) T {
 	if b < a {
 		return b
 	}
 	return a
 }
 
-func Min64(a, b int64) int64 {
-	if b < a {
-		return b
-	}
-	return a
-}
-
-func Max(a, b int) int {
+func Max[T Number](a, b T) T {
 	if b > a {
 		return b
 	}
 	return a
 }
 
-func Minimum(ns []int) int {
+func Minimum[T Number](ns []T) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
 		n = Min(n, ns[i])
@@ -54,7 +51,7 @@ func Minimum(ns []int) int {
 	return n
 }
 
-func Maximum(ns []int) int {
+func Maximum[T Number](ns []T) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
 		n = Max(n, ns[i])
@@ -62,43 +59,35 @@ func Maximum(ns []int) int {
 	return n
 }
 
-func Sum(ns []int) int {
-	var sum int
+func Sum[T Number](ns []T) T {
+	var sum T
 	for _, n := range ns {
 		sum += n
 	}
 	return sum
 }
 
-func Sum64(ns []int64) int64 {
-	var sum int64
-	for _, n := range ns {
-		sum += n
-	}
-	return sum
-}
-
-func Product64(ns []int64) int64 {
-	prod := int64(1)
+func Product[T Number](ns []T) T {
+	var prod T = 1
 	for _, n := range ns {
 		prod *= n
 	}
 	return prod
 }
 
-func Last(c chan int64) int64 {
-	var n int64
+func Last[T any](c chan T) T {
+	var n T
 	for n = range c {
 	}
 	return n
 }
 
-func PermutationsString(ns []string) chan []string {
-	c := make(chan []string)
+func Permutations[T any](ns []T) chan []T {
+	c := make(chan []T)
 	var f func(i int)
 	f = func(i int) {
 		if i > len(ns) {
-			nns := make([]string, len(ns))
+			nns := make([]T, len(ns))
 			copy(nns, ns)
 			c <- nns
 			return
@@ -117,53 +106,10 @@ func PermutationsString(ns []string) chan []string {
 	return c
 }
 
-func Permutations(ns []int) chan []int {
-	c := make(chan []int)
-	var f func(i int)
-	f = func(i int) {
-		if i > len(ns) {
-			nns := make([]int, len(ns))
-			copy(nns, ns)
-			c <- nns
-			return
-		}
-		f(i + 1)
-		for j := i + 1; j < len(ns); j++ {
-			ns[i], ns[j] = ns[j], ns[i]
-			f(i + 1)
-			ns[i], ns[j] = ns[j], ns[i]
-		}
-	}
-	go func() {
-		defer close(c)
-		f(0)
-	}()
-	return c
-}
-
-func Permutations64(xs []int64, callback func([]int64)) {
-	ns := make([]int64, len(xs))
-	copy(ns, xs)
-	var f func(i int)
-	f = func(i int) {
-		if i > len(ns) {
-			callback(ns)
-		} else {
-			f(i + 1)
-			for j := i + 1; j < len(ns); j++ {
-				ns[i], ns[j] = ns[j], ns[i]
-				f(i + 1)
-				ns[i], ns[j] = ns[j], ns[i]
-			}
-		}
-	}
-	f(0)
-}
-
-func Combinations(xs []int, n int, callback func([]int)) {
-	arr := make([]int, n)
-	var f func([]int, int)
-	f = func(xs []int, n int) {
+func Combinations[T any](xs []T, n int, callback func([]T)) {
+	arr := make([]T, n)
+	var f func([]T, int)
+	f = func(xs []T, n int) {
 		if n == 0 {
 			callback(arr)
 		} else {
@@ -176,47 +122,17 @@ func Combinations(xs []int, n int, callback func([]int)) {
 	f(xs, n)
 }
 
-func Combinations64(xs []int64, n int, callback func([]int64)) {
-	arr := make([]int64, n)
-	var f func([]int64, int)
-	f = func(xs []int64, n int) {
-		if n == 0 {
-			callback(arr)
-		} else {
-			for i, x := range xs {
-				arr[n-1] = x
-				f(xs[i+1:], n-1)
-			}
-		}
-	}
-	f(xs, n)
-}
+type Sortable[T rune | int64] []T
 
-type SortRunes []rune
-
-func (s SortRunes) Less(i, j int) bool {
+func (s Sortable[T]) Less(i, j int) bool {
 	return s[i] < s[j]
 }
 
-func (s SortRunes) Swap(i, j int) {
+func (s Sortable[T]) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-func (s SortRunes) Len() int {
-	return len(s)
-}
-
-type SortInt64s []int64
-
-func (s SortInt64s) Less(i, j int) bool {
-	return s[i] < s[j]
-}
-
-func (s SortInt64s) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func (s SortInt64s) Len() int {
+func (s Sortable[T]) Len() int {
 	return len(s)
 }
 

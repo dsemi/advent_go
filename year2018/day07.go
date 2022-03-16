@@ -31,7 +31,7 @@ func (*Day07) run(input string, workers int) (string, int) {
 	for k := range m {
 		keys = append(keys, k)
 	}
-	sort.Sort(utils.SortRunes(keys))
+	sort.Sort(utils.Sortable[rune](keys))
 	var ans strings.Builder
 	var workQ []Item
 	var time int
