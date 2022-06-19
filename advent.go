@@ -9,6 +9,7 @@ import (
 	_ "advent/year2018"
 	_ "advent/year2019"
 	_ "advent/year2020"
+	_ "advent/year2021"
 	"fmt"
 	"log"
 	"os"
