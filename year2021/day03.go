@@ -1,13 +1,10 @@
-package year2021
+package main
 
 import (
-	"advent/problems"
 	"strings"
 )
 
-type Day03 struct{}
-
-func (d *Day03) parse(input string) [][]uint32 {
+func parse(input string) [][]uint32 {
 	var ns [][]uint32
 	for _, line := range strings.Split(input, "\n") {
 		var n []uint32
@@ -19,9 +16,9 @@ func (d *Day03) parse(input string) [][]uint32 {
 	return ns
 }
 
-func (d *Day03) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var gamma uint32
-	ns := d.parse(input)
+	ns := parse(input)
 	for i := 0; i < len(ns[0]); i++ {
 		var ones int
 		for _, n := range ns {
@@ -37,7 +34,7 @@ func (d *Day03) Part1(input string) interface{} {
 	return gamma * ((1<<len(ns[0]) - 1) ^ gamma)
 }
 
-func (d *Day03) mostMatched(ns [][]uint32, pred func(int, int) bool) uint32 {
+func mostMatched(ns [][]uint32, pred func(int, int) bool) uint32 {
 	for i := 0; i < len(ns[0]); i++ {
 		var ones, zeros [][]uint32
 		for _, n := range ns {
@@ -60,12 +57,8 @@ func (d *Day03) mostMatched(ns [][]uint32, pred func(int, int) bool) uint32 {
 	return x
 }
 
-func (d *Day03) Part2(input string) interface{} {
-	ns := d.parse(input)
-	return d.mostMatched(ns, func(a, b int) bool { return a >= b }) *
-		d.mostMatched(ns, func(a, b int) bool { return a < b && a != 0 || b == 0 })
-}
-
-func init() {
-	problems.Register(&Day03{})
+func Part2(input string) interface{} {
+	ns := parse(input)
+	return mostMatched(ns, func(a, b int) bool { return a >= b }) *
+		mostMatched(ns, func(a, b int) bool { return a < b && a != 0 || b == 0 })
 }

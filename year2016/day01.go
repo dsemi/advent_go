@@ -1,14 +1,11 @@
-package year2016
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day01 struct{}
-
-func (*Day01) path(input string) chan utils.Coord {
+func path(input string) chan utils.Coord {
 	c := make(chan utils.Coord)
 	go func() {
 		defer close(c)
@@ -31,24 +28,20 @@ func (*Day01) path(input string) chan utils.Coord {
 	return c
 }
 
-func (d *Day01) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var p utils.Coord
-	for p = range d.path(input) {
+	for p = range path(input) {
 	}
 	return utils.Abs(p.X) + utils.Abs(p.Y)
 }
 
-func (d *Day01) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	m := make(map[utils.Coord]bool)
-	for p := range d.path(input) {
+	for p := range path(input) {
 		if m[p] {
 			return utils.Abs(p.X) + utils.Abs(p.Y)
 		}
 		m[p] = true
 	}
 	return nil
-}
-
-func init() {
-	problems.Register(&Day01{})
 }

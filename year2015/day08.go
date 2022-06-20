@@ -1,13 +1,10 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
 	"strings"
 )
 
-type Day08 struct{}
-
-func (*Day08) encodedLen(s string) int {
+func encodedLen(s string) int {
 	var length int
 	for i := 0; i < len(s); i++ {
 		switch s[i] {
@@ -25,15 +22,15 @@ func (*Day08) encodedLen(s string) int {
 	return length
 }
 
-func (d *Day08) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var diff int
 	for _, line := range strings.Split(input, "\n") {
-		diff += len(line) - d.encodedLen(line)
+		diff += len(line) - encodedLen(line)
 	}
 	return diff
 }
 
-func (*Day08) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	var diff int
 	for _, line := range strings.Split(input, "\n") {
 		diff += 2
@@ -44,8 +41,4 @@ func (*Day08) Part2(input string) interface{} {
 		}
 	}
 	return diff
-}
-
-func init() {
-	problems.Register(&Day08{})
 }

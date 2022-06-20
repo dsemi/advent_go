@@ -1,21 +1,14 @@
 package main
 
 import (
-	"advent/problems"
-	"advent/utils"
-	_ "advent/year2015"
-	_ "advent/year2016"
-	_ "advent/year2017"
-	_ "advent/year2018"
-	_ "advent/year2019"
-	_ "advent/year2020"
-	_ "advent/year2021"
 	"fmt"
 	"log"
 	"os"
+	"problems"
 	"strconv"
 	"strings"
 	"time"
+	"utils"
 )
 
 func colorizeTime(t float64) string {
@@ -31,24 +24,19 @@ func colorizeTime(t float64) string {
 }
 
 func runProblem(year, day int) float64 {
-	prob := func() problems.Day {
-		if y := problems.Probs[year]; y != nil {
-			return y[day]
-		}
-		return nil
-	}()
-	if prob == nil {
+	p1, p2 := problems.GetProb(year, day)
+	if p1 == nil || p2 == nil {
 		fmt.Println(year, "Day", day, "not implemented")
 		return 0
 	}
 	input := problems.GetInput(year, day, true)
 	fmt.Println("Day", day)
 	start := time.Now()
-	ans := prob.Part1(input)
+	ans := p1(input)
 	t1 := time.Since(start).Seconds()
 	fmt.Printf("Part 1: %32v  Elapsed time %v seconds\n", ans, colorizeTime(t1))
 	start = time.Now()
-	ans = prob.Part2(input)
+	ans = p2(input)
 	t2 := time.Since(start).Seconds()
 	fmt.Printf("Part 2: %32v  Elapsed time %v seconds\n", ans, colorizeTime(t2))
 	fmt.Println()

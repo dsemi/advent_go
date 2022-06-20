@@ -1,15 +1,12 @@
-package year2017
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"math"
 	"strings"
+	"utils"
 )
 
-type Day02 struct{}
-
-func (*Day02) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		min := math.MaxInt
@@ -28,7 +25,7 @@ func (*Day02) Part1(input string) interface{} {
 	return sum
 }
 
-func (*Day02) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	var sum int
 OUTER:
 	for _, line := range strings.Split(input, "\n") {
@@ -46,8 +43,4 @@ OUTER:
 		}
 	}
 	return sum
-}
-
-func init() {
-	problems.Register(&Day02{})
 }

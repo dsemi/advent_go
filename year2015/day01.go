@@ -1,10 +1,6 @@
-package year2015
+package main
 
-import "advent/problems"
-
-type Day01 struct{}
-
-func (*Day01) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	floor := 0
 	for _, c := range input {
 		if c == '(' {
@@ -16,7 +12,7 @@ func (*Day01) Part1(input string) interface{} {
 	return floor
 }
 
-func (*Day01) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	floor := 0
 	for i, c := range input {
 		if c == '(' {
@@ -29,8 +25,4 @@ func (*Day01) Part2(input string) interface{} {
 		}
 	}
 	return -1
-}
-
-func init() {
-	problems.Register(&Day01{})
 }

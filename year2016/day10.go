@@ -1,14 +1,11 @@
-package year2016
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"regexp"
 	"strings"
 	"sync"
+	"utils"
 )
-
-type Day10 struct{}
 
 type Bot struct {
 	a, b int
@@ -26,7 +23,7 @@ func (f *Factory) GetBot(name string) *Bot {
 	return f.bots[name]
 }
 
-func (*Day10) buildFactory(input string) Factory {
+func buildFactory(input string) Factory {
 	botRe := regexp.MustCompile("(bot \\d+) gives low to (\\w+ \\d+) and high to (\\w+ \\d+)")
 	valRe := regexp.MustCompile("value (\\d+) goes to (bot \\d+)")
 	factory := Factory{bots: make(map[string]*Bot)}
@@ -51,8 +48,8 @@ func (*Day10) buildFactory(input string) Factory {
 	return factory
 }
 
-func (d *Day10) Part1(input string) interface{} {
-	f := d.buildFactory(input)
+func Part1(input string) interface{} {
+	f := buildFactory(input)
 	for k, v := range f.bots {
 		if v.a == 17 && v.b == 61 || v.a == 61 && v.b == 17 {
 			return k[4:]
@@ -61,11 +58,7 @@ func (d *Day10) Part1(input string) interface{} {
 	return nil
 }
 
-func (d *Day10) Part2(input string) interface{} {
-	f := d.buildFactory(input)
+func Part2(input string) interface{} {
+	f := buildFactory(input)
 	return <-f.GetBot("output 0").c * <-f.GetBot("output 1").c * <-f.GetBot("output 2").c
-}
-
-func init() {
-	problems.Register(&Day10{})
 }

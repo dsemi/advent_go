@@ -1,21 +1,18 @@
-package year2018
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"fmt"
 	"sort"
 	"strings"
+	"utils"
 )
-
-type Day07 struct{}
 
 type Item struct {
 	t int
 	k rune
 }
 
-func (*Day07) run(input string, workers int) (string, int) {
+func run(input string, workers int) (string, int) {
 	m := make(map[rune]int)
 	cs := make(map[rune][]func())
 	for _, line := range strings.Split(input, "\n") {
@@ -63,16 +60,12 @@ func (*Day07) run(input string, workers int) (string, int) {
 	return ans.String(), time
 }
 
-func (d *Day07) Part1(input string) interface{} {
-	ans, _ := d.run(input, 1)
+func Part1(input string) interface{} {
+	ans, _ := run(input, 1)
 	return ans
 }
 
-func (d *Day07) Part2(input string) interface{} {
-	_, ans := d.run(input, 5)
+func Part2(input string) interface{} {
+	_, ans := run(input, 5)
 	return ans
-}
-
-func init() {
-	problems.Register(&Day07{})
 }

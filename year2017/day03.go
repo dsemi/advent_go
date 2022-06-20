@@ -1,17 +1,14 @@
-package year2017
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
+	"utils"
 )
-
-type Day03 struct{}
 
 func midpt(x, y int) int {
 	return (x + y) / 2
 }
 
-func (*Day03) corners() chan int {
+func corners() chan int {
 	c := make(chan int)
 	go func() {
 		v := 1
@@ -26,10 +23,10 @@ func (*Day03) corners() chan int {
 	return c
 }
 
-func (d *Day03) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	n := utils.Int(input)
 	var ns []int
-	for x := range d.corners() {
+	for x := range corners() {
 		ns = append(ns, x)
 		if x >= n {
 			break
@@ -41,7 +38,7 @@ func (d *Day03) Part1(input string) interface{} {
 	return b - midpt(b, c) + utils.Abs(n-midpt(a, b))
 }
 
-func (*Day03) spiralPath() chan int {
+func spiralPath() chan int {
 	dirs := []utils.Coord{
 		utils.Coord{1, 0},
 		utils.Coord{0, 1},
@@ -76,16 +73,12 @@ func (*Day03) spiralPath() chan int {
 	return c
 }
 
-func (d *Day03) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	n := utils.Int(input)
-	for x := range d.spiralPath() {
+	for x := range spiralPath() {
 		if x > n {
 			return x
 		}
 	}
 	panic("No solution")
-}
-
-func init() {
-	problems.Register(&Day03{})
 }

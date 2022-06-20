@@ -1,10 +1,6 @@
-package year2015
+package main
 
-import "advent/problems"
-
-type Day11 struct{}
-
-func (*Day11) increment(b []rune) {
+func increment(b []rune) {
 	for i := len(b) - 1; i >= 0; i-- {
 		if b[i] == 'z' {
 			b[i] = 'a'
@@ -21,7 +17,7 @@ func (*Day11) increment(b []rune) {
 	}
 }
 
-func (*Day11) isValid(b []rune) bool {
+func isValid(b []rune) bool {
 	for i := 0; i < len(b)-2; i++ {
 		if b[i]+2 == b[i+1]+1 && b[i+1]+1 == b[i+2] {
 			goto NEXT
@@ -39,23 +35,19 @@ NEXT:
 	return cnt >= 2
 }
 
-func (d *Day11) nextValidPw(s string) string {
+func nextValidPw(s string) string {
 	b := []rune(s)
-	d.increment(b)
-	for !d.isValid(b) {
-		d.increment(b)
+	increment(b)
+	for !isValid(b) {
+		increment(b)
 	}
 	return string(b)
 }
 
-func (d *Day11) Part1(input string) interface{} {
-	return d.nextValidPw(input)
+func Part1(input string) interface{} {
+	return nextValidPw(input)
 }
 
-func (d *Day11) Part2(input string) interface{} {
-	return d.nextValidPw(d.nextValidPw(input))
-}
-
-func init() {
-	problems.Register(&Day11{})
+func Part2(input string) interface{} {
+	return nextValidPw(nextValidPw(input))
 }

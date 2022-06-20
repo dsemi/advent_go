@@ -1,15 +1,12 @@
-package year2017
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"sort"
 	"strings"
+	"utils"
 )
 
-type Day04 struct{}
-
-func (*Day04) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		ps := strings.Fields(line)
@@ -24,18 +21,18 @@ func (*Day04) Part1(input string) interface{} {
 	return sum
 }
 
-func (*Day04) SortString(s string) string {
+func SortString(s string) string {
 	r := []rune(s)
 	sort.Sort(utils.Sortable[rune](r))
 	return string(r)
 }
 
-func (d *Day04) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	var sum int
 	for _, line := range strings.Split(input, "\n") {
 		ps := strings.Fields(line)
 		for i, p := range ps {
-			ps[i] = d.SortString(p)
+			ps[i] = SortString(p)
 		}
 		m := make(map[string]bool)
 		for _, p := range ps {
@@ -46,8 +43,4 @@ func (d *Day04) Part2(input string) interface{} {
 		}
 	}
 	return sum
-}
-
-func init() {
-	problems.Register(&Day04{})
 }

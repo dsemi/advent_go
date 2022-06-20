@@ -1,12 +1,9 @@
-package year2016
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
-
-type Day04 struct{}
 
 type Room struct {
 	name     string
@@ -19,7 +16,7 @@ func (r Room) isReal() bool {
 	return r.checksum == string(c.Runes()[:5])
 }
 
-func (*Day04) parseRooms(input string) chan Room {
+func parseRooms(input string) chan Room {
 	c := make(chan Room)
 	go func() {
 		defer close(c)
@@ -37,9 +34,9 @@ func (*Day04) parseRooms(input string) chan Room {
 	return c
 }
 
-func (d *Day04) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var sum int
-	for r := range d.parseRooms(input) {
+	for r := range parseRooms(input) {
 		if r.isReal() {
 			sum += r.sectorId
 		}
@@ -47,7 +44,7 @@ func (d *Day04) Part1(input string) interface{} {
 	return sum
 }
 
-func (*Day04) rotate(n int, s string) string {
+func rotate(n int, s string) string {
 	b := []rune(s)
 	for i := range b {
 		if b[i] == ' ' {
@@ -59,15 +56,11 @@ func (*Day04) rotate(n int, s string) string {
 	return string(b)
 }
 
-func (d *Day04) Part2(input string) interface{} {
-	for r := range d.parseRooms(input) {
-		if strings.Contains(r.name, d.rotate(r.sectorId, "northpole")) {
+func Part2(input string) interface{} {
+	for r := range parseRooms(input) {
+		if strings.Contains(r.name, rotate(r.sectorId, "northpole")) {
 			return r.sectorId
 		}
 	}
 	return -1
-}
-
-func init() {
-	problems.Register(&Day04{})
 }

@@ -1,14 +1,11 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"fmt"
 	"log"
 	"strings"
+	"utils"
 )
-
-type Day14 struct{}
 
 type Reindeer struct {
 	speed, flyTime, restTime int
@@ -33,7 +30,7 @@ func (r *Reindeer) tick() {
 	}
 }
 
-func (*Day14) parseReindeer(input string) []*Reindeer {
+func parseReindeer(input string) []*Reindeer {
 	var reindeer []*Reindeer
 	for _, line := range strings.Split(input, "\n") {
 		var name string
@@ -53,8 +50,8 @@ func (*Day14) parseReindeer(input string) []*Reindeer {
 	return reindeer
 }
 
-func (d *Day14) Part1(input string) interface{} {
-	rs := d.parseReindeer(input)
+func Part1(input string) interface{} {
+	rs := parseReindeer(input)
 	for i := 0; i < 2503; i++ {
 		for _, r := range rs {
 			r.tick()
@@ -67,8 +64,8 @@ func (d *Day14) Part1(input string) interface{} {
 	return max
 }
 
-func (d *Day14) Part2(input string) interface{} {
-	rs := d.parseReindeer(input)
+func Part2(input string) interface{} {
+	rs := parseReindeer(input)
 	for i := 0; i < 2503; i++ {
 		var max int
 		for _, r := range rs {
@@ -86,8 +83,4 @@ func (d *Day14) Part2(input string) interface{} {
 		max = utils.Max(max, r.score)
 	}
 	return max
-}
-
-func init() {
-	problems.Register(&Day14{})
 }

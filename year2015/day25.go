@@ -1,15 +1,12 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"math/big"
 	"regexp"
+	"utils"
 )
 
-type Day25 struct{}
-
-func (*Day25) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	reg := regexp.MustCompile("\\d+")
 	v := reg.FindAllString(input, -1)
 	r, c := utils.Int(v[0]), utils.Int(v[1])
@@ -20,10 +17,6 @@ func (*Day25) Part1(input string) interface{} {
 	return x.Exp(x, index, m).Mul(x, big.NewInt(20151125)).Mod(x, m)
 }
 
-func (*Day25) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	return ""
-}
-
-func init() {
-	problems.Register(&Day25{})
 }

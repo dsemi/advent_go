@@ -1,15 +1,12 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"regexp"
 	"strings"
+	"utils"
 )
 
-type Day15 struct{}
-
-func (*Day15) parseIngredients(input string) [][]int {
+func parseIngredients(input string) [][]int {
 	reg := regexp.MustCompile("-?\\d+")
 	var ings [][]int
 	for _, line := range strings.Split(input, "\n") {
@@ -22,7 +19,7 @@ func (*Day15) parseIngredients(input string) [][]int {
 	return ings
 }
 
-func (*Day15) maxScore(total int, calPred func(int) bool, ings [][]int) int {
+func maxScore(total int, calPred func(int) bool, ings [][]int) int {
 	var max int
 	utils.Partitions(len(ings), total, func(ms []int) {
 		v := make([]int, 5)
@@ -42,14 +39,10 @@ func (*Day15) maxScore(total int, calPred func(int) bool, ings [][]int) int {
 	return max
 }
 
-func (d *Day15) Part1(input string) interface{} {
-	return d.maxScore(100, func(x int) bool { return true }, d.parseIngredients(input))
+func Part1(input string) interface{} {
+	return maxScore(100, func(x int) bool { return true }, parseIngredients(input))
 }
 
-func (d *Day15) Part2(input string) interface{} {
-	return d.maxScore(100, func(x int) bool { return x == 500 }, d.parseIngredients(input))
-}
-
-func init() {
-	problems.Register(&Day15{})
+func Part2(input string) interface{} {
+	return maxScore(100, func(x int) bool { return x == 500 }, parseIngredients(input))
 }

@@ -1,12 +1,9 @@
-package year2021
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
-
-type Day04 struct{}
 
 type board struct {
 	grid [][]int
@@ -29,7 +26,7 @@ outer:
 	return false
 }
 
-func (d *Day04) winnerScores(input string) chan int {
+func winnerScores(input string) chan int {
 	c := make(chan int)
 	go func() {
 		v := strings.Split(input, "\n\n")
@@ -79,14 +76,10 @@ func (d *Day04) winnerScores(input string) chan int {
 	return c
 }
 
-func (d *Day04) Part1(input string) interface{} {
-	return <-d.winnerScores(input)
+func Part1(input string) interface{} {
+	return <-winnerScores(input)
 }
 
-func (d *Day04) Part2(input string) interface{} {
-	return utils.Last(d.winnerScores(input))
-}
-
-func init() {
-	problems.Register(&Day04{})
+func Part2(input string) interface{} {
+	return utils.Last(winnerScores(input))
 }

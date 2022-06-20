@@ -1,14 +1,11 @@
-package year2017
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day05 struct{}
-
-func (*Day05) calcSteps(input string, f func(int) int) int {
+func calcSteps(input string, f func(int) int) int {
 	var ns []int
 	for _, line := range strings.Split(input, "\n") {
 		ns = append(ns, utils.Int(line))
@@ -23,20 +20,16 @@ func (*Day05) calcSteps(input string, f func(int) int) int {
 	return res
 }
 
-func (d *Day05) Part1(input string) interface{} {
-	return d.calcSteps(input, func(x int) int { return x + 1 })
+func Part1(input string) interface{} {
+	return calcSteps(input, func(x int) int { return x + 1 })
 }
 
-func (d *Day05) Part2(input string) interface{} {
-	return d.calcSteps(input, func(x int) int {
+func Part2(input string) interface{} {
+	return calcSteps(input, func(x int) int {
 		if x >= 3 {
 			return x - 1
 		} else {
 			return x + 1
 		}
 	})
-}
-
-func init() {
-	problems.Register(&Day05{})
 }

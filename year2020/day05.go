@@ -1,15 +1,12 @@
-package year2020
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"sort"
 	"strings"
+	"utils"
 )
 
-type Day05 struct{}
-
-func (*Day05) seatIds(s string) []int {
+func seatIds(s string) []int {
 	var ids []int
 	for _, line := range strings.Split(s, "\n") {
 		var n int
@@ -24,16 +21,16 @@ func (*Day05) seatIds(s string) []int {
 	return ids
 }
 
-func (d *Day05) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	var max int
-	for _, id := range d.seatIds(input) {
+	for _, id := range seatIds(input) {
 		max = utils.Max(max, id)
 	}
 	return max
 }
 
-func (d *Day05) Part2(input string) interface{} {
-	ids := d.seatIds(input)
+func Part2(input string) interface{} {
+	ids := seatIds(input)
 	sort.Ints(ids)
 	for i := range ids {
 		if ids[i]+2 == ids[i+1] {
@@ -41,8 +38,4 @@ func (d *Day05) Part2(input string) interface{} {
 		}
 	}
 	return nil
-}
-
-func init() {
-	problems.Register(&Day05{})
 }

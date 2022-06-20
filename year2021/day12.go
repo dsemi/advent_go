@@ -1,11 +1,8 @@
-package year2021
+package main
 
 import (
-	"advent/problems"
 	"strings"
 )
-
-type Day12 struct{}
 
 type cave struct {
 	lowercase bool
@@ -24,7 +21,7 @@ func makeCave(name string) *cave {
 	}
 }
 
-func (d *Day12) parse(input string) *cave {
+func parse(input string) *cave {
 	caves := make(map[string]*cave)
 	for _, line := range strings.Split(input, "\n") {
 		v := strings.Split(line, "-")
@@ -44,7 +41,7 @@ func (d *Day12) parse(input string) *cave {
 	return caves["start"]
 }
 
-func (d *Day12) dfs(c *cave, canRevisit bool) int {
+func dfs(c *cave, canRevisit bool) int {
 	if c.end {
 		return 1
 	} else if c.lowercase && c.visited > 0 {
@@ -56,20 +53,16 @@ func (d *Day12) dfs(c *cave, canRevisit bool) int {
 	c.visited++
 	var sum int
 	for _, neighb := range c.neighbors {
-		sum += d.dfs(neighb, canRevisit)
+		sum += dfs(neighb, canRevisit)
 	}
 	c.visited--
 	return sum
 }
 
-func (d *Day12) Part1(input string) interface{} {
-	return d.dfs(d.parse(input), false)
+func Part1(input string) interface{} {
+	return dfs(parse(input), false)
 }
 
-func (d *Day12) Part2(input string) interface{} {
-	return d.dfs(d.parse(input), true)
-}
-
-func init() {
-	problems.Register(&Day12{})
+func Part2(input string) interface{} {
+	return dfs(parse(input), true)
 }

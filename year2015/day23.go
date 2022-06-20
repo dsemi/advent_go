@@ -1,14 +1,11 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day23 struct{}
-
-func (*Day23) run(r map[string]int, input string) int {
+func run(r map[string]int, input string) int {
 	var instrs [][]string
 	for _, line := range strings.Split(strings.ReplaceAll(input, ",", ""), "\n") {
 		instrs = append(instrs, strings.Fields(line))
@@ -32,14 +29,10 @@ func (*Day23) run(r map[string]int, input string) int {
 	return r["b"]
 }
 
-func (d *Day23) Part1(input string) interface{} {
-	return d.run(map[string]int{"a": 0, "b": 0}, input)
+func Part1(input string) interface{} {
+	return run(map[string]int{"a": 0, "b": 0}, input)
 }
 
-func (d *Day23) Part2(input string) interface{} {
-	return d.run(map[string]int{"a": 1, "b": 0}, input)
-}
-
-func init() {
-	problems.Register(&Day23{})
+func Part2(input string) interface{} {
+	return run(map[string]int{"a": 1, "b": 0}, input)
 }

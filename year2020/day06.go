@@ -1,14 +1,11 @@
-package year2020
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day06 struct{}
-
-func (*Day06) sumCounts(input string, f func(int, int) int) int {
+func sumCounts(input string, f func(int, int) int) int {
 	var total int
 	toInt := func(s string) int {
 		var n int
@@ -28,18 +25,14 @@ func (*Day06) sumCounts(input string, f func(int, int) int) int {
 	return total
 }
 
-func (d *Day06) Part1(input string) interface{} {
-	return d.sumCounts(input, func(a, b int) int {
+func Part1(input string) interface{} {
+	return sumCounts(input, func(a, b int) int {
 		return a | b
 	})
 }
 
-func (d *Day06) Part2(input string) interface{} {
-	return d.sumCounts(input, func(a, b int) int {
+func Part2(input string) interface{} {
+	return sumCounts(input, func(a, b int) int {
 		return a & b
 	})
-}
-
-func init() {
-	problems.Register(&Day06{})
 }

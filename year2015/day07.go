@@ -1,16 +1,13 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
 	"fmt"
 	"strconv"
 	"strings"
 	"sync"
 )
 
-type Day07 struct{}
-
-func (*Day07) lazy(f func() uint16) func() uint16 {
+func lazy(f func() uint16) func() uint16 {
 	var ans uint16
 	var once sync.Once
 	return func() uint16 {
@@ -22,7 +19,7 @@ func (*Day07) lazy(f func() uint16) func() uint16 {
 	}
 }
 
-func (d *Day07) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	m := make(map[string]func() uint16)
 	val := func(x string) uint16 {
 		if i, err := strconv.Atoi(x); err == nil {
@@ -33,27 +30,27 @@ func (d *Day07) Part1(input string) interface{} {
 	for _, line := range strings.Split(input, "\n") {
 		pts := strings.Fields(line)
 		if len(pts) == 3 {
-			m[pts[2]] = d.lazy(func() uint16 {
+			m[pts[2]] = lazy(func() uint16 {
 				return val(pts[0])
 			})
 		} else if len(pts) == 4 {
-			m[pts[3]] = d.lazy(func() uint16 {
+			m[pts[3]] = lazy(func() uint16 {
 				return ^val(pts[1])
 			})
 		} else if pts[1] == "AND" {
-			m[pts[4]] = d.lazy(func() uint16 {
+			m[pts[4]] = lazy(func() uint16 {
 				return val(pts[0]) & val(pts[2])
 			})
 		} else if pts[1] == "OR" {
-			m[pts[4]] = d.lazy(func() uint16 {
+			m[pts[4]] = lazy(func() uint16 {
 				return val(pts[0]) | val(pts[2])
 			})
 		} else if pts[1] == "LSHIFT" {
-			m[pts[4]] = d.lazy(func() uint16 {
+			m[pts[4]] = lazy(func() uint16 {
 				return val(pts[0]) << val(pts[2])
 			})
 		} else if pts[1] == "RSHIFT" {
-			m[pts[4]] = d.lazy(func() uint16 {
+			m[pts[4]] = lazy(func() uint16 {
 				return val(pts[0]) >> val(pts[2])
 			})
 		}
@@ -61,10 +58,6 @@ func (d *Day07) Part1(input string) interface{} {
 	return val("a")
 }
 
-func (d *Day07) Part2(input string) interface{} {
-	return d.Part1(input + fmt.Sprintf("\n%d -> b", d.Part1(input)))
-}
-
-func init() {
-	problems.Register(&Day07{})
+func Part2(input string) interface{} {
+	return Part1(input + fmt.Sprintf("\n%d -> b", Part1(input)))
 }

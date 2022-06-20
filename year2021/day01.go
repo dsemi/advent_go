@@ -1,14 +1,11 @@
-package year2021
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day01 struct{}
-
-func (d *Day01) solve(input string, offset int) int {
+func solve(input string, offset int) int {
 	ns := make([]int, 0)
 	for _, line := range strings.Split(input, "\n") {
 		ns = append(ns, utils.Int(line))
@@ -22,14 +19,10 @@ func (d *Day01) solve(input string, offset int) int {
 	return count
 }
 
-func (d *Day01) Part1(input string) interface{} {
-	return d.solve(input, 1)
+func Part1(input string) interface{} {
+	return solve(input, 1)
 }
 
-func (d *Day01) Part2(input string) interface{} {
-	return d.solve(input, 3)
-}
-
-func init() {
-	problems.Register(&Day01{})
+func Part2(input string) interface{} {
+	return solve(input, 3)
 }

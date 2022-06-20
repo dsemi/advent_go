@@ -1,14 +1,11 @@
-package year2019
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
-	"advent/year2019/intcode"
+	"utils"
+	"year2019/intcode"
 )
 
-type Day07 struct{}
-
-func (*Day07) chain(p intcode.Program, phases []int64, cycle bool) chan int64 {
+func chain(p intcode.Program, phases []int64, cycle bool) chan int64 {
 	c := make(chan int64)
 	var progs []intcode.Program
 	var prev chan int64
@@ -37,11 +34,11 @@ func (*Day07) chain(p intcode.Program, phases []int64, cycle bool) chan int64 {
 	return c
 }
 
-func (d *Day07) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	p := intcode.New(input)
 	var v int64
 	for perm := range utils.Permutations([]int64{0, 1, 2, 3, 4}) {
-		xc := d.chain(p, perm, false)
+		xc := chain(p, perm, false)
 		if x := <-xc; x > v {
 			v = x
 		}
@@ -49,18 +46,14 @@ func (d *Day07) Part1(input string) interface{} {
 	return v
 }
 
-func (d *Day07) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	p := intcode.New(input)
 	var v int64
 	for perm := range utils.Permutations([]int64{5, 6, 7, 8, 9}) {
-		xc := d.chain(p, perm, true)
+		xc := chain(p, perm, true)
 		if x := utils.Last(xc); x > v {
 			v = x
 		}
 	}
 	return v
-}
-
-func init() {
-	problems.Register(&Day07{})
 }

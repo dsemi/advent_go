@@ -1,12 +1,9 @@
-package year2019
+package main
 
 import (
-	"advent/problems"
-	"advent/year2019/intcode"
 	"regexp"
+	"year2019/intcode"
 )
-
-type Day25 struct{}
 
 const instrs = `north
 east
@@ -26,7 +23,7 @@ west
 south
 `
 
-func (*Day25) Part1(input string) interface{} {
+func Part1(input string) interface{} {
 	prog := intcode.New(input)
 	go prog.Run()
 	go func() {
@@ -45,10 +42,6 @@ func (*Day25) Part1(input string) interface{} {
 	return res
 }
 
-func (*Day25) Part2(input string) interface{} {
+func Part2(input string) interface{} {
 	return ""
-}
-
-func init() {
-	problems.Register(&Day25{})
 }

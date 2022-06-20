@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"reflect"
+	"plugin"
 	"runtime"
 	"strings"
 	"time"
@@ -22,7 +22,7 @@ var last = new(time.Time)
 
 var (
 	_, b, _, _ = runtime.Caller(0)
-	Basepath   = filepath.Join(filepath.Dir(b), "..")
+	Basepath   = filepath.Dir(b)
 )
 
 func GetInput(year, day int, download bool) string {
@@ -64,19 +64,15 @@ func GetInput(year, day int, download bool) string {
 	return strings.TrimRightFunc(string(buf), unicode.IsSpace)
 }
 
-type Day interface {
-	Part1(string) interface{}
-	Part2(string) interface{}
-}
+type Part = func(string) interface{}
 
-var Probs = make(map[int]map[int]Day)
-
-func Register(day Day) {
-	s := reflect.TypeOf(day).String()
-	var y, d int
-	fmt.Sscanf(s, "*year%d.Day%d", &y, &d)
-	if _, ok := Probs[y]; !ok {
-		Probs[y] = make(map[int]Day)
+func GetProb(year, day int) (Part, Part) {
+	p, err := plugin.Open(filepath.Join(Basepath,
+		fmt.Sprintf("year%d/year%d_day%02d.go.so", year, year, day)))
+	if err != nil {
+		return nil, nil
 	}
-	Probs[y][d] = day
+	p1, _ := p.Lookup("Part1")
+	p2, _ := p.Lookup("Part2")
+	return p1.(Part), p2.(Part)
 }

@@ -1,13 +1,10 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"regexp"
 	"strings"
+	"utils"
 )
-
-type Day16 struct{}
 
 var sue = map[string]int{
 	"children":    3,
@@ -22,7 +19,7 @@ var sue = map[string]int{
 	"perfumes":    1,
 }
 
-func (*Day16) findSue(input string, f func(string, int) bool) int {
+func findSue(input string, f func(string, int) bool) int {
 	reg := regexp.MustCompile("(\\w+): (\\d+)")
 OUTER:
 	for i, line := range strings.Split(input, "\n") {
@@ -36,14 +33,14 @@ OUTER:
 	return -1
 }
 
-func (d *Day16) Part1(input string) interface{} {
-	return d.findSue(input, func(k string, v int) bool {
+func Part1(input string) interface{} {
+	return findSue(input, func(k string, v int) bool {
 		return sue[k] == v
 	})
 }
 
-func (d *Day16) Part2(input string) interface{} {
-	return d.findSue(input, func(k string, v int) bool {
+func Part2(input string) interface{} {
+	return findSue(input, func(k string, v int) bool {
 		if k == "cats" {
 			return v > 7
 		} else if k == "pomeranians" {
@@ -55,8 +52,4 @@ func (d *Day16) Part2(input string) interface{} {
 		}
 		return sue[k] == v
 	})
-}
-
-func init() {
-	problems.Register(&Day16{})
 }

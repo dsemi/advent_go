@@ -1,20 +1,17 @@
-package year2021
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"fmt"
 	"strings"
+	"utils"
 )
-
-type Day05 struct{}
 
 type pair struct {
 	a utils.Coord
 	b utils.Coord
 }
 
-func (d *Day05) solve(input string, p2 bool) int {
+func solve(input string, p2 bool) int {
 	var lines []pair
 	maxX, maxY := 0, 0
 	for _, line := range strings.Split(input, "\n") {
@@ -51,14 +48,10 @@ func (d *Day05) solve(input string, p2 bool) int {
 	return cnt
 }
 
-func (d *Day05) Part1(input string) interface{} {
-	return d.solve(input, false)
+func Part1(input string) interface{} {
+	return solve(input, false)
 }
 
-func (d *Day05) Part2(input string) interface{} {
-	return d.solve(input, true)
-}
-
-func init() {
-	problems.Register(&Day05{})
+func Part2(input string) interface{} {
+	return solve(input, true)
 }

@@ -1,14 +1,11 @@
-package year2021
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day02 struct{}
-
-func (d *Day02) run(input string) (int, int, int) {
+func run(input string) (int, int, int) {
 	horz, depth, aim := 0, 0, 0
 	for _, line := range strings.Split(input, "\n") {
 		v := strings.Fields(line)
@@ -26,16 +23,12 @@ func (d *Day02) run(input string) (int, int, int) {
 	return horz, depth, aim
 }
 
-func (d *Day02) Part1(input string) interface{} {
-	horz, _, depth := d.run(input)
+func Part1(input string) interface{} {
+	horz, _, depth := run(input)
 	return horz * depth
 }
 
-func (d *Day02) Part2(input string) interface{} {
-	horz, depth, _ := d.run(input)
+func Part2(input string) interface{} {
+	horz, depth, _ := run(input)
 	return horz * depth
-}
-
-func init() {
-	problems.Register(&Day02{})
 }

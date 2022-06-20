@@ -1,14 +1,11 @@
-package year2015
+package main
 
 import (
-	"advent/problems"
-	"advent/utils"
 	"strings"
+	"utils"
 )
 
-type Day24 struct{}
-
-func (*Day24) quantumEntanglement(n int64, s string) int64 {
+func quantumEntanglement(n int64, s string) int64 {
 	var wts []int64
 	for _, line := range strings.Split(s, "\n") {
 		wts = append(wts, utils.Int64(line))
@@ -34,14 +31,10 @@ func (*Day24) quantumEntanglement(n int64, s string) int64 {
 	}
 }
 
-func (d *Day24) Part1(input string) interface{} {
-	return d.quantumEntanglement(3, input)
+func Part1(input string) interface{} {
+	return quantumEntanglement(3, input)
 }
 
-func (d *Day24) Part2(input string) interface{} {
-	return d.quantumEntanglement(4, input)
-}
-
-func init() {
-	problems.Register(&Day24{})
+func Part2(input string) interface{} {
+	return quantumEntanglement(4, input)
 }
