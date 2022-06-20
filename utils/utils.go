@@ -19,7 +19,7 @@ func Int64(input string) int64 {
 }
 
 type Number interface {
-	int | int32 | int64 | float32 | float64
+	int | int32 | int64 | uint64 | float32 | float64
 }
 
 func Abs[T Number](n T) T {
