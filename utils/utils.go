@@ -43,6 +43,16 @@ func Max[T Number](a, b T) T {
 	return a
 }
 
+func Sgn[T Number](n T) int {
+	if n > 0 {
+		return 1
+	}
+	if n < 0 {
+		return -1
+	}
+	return 0
+}
+
 func Minimum[T Number](ns []T) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
@@ -178,6 +188,20 @@ func (a Coord) Add(b Coord) Coord {
 	return Coord{
 		X: a.X + b.X,
 		Y: a.Y + b.Y,
+	}
+}
+
+func (a Coord) Sub(b Coord) Coord {
+	return Coord{
+		X: a.X - b.X,
+		Y: a.Y - b.Y,
+	}
+}
+
+func (a Coord) Sgn() Coord {
+	return Coord{
+		X: Sgn(a.X),
+		Y: Sgn(a.Y),
 	}
 }
 
