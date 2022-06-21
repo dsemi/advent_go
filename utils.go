@@ -132,7 +132,7 @@ func Combinations[T any](xs []T, n int, callback func([]T)) {
 	f(xs, n)
 }
 
-type Sortable[T rune | int64] []T
+type Sortable[T rune | int | int64] []T
 
 func (s Sortable[T]) Less(i, j int) bool {
 	return s[i] < s[j]
@@ -218,6 +218,14 @@ func NewCounter(s string) *Counter {
 		c.Add(r)
 	}
 	return c
+}
+
+func (c *Counter) Get(k rune) int {
+	v, ok := c.cnts[k]
+	if !ok {
+		return 0
+	}
+	return v
 }
 
 func (c *Counter) Add(r rune) {
