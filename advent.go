@@ -1,9 +1,9 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
-	"os"
 	"problems"
 	"strconv"
 	"strings"
@@ -61,8 +61,9 @@ func parseDays(dayStr string) (int, int) {
 }
 
 func main() {
-	year, _ := strconv.Atoi(os.Args[1])
-	days := os.Args[2:]
+	flag.Parse()
+	year, _ := strconv.Atoi(flag.Arg(0))
+	days := flag.Args()[1:]
 	var total float64
 	for _, dayStr := range days {
 		start, end := parseDays(dayStr)

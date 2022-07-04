@@ -1,11 +1,12 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_source")
 
 go_library(
     name = "problems",
     srcs = ["problems.go"],
     importpath = "problems",
+    deps = ["@io_bazel_rules_go//go/tools/bazel"],
 )
 
 go_library(
@@ -14,30 +15,36 @@ go_library(
     importpath = "utils",
 )
 
-BINARY_DATA_DEPS = glob(["inputs/**/*.txt"]) + [
-    "//year2015",
-    "//year2016",
-    "//year2017",
-    "//year2018",
-    "//year2019",
-    "//year2020",
-    "//year2021",
+exports_files(["expectedAnswers.json"])
+
+exports_files(glob(["inputs/**/*.txt"]))
+
+YEARS = [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
 ]
 
 go_binary(
     name = "advent",
     srcs = ["advent.go"],
-    data = BINARY_DATA_DEPS,
+    data = glob(["inputs/**/*.txt"]) + ["//year%d:probs" % y for y in YEARS],
     deps = [
         ":problems",
         ":utils",
     ],
 )
 
-go_test(
-    name = "advent_test",
+go_source(
+    name = "test_src",
     srcs = ["advent_test.go"],
-    args = ["-test.v"],
-    data = BINARY_DATA_DEPS + ["expectedAnswers.json"],
-    deps = [":problems"],
+)
+
+test_suite(
+    name = "tests",
+    tests = ["//year%d:tests" % y for y in YEARS],
 )

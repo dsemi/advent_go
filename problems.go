@@ -8,25 +8,23 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"plugin"
-	"runtime"
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/bazelbuild/rules_go/go/tools/bazel"
 )
 
 const rateLimit = 5 * time.Second
 
 var last = new(time.Time)
 
-var (
-	_, b, _, _ = runtime.Caller(0)
-	Basepath   = filepath.Dir(b)
-)
-
 func GetInput(year, day int, download bool) string {
-	inputFile := filepath.Join(Basepath, fmt.Sprintf("inputs/%d/input%d.txt", year, day))
+	inputFile, err := bazel.Runfile(fmt.Sprintf("inputs/%d/input%d.txt", year, day))
+	if err != nil {
+		log.Fatalf("Error determining runfile path for input file: %v", err)
+	}
 	buf, err := ioutil.ReadFile(inputFile)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) && download {
@@ -67,8 +65,11 @@ func GetInput(year, day int, download bool) string {
 type Part = func(string) interface{}
 
 func GetProb(year, day int) (Part, Part) {
-	p, err := plugin.Open(filepath.Join(Basepath,
-		fmt.Sprintf("year%d/year%d_day%02d.go.so", year, year, day)))
+	filepath, err := bazel.Runfile(fmt.Sprintf("year%d/day%02d.so", year, day))
+	if err != nil {
+		log.Fatalf("Error determining runfile path for problem file: %v", err)
+	}
+	p, err := plugin.Open(filepath)
 	if err != nil {
 		return nil, nil
 	}
