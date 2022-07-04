@@ -1,16 +1,17 @@
 package(default_visibility = ["//visibility:public"])
+
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
     name = "problems",
-    importpath = "problems",
     srcs = ["problems.go"],
+    importpath = "problems",
 )
 
 go_library(
     name = "utils",
-    importpath = "utils",
     srcs = ["utils.go"],
+    importpath = "utils",
 )
 
 BINARY_DATA_DEPS = glob(["inputs/**/*.txt"]) + [
@@ -36,6 +37,7 @@ go_binary(
 go_test(
     name = "advent_test",
     srcs = ["advent_test.go"],
+    args = ["-test.v"],
     data = BINARY_DATA_DEPS + ["expectedAnswers.json"],
     deps = [":problems"],
 )

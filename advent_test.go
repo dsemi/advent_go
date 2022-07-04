@@ -19,7 +19,9 @@ func getExpectedSolutions(t *testing.T, year int, day int) (*string, *string) {
 		if err != nil {
 			t.Fatal("Error reading test file")
 		}
-		json.Unmarshal(buf, &expected)
+		if err := json.Unmarshal(buf, &expected); err != nil {
+			t.Fatalf("Error unmarshaling json: %v", err)
+		}
 	}
 	if yr, ok := expected[strconv.Itoa(year)]; ok {
 		if parts, ok := yr[strconv.Itoa(day)]; ok {
