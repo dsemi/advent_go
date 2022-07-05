@@ -26,7 +26,10 @@ func Part1(input string) interface{} {
 	for _, line := range strings.Split(input, "\n") {
 		pts := strings.Fields(line)
 		m[pts[len(pts)-1]] = func() uint16 {
-			ans := ops[pts[utils.Abs(4-len(pts))]](val(pts[1-utils.Abs(4-len(pts))]), val(pts[len(pts)-3]))
+			op := pts[utils.Abs(4-len(pts))]
+			arg1 := pts[1-utils.Abs(4-len(pts))]
+			arg2 := pts[len(pts)-3]
+			ans := ops[op](val(arg1), val(arg2))
 			m[pts[len(pts)-1]] = func() uint16 { return ans }
 			return ans
 		}
