@@ -22,10 +22,10 @@ var last = new(time.Time)
 
 func GetInput(year, day int, download bool) string {
 	inputFile, err := bazel.Runfile(fmt.Sprintf("inputs/%d/input%d.txt", year, day))
-	if err != nil {
-		log.Fatalf("Error determining runfile path for input file: %v", err)
+	var buf []byte
+	if err == nil {
+		buf, err = ioutil.ReadFile(inputFile)
 	}
-	buf, err := ioutil.ReadFile(inputFile)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) && download {
 			fmt.Printf("Downloading input for Year %d Day %d\n", year, day)
@@ -67,7 +67,7 @@ type Part = func(string) interface{}
 func GetProb(year, day int) (Part, Part) {
 	filepath, err := bazel.Runfile(fmt.Sprintf("year%d/day%02d.so", year, day))
 	if err != nil {
-		log.Fatalf("Error determining runfile path for problem file: %v", err)
+		return nil, nil
 	}
 	p, err := plugin.Open(filepath)
 	if err != nil {
