@@ -69,6 +69,33 @@ func Maximum[T Number](ns []T) T {
 	return n
 }
 
+func Extrema[T Number](ns []T) (T, T) {
+	min := ns[0]
+	max := ns[0]
+	for _, v := range ns[1:] {
+		min = Min(min, v)
+		max = Max(max, v)
+	}
+	return min, max
+}
+
+func anyVal[K comparable, V any](ns map[K]V) V {
+	for _, v := range ns {
+		return v
+	}
+	panic("Empty collection")
+}
+
+func MapExtrema[K comparable, V Number](ns map[K]V) (V, V) {
+	min := anyVal(ns)
+	max := min
+	for _, v := range ns {
+		min = Min(min, v)
+		max = Max(max, v)
+	}
+	return min, max
+}
+
 func Sum[T Number](ns []T) T {
 	var sum T
 	for _, n := range ns {

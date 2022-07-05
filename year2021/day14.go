@@ -1,7 +1,6 @@
 package main
 
 import (
-	"math"
 	"strings"
 	"utils"
 )
@@ -32,14 +31,7 @@ func polymerize(input string, n int) uint64 {
 		lets[k[0]] += v
 	}
 	lets[vtmpl[len(vtmpl)-1]]++
-	var (
-		min uint64 = math.MaxUint64
-		max uint64 = 0
-	)
-	for _, v := range lets {
-		min = utils.Min(min, v)
-		max = utils.Max(max, v)
-	}
+	min, max := utils.MapExtrema(lets)
 	return max - min
 }
 
