@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"utils"
 )
 
 func Part1(input string) interface{} {
@@ -24,18 +25,10 @@ func Part1(input string) interface{} {
 	}
 	for _, line := range strings.Split(input, "\n") {
 		pts := strings.Fields(line)
-		if len(pts) < 5 {
-			m[pts[len(pts)-1]] = func() uint16 {
-				ans := ops[pts[4-len(pts)]](val(pts[len(pts)-3]), 0)
-				m[pts[len(pts)-1]] = func() uint16 { return ans }
-				return ans
-			}
-		} else {
-			m[pts[len(pts)-1]] = func() uint16 {
-				ans := ops[pts[1]](val(pts[0]), val(pts[2]))
-				m[pts[len(pts)-1]] = func() uint16 { return ans }
-				return ans
-			}
+		m[pts[len(pts)-1]] = func() uint16 {
+			ans := ops[pts[utils.Abs(4-len(pts))]](val(pts[1-utils.Abs(4-len(pts))]), val(pts[len(pts)-3]))
+			m[pts[len(pts)-1]] = func() uint16 { return ans }
+			return ans
 		}
 	}
 	return val("a")
