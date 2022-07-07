@@ -18,6 +18,13 @@ func Int64(input string) int64 {
 	return int64(Int(input))
 }
 
+func IntBool(b bool) uint64 {
+	if b {
+		return 1
+	}
+	return 0
+}
+
 type Number interface {
 	int | int32 | int64 | uint64 | float32 | float64
 }
