@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"container/heap"
 	"log"
 	"sort"
 	"strconv"
@@ -290,3 +291,54 @@ func (c *Counter) Swap(i, j int) {
 func (c *Counter) Len() int {
 	return len(c.keys)
 }
+
+type pq struct {
+	items []any
+	less  func(a, b any) bool
+}
+
+func (q *pq) Len() int {
+	return len(q.items)
+}
+
+func (q *pq) Less(i, j int) bool {
+	return q.less(q.items[i], q.items[j])
+}
+
+func (q *pq) Swap(i, j int) {
+	q.items[j], q.items[i] = q.items[i], q.items[j]
+}
+
+func (q *pq) Push(x any) {
+	q.items = append(q.items, x)
+}
+
+func (q *pq) Pop() any {
+	v := q.items[len(q.items)-1]
+	q.items = q.items[:len(q.items)-1]
+	return v
+}
+
+type PQueue[T any] struct {
+	q pq
+}
+
+func NewPQueue[T any](less func(a, b T) bool) *PQueue[T] {
+	return &PQueue[T]{q: pq{less: func(a, b any) bool {
+		return less(a.(T), b.(T))
+	}}}
+}
+
+func (q *PQueue[T]) Len() int {
+	return q.q.Len()
+}
+
+func (q *PQueue[T]) Push(x T) {
+	heap.Push(&q.q, x)
+}
+
+func (q *PQueue[T]) Pop() T {
+	return heap.Pop(&q.q).(T)
+}
+
+// Fix, FixAll (Init), Remove

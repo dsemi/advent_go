@@ -1,9 +1,9 @@
 package main
 
 import (
-	"container/heap"
 	"math"
 	"strings"
+	"utils"
 )
 
 type pos struct {
@@ -22,33 +22,6 @@ func parse(input string) [][]int {
 		grid = append(grid, row)
 	}
 	return grid
-}
-
-type PQueue struct {
-	items []any
-	less  func(a, b any) bool
-}
-
-func (q *PQueue) Len() int {
-	return len(q.items)
-}
-
-func (q *PQueue) Less(i, j int) bool {
-	return q.less(q.items[i], q.items[j])
-}
-
-func (q *PQueue) Swap(i, j int) {
-	q.items[j], q.items[i] = q.items[i], q.items[j]
-}
-
-func (q *PQueue) Push(x any) {
-	q.items = append(q.items, x)
-}
-
-func (q *PQueue) Pop() any {
-	v := q.items[len(q.items)-1]
-	q.items = q.items[:len(q.items)-1]
-	return v
 }
 
 func dijkstra(ds [][]int) int {
@@ -82,13 +55,13 @@ func dijkstra(ds [][]int) int {
 		}
 	}
 	dist[grid[0][0]] = 0
-	q := &PQueue{less: func(a, b any) bool {
-		return dist[a.(*pos)] < dist[b.(*pos)]
-	}}
-	heap.Push(q, grid[0][0])
+	q := utils.NewPQueue[*pos](func(a, b *pos) bool {
+		return dist[a] < dist[b]
+	})
+	q.Push(grid[0][0])
 
 	for q.Len() > 0 {
-		u := heap.Pop(q).(*pos)
+		u := q.Pop()
 		u.visited = true
 		if u == grid[len(grid)-1][len(grid[0])-1] {
 			return dist[u]
@@ -101,7 +74,7 @@ func dijkstra(ds [][]int) int {
 			alt := dist[u] + v.risk
 			if alt < dist[v] && dist[u] != math.MaxInt {
 				dist[v] = alt
-				heap.Push(q, v)
+				q.Push(v)
 			}
 		}
 	}
