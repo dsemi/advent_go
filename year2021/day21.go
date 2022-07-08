@@ -27,8 +27,7 @@ type pair struct {
 	a, b uint64
 }
 
-var probs = [...]pair{pair{a: 3, b: 1}, pair{a: 4, b: 3}, pair{a: 5, b: 6}, pair{a: 6, b: 7},
-	pair{a: 7, b: 6}, pair{a: 8, b: 3}, pair{a: 9, b: 1}}
+var probs = [...]pair{{3, 1}, {4, 3}, {5, 6}, {6, 7}, {7, 6}, {8, 3}, {9, 1}}
 
 type key struct {
 	a, b, c, d uint64
@@ -41,7 +40,7 @@ func solve(cache map[key]pair, p1, p2, s1, s2 uint64) (uint64, uint64) {
 	if s2 >= 21 {
 		return 0, 1
 	}
-	if v, ok := cache[key{a: p1, b: p2, c: s1, d: s2}]; ok {
+	if v, ok := cache[key{p1, p2, s1, s2}]; ok {
 		return v.a, v.b
 	}
 	var ans pair
@@ -52,7 +51,7 @@ func solve(cache map[key]pair, p1, p2, s1, s2 uint64) (uint64, uint64) {
 		ans.a += n * y1
 		ans.b += n * x1
 	}
-	cache[key{a: p1, b: p2, c: s1, d: s2}] = ans
+	cache[key{p1, p2, s1, s2}] = ans
 	return ans.a, ans.b
 }
 
