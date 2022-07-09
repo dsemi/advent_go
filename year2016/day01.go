@@ -9,13 +9,13 @@ func path(input string) chan utils.Coord {
 	c := make(chan utils.Coord)
 	go func() {
 		defer close(c)
-		dir := utils.Coord{X: 0, Y: 1}
-		pos := utils.Coord{X: 0, Y: 0}
+		dir := utils.Coord{0, 1}
+		pos := utils.Coord{0, 0}
 		for _, cmd := range strings.Split(input, ", ") {
 			if cmd[0] == 'R' {
-				dir = utils.Coord{X: dir.Y, Y: -dir.X}
+				dir = utils.Coord{dir.Y, -dir.X}
 			} else {
-				dir = utils.Coord{X: -dir.Y, Y: dir.X}
+				dir = utils.Coord{-dir.Y, dir.X}
 			}
 			n := utils.Int(cmd[1:])
 			for i := 0; i < n; i++ {

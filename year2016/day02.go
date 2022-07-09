@@ -11,7 +11,7 @@ func run(input string, pad []string) string {
 	for y, line := range pad {
 		for x, c := range strings.Fields(line) {
 			if c != "." {
-				coord := utils.Coord{X: x, Y: y}
+				coord := utils.Coord{x, y}
 				d[coord] = c
 				if c == "5" {
 					xy = coord
@@ -25,13 +25,13 @@ func run(input string, pad []string) string {
 			dir := func() utils.Coord {
 				switch c {
 				case 'U':
-					return utils.Coord{X: 0, Y: -1}
+					return utils.Coord{0, -1}
 				case 'D':
-					return utils.Coord{X: 0, Y: 1}
+					return utils.Coord{0, 1}
 				case 'L':
-					return utils.Coord{X: -1, Y: 0}
+					return utils.Coord{-1, 0}
 				case 'R':
-					return utils.Coord{X: 1, Y: 0}
+					return utils.Coord{1, 0}
 				default:
 					panic("Bad dir")
 				}

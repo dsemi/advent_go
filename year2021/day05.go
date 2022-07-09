@@ -19,7 +19,7 @@ func solve(input string, p2 bool) int {
 		fmt.Sscanf(line, "%d,%d -> %d,%d", &x0, &y0, &x1, &y1)
 		maxX = utils.Max(maxX, utils.Max(x0, x1))
 		maxY = utils.Max(maxY, utils.Max(y0, y1))
-		lines = append(lines, pair{a: utils.Coord{X: x0, Y: y0}, b: utils.Coord{X: x1, Y: y1}})
+		lines = append(lines, pair{a: utils.Coord{x0, y0}, b: utils.Coord{x1, y1}})
 	}
 	grid := make([][]int, maxX+1)
 	for i := 0; i < len(grid); i++ {

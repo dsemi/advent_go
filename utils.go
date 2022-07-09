@@ -244,6 +244,13 @@ func (a Coord) Sub(b Coord) Coord {
 	}
 }
 
+func (a Coord) Mul(b Coord) Coord {
+	return Coord{
+		X: a.X*b.X - a.Y*b.Y,
+		Y: a.X*b.Y + a.Y*b.X,
+	}
+}
+
 func (a Coord) Sgn() Coord {
 	return Coord{
 		X: Sgn(a.X),

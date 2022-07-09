@@ -7,7 +7,7 @@ import (
 
 func locations(input string) map[utils.Coord]bool {
 	m := make(map[utils.Coord]bool)
-	pos := utils.Coord{X: 0, Y: 0}
+	pos := utils.Coord{0, 0}
 	m[pos] = true
 	for _, c := range input {
 		switch c {

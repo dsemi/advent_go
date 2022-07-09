@@ -12,7 +12,7 @@ func parse(input string) (map[utils.Coord]bool, string) {
 	for _, line := range strings.Split(pts[0], "\n") {
 		var x, y int
 		fmt.Sscanf(line, "%d,%d", &x, &y)
-		dots[utils.Coord{X: x, Y: y}] = true
+		dots[utils.Coord{x, y}] = true
 	}
 	return dots, pts[1]
 }
@@ -24,11 +24,11 @@ func fold(paper map[utils.Coord]bool, instr string) map[utils.Coord]bool {
 	newPaper := make(map[utils.Coord]bool)
 	if d == 'x' {
 		for k := range paper {
-			newPaper[utils.Coord{X: utils.Min(k.X, 2*n-k.X), Y: k.Y}] = true
+			newPaper[utils.Coord{utils.Min(k.X, 2*n-k.X), k.Y}] = true
 		}
 	} else {
 		for k := range paper {
-			newPaper[utils.Coord{X: k.X, Y: utils.Min(k.Y, 2*n-k.Y)}] = true
+			newPaper[utils.Coord{k.X, utils.Min(k.Y, 2*n-k.Y)}] = true
 		}
 	}
 	return newPaper
@@ -53,7 +53,7 @@ func Part2(input string) interface{} {
 	for y := 0; y <= my; y++ {
 		display.WriteRune('\n')
 		for x := 0; x <= mx; x++ {
-			if paper[utils.Coord{X: x, Y: y}] {
+			if paper[utils.Coord{x, y}] {
 				display.WriteRune('#')
 			} else {
 				display.WriteRune(' ')
