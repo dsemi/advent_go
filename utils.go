@@ -258,6 +258,23 @@ func (a Coord) Sgn() Coord {
 	}
 }
 
+func (a Coord) Scale(n int) Coord {
+	return Coord{
+		X: a.X * n,
+		Y: a.Y * n,
+	}
+}
+
+func (a Coord) Pow(n int) Coord {
+	if n == 0 {
+		return Coord{X: 1, Y: 0}
+	}
+	if n&1 != 0 {
+		return a.Mul(a.Pow(n - 1))
+	}
+	return a.Mul(a).Pow(n / 2)
+}
+
 type Counter struct {
 	cnts map[rune]int
 	keys []rune
