@@ -115,6 +115,14 @@ func MapExtrema[K comparable, V Number](ns map[K]V) (V, V) {
 	return min, max
 }
 
+func MapSum[K comparable, V Number](ns map[K]V) V {
+	var sum V
+	for _, v := range ns {
+		sum += v
+	}
+	return sum
+}
+
 func Sum[T Number](ns []T) T {
 	var sum T
 	for _, n := range ns {
