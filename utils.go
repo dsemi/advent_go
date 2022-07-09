@@ -16,7 +16,11 @@ func Int(input string) int {
 }
 
 func Int64(input string) int64 {
-	return int64(Int(input))
+	n, err := strconv.ParseInt(input, 10, 64)
+	if err != nil {
+		log.Fatalf("Failed to convert %v to integer: %v", input, err)
+	}
+	return n
 }
 
 func IntBool(b bool) int {

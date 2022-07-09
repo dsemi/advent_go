@@ -22,11 +22,7 @@ func seatIds(s string) []int {
 }
 
 func Part1(input string) interface{} {
-	var max int
-	for _, id := range seatIds(input) {
-		max = utils.Max(max, id)
-	}
-	return max
+	return utils.Maximum(seatIds(input))
 }
 
 func Part2(input string) interface{} {
@@ -37,5 +33,5 @@ func Part2(input string) interface{} {
 			return ids[i] + 1
 		}
 	}
-	return nil
+	panic("unreachable")
 }

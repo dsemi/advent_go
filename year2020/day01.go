@@ -1,15 +1,14 @@
 package main
 
 import (
-	"strconv"
 	"strings"
+	"utils"
 )
 
 func parse(input string) []int {
 	var ns []int
 	for _, line := range strings.Fields(input) {
-		n, _ := strconv.Atoi(line)
-		ns = append(ns, n)
+		ns = append(ns, utils.Int(line))
 	}
 	return ns
 }
@@ -37,5 +36,5 @@ func Part2(input string) interface{} {
 			}
 		}
 	}
-	return -1
+	panic("unreachable")
 }

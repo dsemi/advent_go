@@ -1,18 +1,18 @@
 package main
 
 import (
-	"strconv"
+	"fmt"
 	"strings"
 )
 
 func solve(f func(int, int, byte, string) bool, input string) int {
 	total := 0
 	for _, line := range strings.Split(input, "\n") {
-		parts := strings.Fields(line)
-		ns := strings.Split(parts[0], "-")
-		a, _ := strconv.Atoi(ns[0])
-		b, _ := strconv.Atoi(ns[1])
-		if f(a, b, parts[1][0], parts[2]) {
+		var str string
+		var c byte
+		var a, b int
+		fmt.Sscanf(line, "%d-%d %c: %s", &a, &b, &c, &str)
+		if f(a, b, c, str) {
 			total++
 		}
 	}
