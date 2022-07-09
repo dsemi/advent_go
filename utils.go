@@ -19,7 +19,14 @@ func Int64(input string) int64 {
 	return int64(Int(input))
 }
 
-func IntBool(b bool) uint64 {
+func IntBool(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
+}
+
+func Uint64Bool(b bool) uint64 {
 	if b {
 		return 1
 	}
