@@ -416,3 +416,56 @@ func (q *PQueue[T]) Pop() T {
 }
 
 // Fix, FixAll (Init), Remove
+
+func Mod(a, b int64) int64 {
+	m := a % b
+	if m < 0 {
+		if b < 0 {
+			m -= b
+		} else {
+			m += b
+		}
+	}
+	return m
+}
+
+func DivMod(a, b int64) (int64, int64) {
+	d, m := a/b, a%b
+	if m < 0 {
+		if b < 0 {
+			d++
+			m -= b
+		} else {
+			d--
+			m += b
+		}
+	}
+	return d, m
+}
+
+func mulInv(a, b0 int64) int64 {
+	b := b0
+	var x0, x1 int64 = 0, 1
+	if b == 1 {
+		return 1
+	}
+	for a > 1 {
+		q, r := DivMod(a, b)
+		a, b = b, r
+		x0, x1 = x1-q*x0, x0
+	}
+	if x1 < 0 {
+		x1 += b0
+	}
+	return x1
+}
+
+func ChineseRemainder(as, ns []int64) int64 {
+	var sum int64
+	prod := Product(ns)
+	for i := range as {
+		p := prod / ns[i]
+		sum += as[i] * mulInv(p, ns[i]) * p
+	}
+	return Mod(sum, prod)
+}
