@@ -23,6 +23,22 @@ func Int64(input string) int64 {
 	return n
 }
 
+func Uint32(input string) uint32 {
+	n, err := strconv.ParseUint(input, 10, 32)
+	if err != nil {
+		log.Fatalf("Failed to convert %v to integer: %v", input, err)
+	}
+	return uint32(n)
+}
+
+func Uint64(input string) uint64 {
+	n, err := strconv.ParseUint(input, 10, 64)
+	if err != nil {
+		log.Fatalf("Failed to convert %v to integer: %v", input, err)
+	}
+	return n
+}
+
 func IntBool(b bool) int {
 	if b {
 		return 1
