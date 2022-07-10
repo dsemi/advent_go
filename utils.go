@@ -489,3 +489,29 @@ func ChineseRemainder(as, ns []int64) int64 {
 	}
 	return Mod(sum, prod)
 }
+
+type Stack[T any] struct {
+	xs []T
+}
+
+func NewStack[T any]() *Stack[T] {
+	return &Stack[T]{}
+}
+
+func (s *Stack[T]) Len() int {
+	return len(s.xs)
+}
+
+func (s *Stack[T]) Push(x T) {
+	s.xs = append(s.xs, x)
+}
+
+func (s *Stack[T]) Pop() T {
+	x := s.xs[len(s.xs)-1]
+	s.xs = s.xs[:len(s.xs)-1]
+	return x
+}
+
+func (s *Stack[T]) Peek() T {
+	return s.xs[len(s.xs)-1]
+}
