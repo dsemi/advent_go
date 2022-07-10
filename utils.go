@@ -53,8 +53,12 @@ func Uint64Bool(b bool) uint64 {
 	return 0
 }
 
+type Integer interface {
+	int | int32 | int64 | uint64
+}
+
 type Number interface {
-	int | int32 | int64 | uint64 | float32 | float64
+	Integer | float32 | float64
 }
 
 func Abs[T Number](n T) T {
@@ -216,8 +220,8 @@ func (s Sortable[T]) Len() int {
 	return len(s)
 }
 
-func CountOnes(n int) int {
-	var cnt int
+func CountOnes[T Integer](n T) T {
+	var cnt T
 	for n > 0 {
 		cnt += n & 1
 		n >>= 1
