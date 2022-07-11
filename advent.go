@@ -34,11 +34,11 @@ func runProblem(year, day int) float64 {
 	start := time.Now()
 	ans := p1(input)
 	t1 := time.Since(start).Seconds()
-	fmt.Printf("Part 1: %32v  Elapsed time %v seconds\n", ans, colorizeTime(t1))
+	fmt.Printf("Part 1: %50v  Elapsed time %v seconds\n", ans, colorizeTime(t1))
 	start = time.Now()
 	ans = p2(input)
 	t2 := time.Since(start).Seconds()
-	fmt.Printf("Part 2: %32v  Elapsed time %v seconds\n", ans, colorizeTime(t2))
+	fmt.Printf("Part 2: %50v  Elapsed time %v seconds\n", ans, colorizeTime(t2))
 	fmt.Println()
 	return t1 + t2
 }
@@ -71,5 +71,5 @@ func main() {
 			total += runProblem(year, day)
 		}
 	}
-	fmt.Printf("Total: %53.3f seconds\n", total)
+	fmt.Printf("Total: %71.3f seconds\n", total)
 }

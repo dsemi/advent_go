@@ -206,7 +206,7 @@ func Combinations[T any](xs []T, n int, callback func([]T)) {
 	f(xs, n)
 }
 
-type Sortable[T rune | int | int64] []T
+type Sortable[T rune | int | int64 | string] []T
 
 func (s Sortable[T]) Less(i, j int) bool {
 	return s[i] < s[j]
