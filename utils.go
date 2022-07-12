@@ -229,6 +229,17 @@ func CountOnes[T Integer](n T) T {
 	return cnt
 }
 
+func BitsToInt[T Integer](bs []bool) T {
+	var i T
+	for _, b := range bs {
+		i <<= 1
+		if b {
+			i |= 1
+		}
+	}
+	return i
+}
+
 func Partitions(n, t int, f func([]int)) {
 	ns := make([]int, n)
 	var recur func(int, int)
