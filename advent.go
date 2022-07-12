@@ -64,6 +64,9 @@ func main() {
 	flag.Parse()
 	year, _ := strconv.Atoi(flag.Arg(0))
 	days := flag.Args()[1:]
+	if len(days) == 0 {
+		days = append(days, "1-25")
+	}
 	var total float64
 	for _, dayStr := range days {
 		start, end := parseDays(dayStr)
