@@ -1,7 +1,6 @@
 package main
 
 import (
-	"sort"
 	"strings"
 	"utils"
 )
@@ -23,7 +22,7 @@ func Part1(input string) interface{} {
 
 func SortString(s string) string {
 	r := []rune(s)
-	sort.Sort(utils.Sortable[rune](r))
+	utils.Sort(r)
 	return string(r)
 }
 

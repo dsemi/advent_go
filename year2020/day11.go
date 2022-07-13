@@ -64,7 +64,7 @@ func stabilize(input string, p2 bool) int {
 			if grid[r][c] == 'L' && adjsOcc == 0 {
 				grid2[r][c] = '#'
 				changed = true
-			} else if grid[r][c] == '#' && adjsOcc >= 4+utils.IntBool(p2) {
+			} else if grid[r][c] == '#' && adjsOcc >= 4+utils.ToInt[int](p2) {
 				grid2[r][c] = 'L'
 				changed = true
 			}

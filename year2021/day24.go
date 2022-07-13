@@ -101,7 +101,7 @@ func (p *Prog) runNext(instrs []Instr, inp int64) bool {
 		case Mod:
 			p.regs[instr.a] %= p.val(instr.b)
 		case Eql:
-			p.regs[instr.a] = int64(utils.IntBool(p.regs[instr.a] == p.val(instr.b)))
+			p.regs[instr.a] = utils.ToInt[int64](p.regs[instr.a] == p.val(instr.b))
 		}
 		p.pc++
 		if p.pc >= len(instrs) || instrs[p.pc].t == Inp {

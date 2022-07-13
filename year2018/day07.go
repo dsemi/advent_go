@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 	"strings"
 	"utils"
 )
@@ -28,7 +27,7 @@ func run(input string, workers int) (string, int) {
 	for k := range m {
 		keys = append(keys, k)
 	}
-	sort.Sort(utils.Sortable[rune](keys))
+	utils.Sort(keys)
 	var ans strings.Builder
 	var workQ []Item
 	var time int

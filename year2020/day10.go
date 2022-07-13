@@ -1,7 +1,6 @@
 package main
 
 import (
-	"sort"
 	"strings"
 	"utils"
 )
@@ -11,7 +10,7 @@ func parseNums(input string) []int64 {
 	for _, x := range strings.Split(input, "\n") {
 		ns = append(ns, utils.Int64(x))
 	}
-	sort.Sort(utils.Sortable[int64](ns))
+	utils.Sort(ns)
 	ns = append([]int64{0}, ns...)
 	return append(ns, ns[len(ns)-1]+3)
 }

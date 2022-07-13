@@ -1,7 +1,6 @@
 package main
 
 import (
-	"sort"
 	"strings"
 	"utils"
 )
@@ -65,6 +64,6 @@ func Part2(input string) interface{} {
 			scores = append(scores, bl.score)
 		}
 	}
-	sort.Sort(utils.Sortable[int](scores))
+	utils.Sort(scores)
 	return scores[len(scores)/2]
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"sort"
 	"strings"
 	"utils"
 )
@@ -102,7 +101,7 @@ func Part2(input string) interface{} {
 	for k := range done {
 		keys = append(keys, k)
 	}
-	sort.Sort(utils.Sortable[string](keys))
+	utils.Sort(keys)
 	vals := make([]string, len(keys))
 	for i, k := range keys {
 		vals[i] = done[k]

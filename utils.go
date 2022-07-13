@@ -5,6 +5,8 @@ import (
 	"log"
 	"sort"
 	"strconv"
+
+	"golang.org/x/exp/constraints"
 )
 
 func Int(input string) int {
@@ -39,14 +41,7 @@ func Uint64(input string) uint64 {
 	return n
 }
 
-func IntBool(b bool) int {
-	if b {
-		return 1
-	}
-	return 0
-}
-
-func Uint64Bool(b bool) uint64 {
+func ToInt[T Integer](b bool) T {
 	if b {
 		return 1
 	}
@@ -206,18 +201,8 @@ func Combinations[T any](xs []T, n int, callback func([]T)) {
 	f(xs, n)
 }
 
-type Sortable[T rune | int | int64 | string] []T
-
-func (s Sortable[T]) Less(i, j int) bool {
-	return s[i] < s[j]
-}
-
-func (s Sortable[T]) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func (s Sortable[T]) Len() int {
-	return len(s)
+func Sort[T constraints.Ordered](xs []T) {
+	sort.Slice(xs, func(i, j int) bool { return xs[i] < xs[j] })
 }
 
 func CountOnes[T Integer](n T) T {

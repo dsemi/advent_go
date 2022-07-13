@@ -13,6 +13,7 @@ go_library(
     name = "utils",
     srcs = ["utils.go"],
     importpath = "utils",
+    deps = ["@org_golang_x_exp//constraints"],
 )
 
 exports_files(["expectedAnswers.json"])

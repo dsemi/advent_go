@@ -7,7 +7,7 @@ import (
 
 func travel(input string, x, y int, moveWay bool) int {
 	st := []utils.Coord{{0, 0}, {x, y}}
-	idx := utils.IntBool(moveWay)
+	idx := utils.ToInt[int](moveWay)
 	for _, line := range strings.Split(input, "\n") {
 		n := utils.Int(line[1:])
 		switch line[0] {

@@ -2,7 +2,6 @@ package main
 
 import (
 	"math"
-	"sort"
 	"strings"
 	"utils"
 )
@@ -17,7 +16,7 @@ func parse(input string) []int {
 
 func Part1(input string) interface{} {
 	ns := parse(input)
-	sort.Sort(utils.Sortable[int](ns))
+	utils.Sort(ns)
 	var med int
 	if len(ns)%2 == 0 {
 		med = (ns[len(ns)/2-1] + ns[len(ns)/2]) / 2

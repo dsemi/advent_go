@@ -253,8 +253,8 @@ func (s *State) neighbors(skip uint32) []neighb {
 				cost = h - hi
 			}
 			cost *= 2
-			cost -= utils.IntBool((utils.IntBool(cost == 0)|utils.IntBool(r == g)) == 0) +
-				(utils.IntBool(h == 0) | utils.IntBool(h == 6))
+			cost -= utils.ToInt[int]((utils.ToInt[int](cost == 0)|utils.ToInt[int](r == g)) == 0) +
+				(utils.ToInt[int](h == 0) | utils.ToInt[int](h == 6))
 			cost *= 2
 			n := *s
 			n.room.pop(r)
@@ -291,7 +291,7 @@ func (h *Hash) find(key uint64) int {
 	idx := int(key % uint64(SIZE))
 	for h.table[idx].a != 0 && h.table[idx].a != ^key {
 		idx++
-		idx &= -utils.IntBool(idx < SIZE)
+		idx &= -utils.ToInt[int](idx < SIZE)
 	}
 	return idx
 }

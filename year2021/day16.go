@@ -66,11 +66,11 @@ func (b *bitstream) packet() uint64 {
 	case 3:
 		return utils.Maximum(ns)
 	case 5:
-		return utils.Uint64Bool(ns[0] > ns[1])
+		return utils.ToInt[uint64](ns[0] > ns[1])
 	case 6:
-		return utils.Uint64Bool(ns[0] < ns[1])
+		return utils.ToInt[uint64](ns[0] < ns[1])
 	case 7:
-		return utils.Uint64Bool(ns[0] == ns[1])
+		return utils.ToInt[uint64](ns[0] == ns[1])
 	default:
 		panic("Bad type id")
 	}

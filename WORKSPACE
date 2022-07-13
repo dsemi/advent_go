@@ -9,8 +9,27 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "5982e5463f171da99e3bdaeff8c0f48283a7a5f396ec5282910b9e8a49c0dd7e",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.25.0/bazel-gazelle-v0.25.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.25.0/bazel-gazelle-v0.25.0.tar.gz",
+    ],
+)
+
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+
+go_repository(
+    name = "org_golang_x_exp",
+    importpath = "golang.org/x/exp",
+    sum = "h1:x03zeu7B2B11ySp+daztnwM5oBJ/8wGUSqrwcw9L0RA=",
+    version = "v0.0.0-20220713135740-79cabaa25d75",
+)
 
 go_rules_dependencies()
 
 go_register_toolchains(version = "1.18.3")
+
+gazelle_dependencies()
