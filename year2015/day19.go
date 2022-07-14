@@ -42,10 +42,10 @@ func Part1(input string) interface{} {
 
 func Part2(input string) interface{} {
 	s, reps := parseMappings(input)
-	mol := utils.Reverse(s)
+	mol := utils.ReverseString(s)
 	mrep := make(map[string]string)
 	for _, rep := range reps {
-		mrep[utils.Reverse(rep.dest)] = utils.Reverse(rep.src)
+		mrep[utils.ReverseString(rep.dest)] = utils.ReverseString(rep.src)
 	}
 	var re string
 	for r := range mrep {

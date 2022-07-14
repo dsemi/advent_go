@@ -205,6 +205,13 @@ func Sort[T constraints.Ordered](xs []T) {
 	sort.Slice(xs, func(i, j int) bool { return xs[i] < xs[j] })
 }
 
+func Reverse[T any](xs []T) {
+	last := len(xs) - 1
+	for i := 0; i < len(xs)/2; i++ {
+		xs[i], xs[last-i] = xs[last-i], xs[i]
+	}
+}
+
 func CountOnes[T Integer](n T) T {
 	var cnt T
 	for n > 0 {
@@ -242,7 +249,7 @@ func Partitions(n, t int, f func([]int)) {
 	recur(n-1, t)
 }
 
-func Reverse(s string) string {
+func ReverseString(s string) string {
 	rs := []rune(s)
 	for i, j := 0, len(rs)-1; i < j; i, j = i+1, j-1 {
 		rs[i], rs[j] = rs[j], rs[i]
