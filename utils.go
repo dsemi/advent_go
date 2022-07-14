@@ -327,6 +327,13 @@ func (a Coord) Pow(n int) Coord {
 	return a.Mul(a).Pow(n / 2)
 }
 
+func (a Coord) Less(b Coord) bool {
+	if a.X == b.X {
+		return a.Y < b.Y
+	}
+	return a.X < b.X
+}
+
 type Counter struct {
 	cnts map[rune]int
 	keys []rune
