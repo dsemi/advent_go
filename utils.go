@@ -334,9 +334,35 @@ func (a Coord) Less(b Coord) bool {
 	return a.X < b.X
 }
 
+type OrderedMap[K constraints.Ordered, V any] struct {
+	m map[K]V
+}
+
+func NewOrderedMap[K constraints.Ordered, V any]() *OrderedMap[K, V] {
+	return &OrderedMap[K, V]{
+		m: make(map[K]V),
+	}
+}
+
+func (m *OrderedMap[K, V]) Get(k K) V {
+	return m.m[k]
+}
+
+func (m *OrderedMap[K, V]) Add(k K, v V) {
+	m.m[k] = v
+}
+
+func (m *OrderedMap[K, V]) Keys() []K {
+	keys := make([]K, 0)
+	for k := range m.m {
+		keys = append(keys, k)
+	}
+	Sort(keys)
+	return keys
+}
+
 type Counter struct {
 	cnts map[rune]int
-	keys []rune
 }
 
 func NewCounter(s string) *Counter {
@@ -362,28 +388,19 @@ func (c *Counter) Add(r rune) {
 }
 
 func (c *Counter) Runes() []rune {
-	c.keys = []rune{}
+	keys := make([]rune, 0)
 	for k := range c.cnts {
-		c.keys = append(c.keys, k)
+		keys = append(keys, k)
 	}
-	sort.Sort(c)
-	return c.keys
-}
+	sort.Slice(keys, func(i, j int) bool {
+		a, b := c.cnts[keys[i]], c.cnts[keys[j]]
+		if a == b {
+			return keys[i] < keys[j]
+		}
+		return a > b
 
-func (c *Counter) Less(i, j int) bool {
-	a, b := c.cnts[c.keys[i]], c.cnts[c.keys[j]]
-	if a == b {
-		return c.keys[i] < c.keys[j]
-	}
-	return a > b
-}
-
-func (c *Counter) Swap(i, j int) {
-	c.keys[i], c.keys[j] = c.keys[j], c.keys[i]
-}
-
-func (c *Counter) Len() int {
-	return len(c.keys)
+	})
+	return keys
 }
 
 const deBruijn64 = 0x03f79d71b4ca8b09
