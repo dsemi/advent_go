@@ -87,6 +87,27 @@ func Sgn[T Number](n T) int {
 	return 0
 }
 
+func Gcd[T Integer](a, b T) T {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
+
+func Lcm[T Integer](a, b T) T {
+	return a * b / Gcd(a, b)
+}
+
+func Compare[T constraints.Ordered](a, b T) int {
+	if a < b {
+		return -1
+	}
+	if a > b {
+		return 1
+	}
+	return 0
+}
+
 func Minimum[T Number](ns []T) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
