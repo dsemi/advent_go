@@ -51,11 +51,11 @@ func TestProblem(t *testing.T) {
 		input := problems.GetInput(*year, *day, false)
 		p1a := fmt.Sprint(p1(input))
 		if *p1e != p1a {
-			t.Errorf("Expected: %v\nObserved: %v", *p1e, p1a)
+			t.Errorf("Part 1 error. Expected: %v\nObserved: %v", *p1e, p1a)
 		}
 		p2a := fmt.Sprint(p2(input))
 		if *p2e != p2a {
-			t.Errorf("Expected: %v\nObserved: %v", *p2e, p2a)
+			t.Errorf("Part 2 error. Expected: %v\nObserved: %v", *p2e, p2a)
 		}
 	}
 }
