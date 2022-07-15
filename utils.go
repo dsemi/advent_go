@@ -334,11 +334,15 @@ func (a Coord) Less(b Coord) bool {
 	return a.X < b.X
 }
 
-type OrderedMap[K constraints.Ordered, V any] struct {
+func (a Coord) Dist(b Coord) int {
+	return Abs(a.X-b.X) + Abs(a.Y-b.Y)
+}
+
+type OrderedMap[K comparable, V any] struct {
 	m map[K]V
 }
 
-func NewOrderedMap[K constraints.Ordered, V any]() *OrderedMap[K, V] {
+func NewOrderedMap[K comparable, V any]() *OrderedMap[K, V] {
 	return &OrderedMap[K, V]{
 		m: make(map[K]V),
 	}
@@ -348,16 +352,18 @@ func (m *OrderedMap[K, V]) Get(k K) V {
 	return m.m[k]
 }
 
-func (m *OrderedMap[K, V]) Add(k K, v V) {
+func (m *OrderedMap[K, V]) Put(k K, v V) {
 	m.m[k] = v
 }
 
-func (m *OrderedMap[K, V]) Keys() []K {
+func (m *OrderedMap[K, V]) Keys(less func(K, K) bool) []K {
 	keys := make([]K, 0)
 	for k := range m.m {
 		keys = append(keys, k)
 	}
-	Sort(keys)
+	sort.Slice(keys, func(i, j int) bool {
+		return less(keys[i], keys[j])
+	})
 	return keys
 }
 
