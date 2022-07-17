@@ -589,3 +589,29 @@ func (s *Stack[T]) Pop() T {
 func (s *Stack[T]) Peek() T {
 	return s.xs[len(s.xs)-1]
 }
+
+type Queue[T any] struct {
+	xs []T
+}
+
+func NewQueue[T any]() *Queue[T] {
+	return &Queue[T]{}
+}
+
+func (s *Queue[T]) Len() int {
+	return len(s.xs)
+}
+
+func (s *Queue[T]) Push(x T) {
+	s.xs = append(s.xs, x)
+}
+
+func (s *Queue[T]) Pop() T {
+	x := s.xs[0]
+	s.xs = s.xs[1:]
+	return x
+}
+
+func (s *Queue[T]) Peek() T {
+	return s.xs[0]
+}
