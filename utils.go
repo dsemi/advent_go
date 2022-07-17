@@ -124,6 +124,26 @@ func Maximum[T Number](ns []T) T {
 	return n
 }
 
+func ArgMin[T Number](ns []T) int {
+	var i int
+	for j := range ns {
+		if ns[j] < ns[i] {
+			i = j
+		}
+	}
+	return i
+}
+
+func ArgMax[T Number](ns []T) int {
+	var i int
+	for j := range ns {
+		if ns[j] > ns[i] {
+			i = j
+		}
+	}
+	return i
+}
+
 func Extrema[T Number](ns []T) (T, T) {
 	min := ns[0]
 	max := ns[0]
