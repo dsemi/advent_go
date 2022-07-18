@@ -202,6 +202,23 @@ func Last[T any](c chan T) T {
 	return n
 }
 
+func Transpose[T any](grid [][]T) [][]T {
+	var cols int
+	for _, row := range grid {
+		cols = Max(cols, len(row))
+	}
+	out := make([][]T, cols)
+	for i := range out {
+		out[i] = make([]T, 0)
+		for _, row := range grid {
+			if i < len(row) {
+				out[i] = append(out[i], row[i])
+			}
+		}
+	}
+	return out
+}
+
 func Permutations[T any](ns []T) chan []T {
 	c := make(chan []T)
 	var f func(i int)
