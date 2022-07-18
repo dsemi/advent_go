@@ -375,6 +375,22 @@ func (a Coord) Dist(b Coord) int {
 	return Abs(a.X-b.X) + Abs(a.Y-b.Y)
 }
 
+type Coord3 struct {
+	X, Y, Z int
+}
+
+func (a Coord3) Add(b Coord3) Coord3 {
+	return Coord3{
+		X: a.X + b.X,
+		Y: a.Y + b.Y,
+		Z: a.Z + b.Z,
+	}
+}
+
+func (a Coord3) Dist(b Coord3) int {
+	return Abs(a.X-b.X) + Abs(a.Y-b.Y) + Abs(a.Z-b.Z)
+}
+
 type OrderedMap[K comparable, V any] struct {
 	m map[K]V
 }
