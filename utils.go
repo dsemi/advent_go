@@ -124,10 +124,30 @@ func Minimum[T Number](ns []T) T {
 	return n
 }
 
+func MinimumBy[T any, N Number](ns []T, f func(T) N) T {
+	n := ns[0]
+	for i := 1; i < len(ns); i++ {
+		if f(ns[i]) < f(n) {
+			n = ns[i]
+		}
+	}
+	return n
+}
+
 func Maximum[T Number](ns []T) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
 		n = Max(n, ns[i])
+	}
+	return n
+}
+
+func MaximumBy[T any, N Number](ns []T, f func(T) N) T {
+	n := ns[0]
+	for i := 1; i < len(ns); i++ {
+		if f(ns[i]) > f(n) {
+			n = ns[i]
+		}
 	}
 	return n
 }
@@ -142,10 +162,30 @@ func ArgMin[T Number](ns []T) int {
 	return i
 }
 
+func ArgMinBy[T any, N Number](ns []T, f func(T) N) int {
+	var i int
+	for j := range ns {
+		if f(ns[j]) < f(ns[i]) {
+			i = j
+		}
+	}
+	return i
+}
+
 func ArgMax[T Number](ns []T) int {
 	var i int
 	for j := range ns {
 		if ns[j] > ns[i] {
+			i = j
+		}
+	}
+	return i
+}
+
+func ArgMaxBy[T any, N Number](ns []T, f func(T) N) int {
+	var i int
+	for j := range ns {
+		if f(ns[j]) > f(ns[i]) {
 			i = j
 		}
 	}
