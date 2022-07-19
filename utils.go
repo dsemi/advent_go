@@ -9,6 +9,14 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+func Int16(input string) int16 {
+	n, err := strconv.ParseInt(input, 10, 16)
+	if err != nil {
+		log.Fatalf("Failed to convert %v to integer: %v", input, err)
+	}
+	return int16(n)
+}
+
 func Int(input string) int {
 	n, err := strconv.Atoi(input)
 	if err != nil {
