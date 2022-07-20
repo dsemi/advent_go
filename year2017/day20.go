@@ -21,7 +21,7 @@ func parse(input string) []*Particle {
 }
 
 func Part1(input string) interface{} {
-	return utils.ArgMinBy(parse(input), func(p *Particle) int {
+	return utils.ArgMinByKey(parse(input), func(p *Particle) int {
 		return p.acc.Dist(utils.Coord3{0, 0, 0})
 	})
 }

@@ -124,7 +124,17 @@ func Minimum[T Number](ns []T) T {
 	return n
 }
 
-func MinimumBy[T any, N Number](ns []T, f func(T) N) T {
+func MinimumBy[T any](ns []T, less func(T, T) bool) T {
+	n := ns[0]
+	for i := 1; i < len(ns); i++ {
+		if less(ns[i], n) {
+			n = ns[i]
+		}
+	}
+	return n
+}
+
+func MinimumByKey[T any, N Number](ns []T, f func(T) N) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
 		if f(ns[i]) < f(n) {
@@ -142,7 +152,7 @@ func Maximum[T Number](ns []T) T {
 	return n
 }
 
-func MaximumBy[T any, N Number](ns []T, f func(T) N) T {
+func MaximumByKey[T any, N Number](ns []T, f func(T) N) T {
 	n := ns[0]
 	for i := 1; i < len(ns); i++ {
 		if f(ns[i]) > f(n) {
@@ -162,7 +172,7 @@ func ArgMin[T Number](ns []T) int {
 	return i
 }
 
-func ArgMinBy[T any, N Number](ns []T, f func(T) N) int {
+func ArgMinByKey[T any, N Number](ns []T, f func(T) N) int {
 	var i int
 	for j := range ns {
 		if f(ns[j]) < f(ns[i]) {
@@ -182,7 +192,7 @@ func ArgMax[T Number](ns []T) int {
 	return i
 }
 
-func ArgMaxBy[T any, N Number](ns []T, f func(T) N) int {
+func ArgMaxByKey[T any, N Number](ns []T, f func(T) N) int {
 	var i int
 	for j := range ns {
 		if f(ns[j]) > f(ns[i]) {
