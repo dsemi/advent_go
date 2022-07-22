@@ -15,8 +15,8 @@ type Zipper struct {
 	left, right []int
 }
 
-func NewZipper() *Zipper {
-	return &Zipper{make([]int, 0), make([]int, 0)}
+func NewZipper(cap int) *Zipper {
+	return &Zipper{make([]int, 0, cap), make([]int, 0, cap)}
 }
 
 func (z *Zipper) Push(v int) {
@@ -63,7 +63,7 @@ func (z *Zipper) Right(n int) {
 
 func play(n, s int) int {
 	m := make([]int, n)
-	arr := NewZipper()
+	arr := NewZipper(s)
 	arr.Push(0)
 	for p := 1; p <= s; p++ {
 		if p%23 != 0 {
