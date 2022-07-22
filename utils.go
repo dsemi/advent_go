@@ -253,6 +253,15 @@ func Product[T Number](ns []T) T {
 	return prod
 }
 
+func Any[T any](pred func(T) bool, xs []T) bool {
+	for _, x := range xs {
+		if pred(x) {
+			return true
+		}
+	}
+	return false
+}
+
 func Last[T any](c chan T) T {
 	var n T
 	for n = range c {
