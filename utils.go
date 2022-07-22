@@ -262,6 +262,15 @@ func Any[T any](pred func(T) bool, xs []T) bool {
 	return false
 }
 
+func All[T any](pred func(T) bool, xs []T) bool {
+	for _, x := range xs {
+		if !pred(x) {
+			return false
+		}
+	}
+	return true
+}
+
 func Last[T any](c chan T) T {
 	var n T
 	for n = range c {
