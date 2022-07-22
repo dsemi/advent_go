@@ -11,7 +11,7 @@ func parse(input string) [][]int {
 	var results [][]int
 	for _, line := range strings.Split(input, "\n") {
 		v := strings.Split(line, " | ")
-		hist := utils.NewCounter(strings.ReplaceAll(v[0], " ", ""))
+		hist := utils.NewCounter([]rune(strings.ReplaceAll(v[0], " ", "")))
 		var res []int
 	outer:
 		for _, n := range strings.Fields(v[1]) {

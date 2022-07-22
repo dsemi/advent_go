@@ -12,8 +12,8 @@ type Room struct {
 }
 
 func (r Room) isReal() bool {
-	c := utils.NewCounter(strings.ReplaceAll(r.name, "-", ""))
-	return r.checksum == string(c.Runes()[:5])
+	c := utils.NewCounter([]rune(strings.ReplaceAll(r.name, "-", "")))
+	return r.checksum == string(c.Keys()[:5])
 }
 
 func parseRooms(input string) chan Room {

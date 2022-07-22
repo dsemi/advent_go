@@ -6,9 +6,9 @@ import (
 )
 
 func Part1(input string) interface{} {
-	var cnts *utils.Counter
+	var cnts *utils.Counter[rune]
 	for i := 0; i < len(input); i += 150 {
-		t := utils.NewCounter(input[i : i+150])
+		t := utils.NewCounter([]rune(input[i : i+150]))
 		if cnts == nil || t.Get('0') < cnts.Get('0') {
 			cnts = t
 		}

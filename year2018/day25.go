@@ -69,5 +69,5 @@ func Part1(input string) interface{} {
 }
 
 func Part2(input string) interface{} {
-	return 0
+	return ""
 }

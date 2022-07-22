@@ -495,21 +495,21 @@ func (m *OrderedMap[K, V]) Keys(less func(K, K) bool) []K {
 	return keys
 }
 
-type Counter struct {
-	cnts map[rune]int
+type Counter[T constraints.Ordered] struct {
+	cnts map[T]int
 }
 
-func NewCounter(s string) *Counter {
-	c := &Counter{
-		cnts: make(map[rune]int),
+func NewCounter[T constraints.Ordered](inp []T) *Counter[T] {
+	c := &Counter[T]{
+		cnts: make(map[T]int),
 	}
-	for _, r := range s {
+	for _, r := range inp {
 		c.Add(r)
 	}
 	return c
 }
 
-func (c *Counter) Get(k rune) int {
+func (c *Counter[T]) Get(k T) int {
 	v, ok := c.cnts[k]
 	if !ok {
 		return 0
@@ -517,12 +517,12 @@ func (c *Counter) Get(k rune) int {
 	return v
 }
 
-func (c *Counter) Add(r rune) {
+func (c *Counter[T]) Add(r T) {
 	c.cnts[r]++
 }
 
-func (c *Counter) Runes() []rune {
-	keys := make([]rune, 0)
+func (c *Counter[T]) Keys() []T {
+	keys := make([]T, 0)
 	for k := range c.cnts {
 		keys = append(keys, k)
 	}
