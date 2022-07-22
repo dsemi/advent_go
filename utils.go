@@ -64,6 +64,16 @@ type Number interface {
 	Integer | float32 | float64
 }
 
+func Pow[T Integer](b, n T) T {
+	if n == 0 {
+		return 1
+	}
+	if n%2 == 1 {
+		return b * Pow(b, n-1)
+	}
+	return Pow(b*b, n/2)
+}
+
 func Abs[T Number](n T) T {
 	if n < 0 {
 		return -n
